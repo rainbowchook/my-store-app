@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import data from '../../data/data.json'
+import React, { useState, useEffect } from 'react'
+// import data from '../../data/data.json'
 // import ImageList from '@mui/material/ImageList'
 // import ImageListItem from '@mui/material/ImageListItem'
 // import ImageListItemBar from '@mui/material/ImageListItemBar'
@@ -18,25 +18,26 @@ const initialCategory = {
     category: 'womens',
     subcategory: 'hats'
 }
-const Home = () => {
+const Home = ({data}) => {
     const [currentCategory, setCurrentCategory] = useState(initialCategory)
-
     const navigate = useNavigate()
     const handleClick = (e) => {
         console.log('click', e.target)
-        const newCurrentCategory = {...currentCategory, ...{subCategory: e.target.id}}
-        console.log(newCurrentCategory)
+        const [newCategory, newSubcategory] = e.target.id.split('-')
+        const newCurrentCategory = {...currentCategory, ...{category: newCategory, subcategory: newSubcategory}}
+        console.log('newCurrentCategory', newCurrentCategory)
         setCurrentCategory(newCurrentCategory)
-        navigate(`${newCurrentCategory.category}/${newCurrentCategory.subCategory}`)
+        navigate(`${newCurrentCategory.category}/${newCurrentCategory.subcategory}`)
     }
     console.log(data)
     const category = data.categories
     console.log(Object.keys(data.categories))
     console.log(currentCategory)
+    // if(isLoading || data.length === 0) return <p>Loading...</p>
     return (
         <Container>
             {
-                Object.keys(data.categories).map(category => <Category key={category} {...{category, handleClick}} />)
+                Object.keys(data.categories).map(category => <Category key={category} category={category} handleClick={handleClick} subcategories={data.categories[category]} />)
             }
         </Container>
     )

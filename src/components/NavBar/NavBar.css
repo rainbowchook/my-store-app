@@ -1,0 +1,8 @@
+.nav-bar .pending {
+    color:teal;
+}
+
+.nav-bar .active {
+    background-color:teal;
+    color: white;
+}
