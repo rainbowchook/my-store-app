@@ -1,13 +1,15 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
-import { Stack, Grid, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material'
+import { Stack, Container, Grid, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material'
 const Category = ({ category, handleClick, subcategories }) => {
     const navigate = useNavigate()
 
     // console.log(category, handleClick, subcategories)
     return (
-        <>
-            <h4 onClick={() => navigate('/')}>{category.toUpperCase()}</h4>
+        <Container sx={{ marginTop: 3, marginBottom: 10}}>
+            <Typography variant="h8" component="h4" gutterBottom>
+                <span onClick={() => navigate('/')} role='link'>{category.toUpperCase()}</span>
+            </Typography>
             {/* <Stack direction='row' sx={{width: 0.9, overflowX: 'scroll', marginX: 'auto',flexShrink: 0}}> */}
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
                 {
@@ -42,7 +44,7 @@ const Category = ({ category, handleClick, subcategories }) => {
                 }
             </Grid>
             {/* </Stack> */}
-        </>
+        </Container>
     )
 }
 
