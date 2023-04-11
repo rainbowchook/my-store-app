@@ -23,7 +23,7 @@ const Home = ({data}) => {
     const navigate = useNavigate()
     const handleClick = (e) => {
         console.log('click', e.target)
-        const [newCategory, newSubcategory] = e.target.id.split('-')
+        const [newCategory, newSubcategory] = e.target.name.split('-')
         const newCurrentCategory = {...currentCategory, ...{category: newCategory, subcategory: newSubcategory}}
         console.log('newCurrentCategory', newCurrentCategory)
         setCurrentCategory(newCurrentCategory)

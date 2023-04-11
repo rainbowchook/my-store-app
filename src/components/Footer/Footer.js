@@ -1,8 +1,13 @@
-import React from 'react'
+import './Footer.css'
+import { BottomNavigation } from '@mui/material'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    // <div style={{position:'absolute', bottom:0}}>Footer</div>
+    <div className='footer'>Footer</div>
+    // <BottomNavigation>
+
+    // </BottomNavigation>
   )
 }
 

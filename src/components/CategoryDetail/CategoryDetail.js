@@ -1,8 +1,9 @@
-import React from 'react'
+import {useParams} from 'react-router-dom'
 
 const CategoryDetail = () => {
+  const {id} = useParams()
   return (
-    <div>CategoryDetail</div>
+    <div>CategoryDetail for {id}</div>
   )
 }
 
