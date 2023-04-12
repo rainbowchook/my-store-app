@@ -1,8 +1,13 @@
-import React from 'react'
+import {Container, Typography} from '@mui/material'
 
-const Cart = () => {
+const Cart = ({user}) => {
   return (
-    <div>Cart</div>
+    <Container>
+      {/* <h1>{user}'s wish list</h1> */}
+      <Typography variant="h4" component="h4" gutterBottom>
+        Shopping Cart
+      </Typography>
+    </Container>
   )
 }
 
