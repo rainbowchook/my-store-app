@@ -8,7 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 //need Context API to hold signin/signoff status, loading
-const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user}) => {
+const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user, cartCount, favourites}) => {
     // const [isSignedIn, setIsSignedIn] = useState(false)
     const notificationsLabel = (count) => {
         if (count === 0) {
@@ -41,8 +41,8 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user}) => {
                 <NavLink to="/wishlist" className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "active" : ""
                 }>
-                    <IconButton aria-label={notificationsLabel(user.favourites.length)}>
-                        <Badge color="secondary" badgeContent={user.favourites.length} max={99}>
+                    <IconButton aria-label={notificationsLabel(favourites.length)}>
+                        <Badge color="secondary" badgeContent={favourites.length} max={99}>
                             <FavoriteIcon fontSize='large'/>
                         </Badge>
                     </IconButton>
@@ -50,8 +50,8 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user}) => {
                 <NavLink to="/checkout" className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "active" : ""
                 }>
-                    <IconButton aria-label={notificationsLabel(cartItems.length)}>
-                        <Badge color="secondary" badgeContent={cartItems.length} max={99}>
+                    <IconButton aria-label={notificationsLabel(cartCount)}>
+                        <Badge color="secondary" badgeContent={cartCount} max={99}>
                             <ShoppingCartIcon fontSize='large'/>
                         </Badge>
                     </IconButton>
