@@ -30,7 +30,7 @@ const Home = ({data}) => {
         navigate(`${newCurrentCategory.category}/${newCurrentCategory.subcategory}`)
     }
     console.log(data)
-    const category = data.categories
+    // const category = data.categories
     console.log(Object.keys(data.categories))
     console.log(currentCategory)
     // if(isLoading || data.length === 0) return <p>Loading...</p>

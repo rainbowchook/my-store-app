@@ -5,28 +5,28 @@
                 "id": "033e2e2e-e503-45a8-8f77-21fea9093aae",
                 "name": "Womens Sunglasses",
                 "description": "Photo by Omid Armin on Unsplash",
-                "image": "./static/images/categories/womens/omid-armin-Zt99Ho5Hq3s-unsplash.jpg",
+                "image": "/static/images/categories/womens/omid-armin-Zt99Ho5Hq3s-unsplash.jpg",
                 "subcategory": "sunglasses"
             },
             {
                 "id": "e06018bf-96f3-4a7a-985d-c1bff8560688",
                 "name": "Womens Hats",
                 "description": "Photo by Munish Sawant on Unsplash",
-                "image": "./static/images/categories/womens/munish-sawant-60YRs7fcObY-unsplash.jpg",
+                "image": "/static/images/categories/womens/munish-sawant-60YRs7fcObY-unsplash.jpg",
                 "subcategory": "hats"
             },
             {
                 "id": "93466c5b-ee8d-4124-8764-c49c5237e5a4",
                 "name": "Womens Watches",
                 "description": "Photo by Jess Bailey on Unsplash",
-                "image": "./static/images/categories/womens/jess-bailey-DXd6X3wuRA0-unsplash.jpg",
+                "image": "/static/images/categories/womens/jess-bailey-DXd6X3wuRA0-unsplash.jpg",
                 "subcategory": "watch"
             },
             {
                 "id": "06c9fd22-055f-44d2-98f2-3567cdb0c538",
                 "name": "Womens Scarves",
                 "description": "Photo by Andreas Fickl on Unsplash",
-                "image": "./static/images/categories/womens/andreas-fickl-4elcA2EcuFo-unsplash.jpg",
+                "image": "/static/images/categories/womens/andreas-fickl-4elcA2EcuFo-unsplash.jpg",
                 "subcategory": "scarf"
             }
         ],
@@ -35,28 +35,28 @@
                 "id": "d4ef13f1-d50a-4258-bbf7-49cdc5915fd2",
                 "name": "Mens Watches",
                 "description": "Photo by Christian Wiediger on Unsplash",
-                "image": "./static/images/categories/mens/christian-wiediger-pooVzgc3y6k-unsplash.jpg",
+                "image": "/static/images/categories/mens/christian-wiediger-pooVzgc3y6k-unsplash.jpg",
                 "subcategory": "watch"
             },
             {
                 "id": "d892a54d-9b9d-4ef2-8796-dc410be30acf",
                 "name": "Mens Ties",
                 "description": "Photo by Rhii Photography on Unsplash",
-                "image": "./static/images/categories/mens/rhii-photography-Xy6FpnFyVjo-unsplash.jpg",
+                "image": "/static/images/categories/mens/rhii-photography-Xy6FpnFyVjo-unsplash.jpg",
                 "subcategory": "tie"
             },
             {
                 "id": "1a3d818f-6902-49d9-8ae0-2544b2184de6",
                 "name": "Mens Sunglasses",
                 "description": "Photo by Lensabl on Unsplash",
-                "image": "./static/images/categories/mens/lensabl-LEtgz-OS5uU-unsplash.jpg",
+                "image": "/static/images/categories/mens/lensabl-LEtgz-OS5uU-unsplash.jpg",
                 "subcategory": "sunglasses"
             },
             {
                 "id": "0a56b87a-dcce-413e-9867-440d3bf7a14e",
                 "name": "Mens Hats",
                 "description": "Photo by Hector J Rivas on Unsplash",
-                "image": "./static/images/categories/mens/hector-j-rivas-V0OsHPIh4To-unsplash.jpg",
+                "image": "/static/images/categories/mens/hector-j-rivas-V0OsHPIh4To-unsplash.jpg",
                 "subcategory": "hats"
             }
         ]
@@ -67,7 +67,7 @@
                 "id": "9eec702e-a62e-4a73-a413-c3a6df712b97",
                 "name": "Black with Gold Rim",
                 "description": "Photo by Charles Deluvio on Unsplash",
-                "image": "./static/images/womens/sunglasses/charlesdeluvio-1-nx1QR5dTE-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/charlesdeluvio-1-nx1QR5dTE-unsplash.jpg",
                 "amount": 1600,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -76,7 +76,7 @@
                 "id": "9112ed7d-64f7-4581-acea-97cfeabfedfc",
                 "name": "Large Transparent Frame",
                 "description": "Photo by Sebastian Coman on Unsplash",
-                "image": "./static/images/womens/sunglasses/sebastian-coman-travel-dtOTQYmTEs0-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/sebastian-coman-travel-dtOTQYmTEs0-unsplash.jpg",
                 "amount": 1700,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -85,7 +85,7 @@
                 "id": "2fd2d41a-4f95-4563-be23-da0a7dbcfffb",
                 "name": "Black Raybans Sleek Frame",
                 "description": "Photo by Giorgio Trovato on Unsplash",
-                "image": "./static/images/womens/sunglasses/giorgio-trovato-K62u25Jk6vo-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/giorgio-trovato-K62u25Jk6vo-unsplash.jpg",
                 "amount": 1700,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -94,7 +94,7 @@
                 "id": "9e7904e2-a580-401c-b988-4640996204b6",
                 "name": "Black Understated Frame",
                 "description": "Photo by Lucas George Wendt on Unsplash",
-                "image": "./static/images/womens/sunglasses/lucas-george-wendt-3xtCeUhqZWE-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/lucas-george-wendt-3xtCeUhqZWE-unsplash.jpg",
                 "amount": 1500,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -103,7 +103,7 @@
                 "id": "4eef694d-ef3b-49c8-973e-5cacc76d320a",
                 "name": "Cute Gold Rim",
                 "description": "Photo by Stephanie Hau on Unsplash",
-                "image": "./static/images/womens/sunglasses/stephanie-hau-P4TPjOXKqY8-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/stephanie-hau-P4TPjOXKqY8-unsplash.jpg",
                 "amount": 1600,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -112,7 +112,7 @@
                 "id": "c88c24f2-1e91-459f-a8b7-40f2fb93d01f",
                 "name": "Rose Gold Butterfly Frame",
                 "description": "Photo by Annie Williams on Unsplash",
-                "image": "./static/images/womens/sunglasses/annie-williams-FlP6C5pkMKs-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/annie-williams-FlP6C5pkMKs-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -121,7 +121,7 @@
                 "id": "1a05d684-e2b5-474c-83d1-7e253a840f71",
                 "name": "Leopard Print Frame",
                 "description": "Photo by Apostolos Vamvouras on Unsplash",
-                "image": "./static/images/womens/sunglasses/apostolos-vamvouras-Pp_nVOuJMTU-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/apostolos-vamvouras-Pp_nVOuJMTU-unsplash.jpg",
                 "amount": 1800,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -130,7 +130,7 @@
                 "id": "d0cc19ab-ad58-4c17-a191-aad3c1ef0c69",
                 "name": "Light Silver Rim",
                 "description": "Photo by Kilian Seiler on Unsplash",
-                "image": "./static/images/womens/sunglasses/kilian-seiler-FislCuTmmOs-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/kilian-seiler-FislCuTmmOs-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -139,7 +139,7 @@
                 "id": "e3b82669-76d1-4ff8-9019-e2880286f4b2",
                 "name": "Tortoise Shell Frame",
                 "description": "Photo by Anton Be on Unsplash",
-                "image": "./static/images/womens/sunglasses/anton-be-ODhxNCO8XHY-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/anton-be-ODhxNCO8XHY-unsplash.jpg",
                 "amount": 1700,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -148,7 +148,7 @@
                 "id": "2b92fbc9-50dc-4bb4-a818-e720d550104b",
                 "name": "Retro Transparent Frame",
                 "description": "Photo by Jesper Riknie on Unsplash",
-                "image": "./static/images/womens/sunglasses/jesper-riknie-iGlXrsB6YVw-unsplash.jpg",
+                "image": "/static/images/womens/sunglasses/jesper-riknie-iGlXrsB6YVw-unsplash.jpg",
                 "amount": 1500,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -157,7 +157,7 @@
                 "id": "f20de563-2aca-4aa0-9105-9366f0508c24",
                 "name": "Orange Beanie",
                 "description": "Photo by Charles Deluvio on Unsplash",
-                "image": "./static/images/womens/hats/charlesdeluvio-GsKf0FXVj3Y-unsplash.jpg",
+                "image": "/static/images/womens/hats/charlesdeluvio-GsKf0FXVj3Y-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -166,7 +166,7 @@
                 "id": "f835f550-1fde-471a-b0b1-a1a863c9967cpwd",
                 "name": "Electric Blue Cap",
                 "description": "Photo by Andre Styles on Unsplash",
-                "image": "./static/images/womens/hats/andre-styles-fwDlnTM_DJo-unsplash.jpg",
+                "image": "/static/images/womens/hats/andre-styles-fwDlnTM_DJo-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -175,7 +175,7 @@
                 "id": "75bc0dc3-1876-4822-9e59-afc9929a0e13",
                 "name": "Black Hat with White Peals",
                 "description": "Photo by Hayley Lyla on Unsplash",
-                "image": "./static/images/womens/hats/hayley-lyla-vHu_G1vTwFs-unsplash.jpg",
+                "image": "/static/images/womens/hats/hayley-lyla-vHu_G1vTwFs-unsplash.jpg",
                 "amount": 2000,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -184,7 +184,7 @@
                 "id": "40066e63-8af0-4bb6-8734-f3dd7f00b565",
                 "name": "Straw Hat with White Lace",
                 "description": "Photo by Natasha Arefyeva on Unsplash",
-                "image": "./static/images/womens/hats/natasha-arefyeva-EKYadUKN0VA-unsplash.jpg",
+                "image": "/static/images/womens/hats/natasha-arefyeva-EKYadUKN0VA-unsplash.jpg",
                 "amount": 2000,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -193,7 +193,7 @@
                 "id": "04f94966-8aa9-4ecd-ab56-3bececcda4c7",
                 "name": "Beige Hat Broad Brim",
                 "description": "Photo by Alexandra Tran on Unsplash",
-                "image": "./static/images/womens/hats/alexandra-tran-BADQRPmtPbQ-unsplash.jpg",
+                "image": "/static/images/womens/hats/alexandra-tran-BADQRPmtPbQ-unsplash.jpg",
                 "amount": 2100,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -202,7 +202,7 @@
                 "id": "73df65cf-2f50-408a-b0f2-8758b2274fe9",
                 "name": "Casual Cream Seashells",
                 "description": "Photo by Steve Lieman on Unsplash",
-                "image": "./static/images/womens/hats/steve-lieman-qq-N4es8lqA-unsplash.jpg",
+                "image": "/static/images/womens/hats/steve-lieman-qq-N4es8lqA-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -211,7 +211,7 @@
                 "id": "190f5caf-b724-4cf6-a5ad-cff2b0538b73",
                 "name": "White Beanie with Pompom",
                 "description": "Photo by Anika Huizinga on Unsplash",
-                "image": "./static/images/womens/hats/anika-huizinga-8E6R5ofg2hg-unsplash.jpg",
+                "image": "/static/images/womens/hats/anika-huizinga-8E6R5ofg2hg-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -220,7 +220,7 @@
                 "id": "b2404024-b08c-42ba-a178-e87dd9992a59",
                 "name": "Green Beanie",
                 "description": "Photo by Jordan Whitfield on Unsplash",
-                "image": "./static/images/womens/hats/jordan-whitfield-Lprffwrv9cY-unsplash.jpg",
+                "image": "/static/images/womens/hats/jordan-whitfield-Lprffwrv9cY-unsplash.jpg",
                 "amount": 1800,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -229,7 +229,7 @@
                 "id": "fa5a8553-436f-4a43-ade6-59a3e616a657",
                 "name": "White and Rainbow Beanie with Pompom",
                 "description": "Photo by Seema Miah on Unsplash",
-                "image": "./static/images/womens/hats/seema-miah-UPfLlvASwCA-unsplash.jpg",
+                "image": "/static/images/womens/hats/seema-miah-UPfLlvASwCA-unsplash.jpg",
                 "amount": 1800,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -238,7 +238,7 @@
                 "id": "4c317803-f348-4f1a-8354-6ff32967ba5f",
                 "name": "Vintage Watch Pendant",
                 "description": "Photo by Andrik Langfield on Unsplash",
-                "image": "./static/images/womens/watch/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg",
+                "image": "/static/images/womens/watch/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg",
                 "amount": 3500,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -247,7 +247,7 @@
                 "id": "5175fabd-ee8f-42ad-94b0-9e090b2d700e",
                 "name": "Classic Rose Gold Highlights",
                 "description": "Photo by Jaelynn Castillo on Unsplash",
-                "image": "./static/images/womens/watch/jaelynn-castillo-xfNeB1stZ_0-unsplash.jpg",
+                "image": "/static/images/womens/watch/jaelynn-castillo-xfNeB1stZ_0-unsplash.jpg",
                 "amount": 2600,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -256,7 +256,7 @@
                 "id": "ee900c81-385b-46a2-836e-f8ee23cc0fb4",
                 "name": "Edgy Black Digital",
                 "description": "Photo by Daniel Korpai on Unsplash",
-                "image": "./static/images/womens/watch/daniel-korpai-QhF3YGsDrYk-unsplash.jpg",
+                "image": "/static/images/womens/watch/daniel-korpai-QhF3YGsDrYk-unsplash.jpg",
                 "amount": 2500,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -265,7 +265,7 @@
                 "id": "28a7c942-b845-4181-b653-05e75ed43430",
                 "name": "Pure White Straps",
                 "description": "Photo by Rachit Tank on Unsplash",
-                "image": "./static/images/womens/watch/rachit-tank-2cFZ_FB08UM-unsplash.jpg",
+                "image": "/static/images/womens/watch/rachit-tank-2cFZ_FB08UM-unsplash.jpg",
                 "amount": 2400,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -280,10 +280,10 @@
                 "subcategory": "watch"
             },
             {
-                "id": "c442b023-e54f-4db6-b279-a68f457224ae",
+                "id": "37af1b24-04cd-4676-9f5a-b06f908f810b",
                 "name": "Metallic Digital",
                 "description": "Photo by David Syihovec on Unsplash",
-                "image": "./static/images/womens/watch/david-svihovec-5qMN7iXbUsk-unsplash.jpg",
+                "image": "/static/images/womens/watch/david-svihovec-5qMN7iXbUsk-unsplash.jpg",
                 "amount": 2700,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -292,7 +292,7 @@
                 "id": "5e090ccb-6c86-4e37-b311-a1300dcbea9e",
                 "name": "Vintage Gold Diamante",
                 "description": "Photo by Marek Prygiel on Unsplash",
-                "image": "./static/images/womens/watch/marek-prygiel-kKgEpUTfH5Y-unsplash.jpg",
+                "image": "/static/images/womens/watch/marek-prygiel-kKgEpUTfH5Y-unsplash.jpg",
                 "amount": 3200,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -301,7 +301,7 @@
                 "id": "efead5c7-f492-4b5f-a093-01ca8de4fe40",
                 "name": "Zen White Digital",
                 "description": "Photo by Adrian Regeci on Unsplash",
-                "image": "./static/images/womens/watch/adrian-regeci-1Ad6gTbYAsM-unsplash.jpg",
+                "image": "/static/images/womens/watch/adrian-regeci-1Ad6gTbYAsM-unsplash.jpg",
                 "amount": 2900,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -310,7 +310,7 @@
                 "id": "5bb6fe55-8d89-4c62-b873-ff7ad1f60276",
                 "name": "Rose Gold Beauty",
                 "description": "Photo by Jenn Lopez on Unsplash",
-                "image": "./static/images/womens/watch/jenn-lopez-DhiZ2ZUQSS4-unsplash.jpg",
+                "image": "/static/images/womens/watch/jenn-lopez-DhiZ2ZUQSS4-unsplash.jpg",
                 "amount": 3100,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -319,7 +319,7 @@
                 "id": "b7ec3731-470d-4cb6-bb6d-fb958244f0b0",
                 "name": "Sparkly Gold",
                 "description": "Photo by Laura Chouette on Unsplash",
-                "image": "./static/images/womens/watch/laura-chouette-qjkbNMDSNNw-unsplash.jpg",
+                "image": "/static/images/womens/watch/laura-chouette-qjkbNMDSNNw-unsplash.jpg",
                 "amount": 3000,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -328,7 +328,7 @@
                 "id": "9557ab2f-e8e7-405f-8fa2-62c068a9cd23",
                 "name": "Flowery Yellow Highlights",
                 "description": "Photo by Sama Hosseini on Unsplash",
-                "image": "./static/images/womens/scarf/sama-hosseini-z5UuOcQjXCY-unsplash.jpg",
+                "image": "/static/images/womens/scarf/sama-hosseini-z5UuOcQjXCY-unsplash.jpg",
                 "amount": 2700,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -337,7 +337,7 @@
                 "id": "ba75d4eb-297f-4c73-a692-52ad74e80f79",
                 "name": "Winter Beige Tartan",
                 "description": "Photo by Tamara Bellis on Unsplash",
-                "image": "./static/images/womens/scarf/tamara-bellis-sCn7NDoTYII-unsplash.jpg",
+                "image": "/static/images/womens/scarf/tamara-bellis-sCn7NDoTYII-unsplash.jpg",
                 "amount": 3000,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -346,7 +346,7 @@
                 "id": "182a26bb-155c-4f50-8960-549c68eb1a49",
                 "name": "Earthy Rainbow Stripes",
                 "description": "Photo by Susan Wilkinson on Unsplash",
-                "image": "./static/images/womens/scarf/susan-wilkinson-9dDJk8lvUwg-unsplash.jpg",
+                "image": "/static/images/womens/scarf/susan-wilkinson-9dDJk8lvUwg-unsplash.jpg",
                 "amount": 3300,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -355,7 +355,7 @@
                 "id": "935e16f3-2d54-485e-9e81-3fe665104858",
                 "name": "Block Colours Red Gray White Silk",
                 "description": "Photo by Mojtaba Mosayebzadeh on Unsplash",
-                "image": "./static/images/womens/scarf/mojtaba-mosayebzadeh-OxTS-p513Qc-unsplash.jpg",
+                "image": "/static/images/womens/scarf/mojtaba-mosayebzadeh-OxTS-p513Qc-unsplash.jpg",
                 "amount": 3000,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -364,16 +364,16 @@
                 "id": "50520773-d6ed-4ed8-b756-27781ba7eded",
                 "name": "Yellow White Knit",
                 "description": "Photo by Altansukh E on Unsplash",
-                "image": "./static/images/womens/scarf/altansukh-e-T20advlKBkQ-unsplash.jpg",
+                "image": "/static/images/womens/scarf/altansukh-e-T20advlKBkQ-unsplash.jpg",
                 "amount": 3000,
                 "currency": "AUD",
                 "subcategory": "scarf"
             },
             {
-                "id": "50520773-d6ed-4ed8-b756-27781ba7eded",
+                "id": "a8962c24-038d-4617-94a4-ac334eeecc4c",
                 "name": "Modern Twist White",
                 "description": "Photo by Courtney Smith on Unsplash",
-                "image": "./static/images/womens/scarf/courtney-smith-l2NryXUJFaY-unsplash.jpg",
+                "image": "/static/images/womens/scarf/courtney-smith-l2NryXUJFaY-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -382,7 +382,7 @@
                 "id": "a654f625-937c-41f6-806c-ed03b07f544f",
                 "name": "Comfy Winter Tartan",
                 "description": "Photo by Simona Sergi on Unsplash",
-                "image": "./static/images/womens/scarf/simona-sergi-KYBzCBBGyvg-unsplash.jpg",
+                "image": "/static/images/womens/scarf/simona-sergi-KYBzCBBGyvg-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -391,7 +391,7 @@
                 "id": "a50050ce-442e-4bbb-b81e-4c7ca7b7019d",
                 "name": "Pure White",
                 "description": "Photo by Susan Wilkinson on Unsplash",
-                "image": "./static/images/womens/scarf/susan-wilkinson-9dDJk8lvUwg-unsplash.jpg",
+                "image": "/static/images/womens/scarf/susan-wilkinson-9dDJk8lvUwg-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -400,7 +400,7 @@
                 "id": "b5fcd589-0c7f-40ae-96bd-b00817a7848a",
                 "name": "Flowery Blue and White",
                 "description": "Photo by Same Hosseini on Unsplash",
-                "image": "./static/images/womens/scarf/sama-hosseini-MRC_wfjkadk-unsplash.jpg",
+                "image": "/static/images/womens/scarf/sama-hosseini-MRC_wfjkadk-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "scarf"
@@ -411,7 +411,7 @@
                 "id": "083cdf9a-c7a0-4590-8d5a-f2db5496bf81",
                 "name": "Tissot Classic White and Gold Rim",
                 "description": "Photo by Bruno van der Kraan on Unsplash",
-                "image": "./static/images/mens/watch/bruno-van-der-kraan-VRERJ5Mjp4c-unsplash.jpg",
+                "image": "/static/images/mens/watch/bruno-van-der-kraan-VRERJ5Mjp4c-unsplash.jpg",
                 "amount": 15000,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -420,7 +420,7 @@
                 "id": "ea512050-daf5-4aeb-8bf7-f4d4ced0057b",
                 "name": "JWC Burgundy Leather Strap Silver Rim",
                 "description": "Photo by Pat Taylor on Unsplash",
-                "image": "./static/images/mens/watch/pat-taylor-12V36G17IbQ-unsplash.jpg",
+                "image": "/static/images/mens/watch/pat-taylor-12V36G17IbQ-unsplash.jpg",
                 "amount": 11000,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -429,7 +429,7 @@
                 "id": "9c8e7be1-c65d-4e9f-bb08-a3f27eae0b65",
                 "name": "Fossil Brown Leather Strap Silver Highlights",
                 "description": "Photo by Fabian Heimann on Unsplash",
-                "image": "./static/images/mens/watch/fabian-heimann-4R_WEmhx8og-unsplash.jpg",
+                "image": "/static/images/mens/watch/fabian-heimann-4R_WEmhx8og-unsplash.jpg",
                 "amount": 9500,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -438,7 +438,7 @@
                 "id": "535e36e9-ce32-4b47-b7e7-6d6be8c6724d",
                 "name": "Omega Metal Straps Midnight Blue Face",
                 "description": "Photo by John Torcasio on Unsplash",
-                "image": "./static/images/mens/watch/john-torcasio-TJrkkhdB39E-unsplash.jpg",
+                "image": "/static/images/mens/watch/john-torcasio-TJrkkhdB39E-unsplash.jpg",
                 "amount": 30000,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -447,16 +447,16 @@
                 "id": "8bd3255e-c6b4-488e-95e4-fdcc59656680",
                 "name": "Fossil Brown Straps Gold Rim",
                 "description": "Photo by Pixel Bee on Unsplash",
-                "image": "./static/images/mens/watch/pixel-bee-u8isJQ6QjF4-unsplash.jpg",
+                "image": "/static/images/mens/watch/pixel-bee-u8isJQ6QjF4-unsplash.jpg",
                 "amount": 130000,
                 "currency": "AUD",
                 "subcategory": "watch"
             },
             {
-                "id": "8bd3255e-c6b4-488e-95e4-fdcc59656680",
+                "id": "c2aa9672-b6f2-47b2-b111-ca2c0da04af2",
                 "name": "Black on Black",
                 "description": "Photo by Alexander Andrews on Unsplash",
-                "image": "./static/images/mens/watch/alexander-andrews-anUOLC3zMD4-unsplash.jpg",
+                "image": "/static/images/mens/watch/alexander-andrews-anUOLC3zMD4-unsplash.jpg",
                 "amount": 4500,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -465,7 +465,7 @@
                 "id": "be45c9a3-37b1-42d5-a2e7-6bd08265a3d1",
                 "name": "Swiss Reitling Brown with Gold Highlights",
                 "description": "Photo by Alexander Andrews on Unsplash",
-                "image": "./static/images/mens/watch/bence-balla-schottner-_HAVhi9B2a4-unsplash.jpg",
+                "image": "/static/images/mens/watch/bence-balla-schottner-_HAVhi9B2a4-unsplash.jpg",
                 "amount": 14500,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -474,7 +474,7 @@
                 "id": "902b9371-e612-418f-b025-e0abc6429b5b",
                 "name": "Dark Brown Leather Straps with Silver Rim",
                 "description": "Photo by Rick Muigo on Unsplash",
-                "image": "./static/images/mens/watch/rick-muigo-SX9IouL_qOg-unsplash.jpg",
+                "image": "/static/images/mens/watch/rick-muigo-SX9IouL_qOg-unsplash.jpg",
                 "amount": 6500,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -483,7 +483,7 @@
                 "id": "ec02974c-41fc-4667-9077-bf93c0976a77",
                 "name": "Classic Rolex Metallic Black Face",
                 "description": "Photo by Ern Gan on Unsplash",
-                "image": "./static/images/mens/watch/ern-gan-3vSGyBo8_pU-unsplash.jpg",
+                "image": "/static/images/mens/watch/ern-gan-3vSGyBo8_pU-unsplash.jpg",
                 "amount": 56000,
                 "currency": "AUD",
                 "subcategory": "watch"
@@ -492,7 +492,7 @@
                 "id": "ed409c6b-6616-4a8a-b54b-d48bd8f6b702",
                 "name": "Whimsical Animals",
                 "description": "Photo by Toyamakanna on Unsplash",
-                "image": "./static/images/mens/tie/toyamakanna-oZFqTBuQw_k-unsplash.jpg",
+                "image": "/static/images/mens/tie/toyamakanna-oZFqTBuQw_k-unsplash.jpg",
                 "amount": 4000,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -501,7 +501,7 @@
                 "id": "21dec99d-5892-452d-af9f-7268932b9a57",
                 "name": "Midnight Blue Silk Bow Tie",
                 "description": "Photo by Wojtek Mich on Unsplash",
-                "image": "./static/images/mens/tie/wojtek-mich-Amg01aB-KEo-unsplash.jpg",
+                "image": "/static/images/mens/tie/wojtek-mich-Amg01aB-KEo-unsplash.jpg",
                 "amount": 4200,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -510,7 +510,7 @@
                 "id": "3582be82-3c5e-43eb-8d57-4691695d7b24",
                 "name": "Chartreuse Metallic Detail Bow Tie",
                 "description": "Photo by Alexy Britton on Unsplash",
-                "image": "./static/images/mens/tie/alexy-britton-5GLGCrstsX4-unsplash.jpg",
+                "image": "/static/images/mens/tie/alexy-britton-5GLGCrstsX4-unsplash.jpg",
                 "amount": 4300,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -519,7 +519,7 @@
                 "id": "329f1e83-fa83-4b9d-acc3-813297882ca8",
                 "name": "Firefly Motif Dark Blue Bow Tie",
                 "description": "Photo by Bubibubi on Unsplash",
-                "image": "./static/images/mens/tie/bubibubi_cz-LJ3HkoE77uw-unsplash.jpg",
+                "image": "/static/images/mens/tie/bubibubi_cz-LJ3HkoE77uw-unsplash.jpg",
                 "amount": 4000,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -528,7 +528,7 @@
                 "id": "e6bbfd95-179f-4744-9866-1704ed734074",
                 "name": "White-etched Cornflower Blue",
                 "description": "Photo by Alexander Grey on Unsplash",
-                "image": "./static/images/mens/tie/alexander-grey-IoR6wl3L06A-unsplash.jpg",
+                "image": "/static/images/mens/tie/alexander-grey-IoR6wl3L06A-unsplash.jpg",
                 "amount": 3500,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -537,7 +537,7 @@
                 "id": "111dd8cb-6a6f-4c2d-b557-2658f5c004c9",
                 "name": "Casual Pink Bow Tie",
                 "description": "Photo by Catia Climovich on Unsplash",
-                "image": "./static/images/mens/tie/catia-climovich-22QqQzJHUtE-unsplash.jpg",
+                "image": "/static/images/mens/tie/catia-climovich-22QqQzJHUtE-unsplash.jpg",
                 "amount": 5000,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -546,7 +546,7 @@
                 "id": "f2f75bc6-78bb-4656-93b3-b8ca847076c0",
                 "name": "Vermillion",
                 "description": "Photo by Markus Spiske on Unsplash",
-                "image": "./static/images/mens/tie/markus-spiske-IWG2lp7tKBw-unsplash.jpg",
+                "image": "/static/images/mens/tie/markus-spiske-IWG2lp7tKBw-unsplash.jpg",
                 "amount": 5500,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -555,7 +555,7 @@
                 "id": "77a57077-68c8-45ca-8244-171943eb918a",
                 "name": "Pale Green Bow Tie",
                 "description": "Photo by Joice Kelly on Unsplash",
-                "image": "./static/images/mens/tie/joice-kelly-3F1n1v42DX4-unsplash.jpg",
+                "image": "/static/images/mens/tie/joice-kelly-3F1n1v42DX4-unsplash.jpg",
                 "amount": 3300,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -564,7 +564,7 @@
                 "id": "b26fe36b-6fef-4a0e-9255-2eabc3bbf0ef",
                 "name": "Striped Red",
                 "description": "Photo by Joice Kelly on Unsplash",
-                "image": "./static/images/mens/tie/dane-deaner-ggUucZe-wzE-unsplash.jpg",
+                "image": "/static/images/mens/tie/dane-deaner-ggUucZe-wzE-unsplash.jpg",
                 "amount": 3600,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -573,7 +573,7 @@
                 "id": "844c4d47-87d8-4173-9ffd-90cd376b0424",
                 "name": "Yellow Ducks",
                 "description": "Photo by Sara Kurfess on Unsplash",
-                "image": "./static/images/mens/tie/sara-kurfess-2S0b9aTB7t0-unsplash.jpg",
+                "image": "/static/images/mens/tie/sara-kurfess-2S0b9aTB7t0-unsplash.jpg",
                 "amount": 2900,
                 "currency": "AUD",
                 "subcategory": "tie"
@@ -582,7 +582,7 @@
                 "id": "71b7aa0f-2578-4f7f-86da-fb1b86d55338",
                 "name": "Chiseled Metal Rim",
                 "description": "Photo by Andres Hernandez on Unsplash",
-                "image": "./static/images/mens/sunglasses/andres-hernandez-ouAyz-zRMTw-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/andres-hernandez-ouAyz-zRMTw-unsplash.jpg",
                 "amount": 2600,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -591,7 +591,7 @@
                 "id": "ae12272a-63c6-4c7a-aeb3-fbd1fdfeeef1",
                 "name": "Retro Round Rim",
                 "description": "Photo by Colin Lloyd on Unsplash",
-                "image": "./static/images/mens/sunglasses/colin-lloyd-DQcu4QOdj5c-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/colin-lloyd-DQcu4QOdj5c-unsplash.jpg",
                 "amount": 2500,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -600,7 +600,7 @@
                 "id": "40ccfccf-b579-48d8-80fb-e10f8fc3adbf",
                 "name": "Wood Detailing",
                 "description": "Photo by Joycoast Wood Watches Sunglasses on Unsplash",
-                "image": "./static/images/mens/sunglasses/joycoast-wood-watches-sunglasses-XUR2wxuEYF0-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/joycoast-wood-watches-sunglasses-XUR2wxuEYF0-unsplash.jpg",
                 "amount": 2900,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -609,7 +609,7 @@
                 "id": "fb6b4558-dc3a-4c00-a95b-33828d9aca8d",
                 "name": "Reflective with Black Frame",
                 "description": "Photo by Matthew Fassnacht on Unsplash",
-                "image": "./static/images/mens/sunglasses/matthew-fassnacht-gLtxrJ8UQIY-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/matthew-fassnacht-gLtxrJ8UQIY-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -618,7 +618,7 @@
                 "id": "bcd4781b-3ad3-4fff-a3c8-30136373d5e6",
                 "name": "Raybans with Black and Gold Rim",
                 "description": "Photo by Karlis Reimanis on Unsplash",
-                "image": "./static/images/mens/sunglasses/karlis-reimanis-g1nmcKUtGQU-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/karlis-reimanis-g1nmcKUtGQU-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -627,7 +627,7 @@
                 "id": "531f545d-e0d1-41ac-92da-3df6766033b4",
                 "name": "Gold Rim Oval",
                 "description": "Photo by Slim Emcee on Unsplash",
-                "image": "./static/images/mens/sunglasses/slim-emcee-TnBUSGUzuT4-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/slim-emcee-TnBUSGUzuT4-unsplash.jpg",
                 "amount": 2700,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -636,7 +636,7 @@
                 "id": "c9a72f78-3bda-4009-8c85-903237a8ba2c",
                 "name": "Flip Shades",
                 "description": "Photo by Colin Lloyd on Unsplash",
-                "image": "./static/images/mens/sunglasses/colin-lloyd-JEK-dvD5KxM-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/colin-lloyd-JEK-dvD5KxM-unsplash.jpg",
                 "amount": 2900,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -645,7 +645,7 @@
                 "id": "ed601fd9-604c-4028-95a5-61b4ee8cd1e4",
                 "name": "Black Heavy Frame",
                 "description": "Photo by Daniel Hooper on Unsplash",
-                "image": "./static/images/mens/sunglasses/daniel-hooper-5P8pXmnJoCQ-unsplash.jpg",
+                "image": "/static/images/mens/sunglasses/daniel-hooper-5P8pXmnJoCQ-unsplash.jpg",
                 "amount": 2400,
                 "currency": "AUD",
                 "subcategory": "sunglasses"
@@ -654,7 +654,7 @@
                 "id": "c59cf185-c2e5-47af-9866-2bd1905b271b",
                 "name": "Gray Palm Tree Emblem",
                 "description": "Photo by Ahmed Syed on Unsplash",
-                "image": "./static/images/mens/hats/ahmed-syed-6NVrH0HB_DE-unsplash.jpg",
+                "image": "/static/images/mens/hats/ahmed-syed-6NVrH0HB_DE-unsplash.jpg",
                 "amount": 2000,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -663,7 +663,7 @@
                 "id": "5a69268d-c6e4-4ea0-9cfa-be091bc5e0b4",
                 "name": "Red MAGA slogan",
                 "description": "Photo by Natilyn Hicks Natilyn Photography on Unsplash",
-                "image": "./static/images/mens/hats/natilyn-hicks-natilyn-photography-BLvJZdPkP94-unsplash.jpg",
+                "image": "/static/images/mens/hats/natilyn-hicks-natilyn-photography-BLvJZdPkP94-unsplash.jpg",
                 "amount": 1800,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -672,7 +672,7 @@
                 "id": "1273c97f-e057-4d41-8c69-81a97d0c4faa",
                 "name": "Beige Icecream Emblem",
                 "description": "Photo by Joe Ciciarelli on Unsplash",
-                "image": "./static/images/mens/hats/joe-ciciarelli-FwVnAY_xMaY-unsplash.jpg",
+                "image": "/static/images/mens/hats/joe-ciciarelli-FwVnAY_xMaY-unsplash.jpg",
                 "amount": 2200,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -681,7 +681,7 @@
                 "id": "8eb78a3c-d551-4b9f-aac5-e9a2210e140a",
                 "name": "Red BN Emblem",
                 "description": "Photo by Jakob Owens on Unsplash",
-                "image": "./static/images/mens/hats/jakob-owens-yGeVdMgmFyE-unsplash.jpg",
+                "image": "/static/images/mens/hats/jakob-owens-yGeVdMgmFyE-unsplash.jpg",
                 "amount": 1900,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -690,7 +690,7 @@
                 "id": "e03a874f-ea1c-4503-b1d3-2f014b0daccd",
                 "name": "Blue MB Emblem",
                 "description": "Photo by Mitch Walker on Unsplash",
-                "image": "./static/images/mens/hats/mitch-walker-AsOhqrNB4gc-unsplash.jpg",
+                "image": "/static/images/mens/hats/mitch-walker-AsOhqrNB4gc-unsplash.jpg",
                 "amount": 2100,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -699,7 +699,7 @@
                 "id": "83dbe32b-e6b6-4423-ad78-de58f0342690",
                 "name": "Beige Staff Emblem",
                 "description": "Photo by Vladyslav Lytvyshchenko on Unsplash",
-                "image": "./static/images/mens/hats/vladyslav-lytvyshchenko-pRmgcp2Vvt0-unsplash.jpg",
+                "image": "/static/images/mens/hats/vladyslav-lytvyshchenko-pRmgcp2Vvt0-unsplash.jpg",
                 "amount": 2000,
                 "currency": "AUD",
                 "subcategory": "hats"
@@ -708,7 +708,7 @@
                 "id": "17c1c5b9-c59c-4922-89c2-e4ea38bb1241",
                 "name": "Blue Puma Beanie",
                 "description": "Photo by Ravi Sharma on Unsplash",
-                "image": "./static/images/mens/hats/ravi-sharma-KX9y-XdeEDA-unsplash.jpg",
+                "image": "/static/images/mens/hats/ravi-sharma-KX9y-XdeEDA-unsplash.jpg",
                 "amount": 2800,
                 "currency": "AUD",
                 "subcategory": "hats"

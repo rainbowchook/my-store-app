@@ -9,20 +9,20 @@ const SubCategory = ({data, favourites, addItemToCart, isFaveFound, addToFavouri
     const navigate = useNavigate()
     console.log(favourites)
     
-    const handleClick = (e, ...rest) => {
-        console.log(e.target)
-        console.log(e.target.id)
-        const [ id ] = rest
-        console.log(id)
-        if(!id) {
-            navigate(`/${category}/${subcategory}/${e.target.id}`)
-        } else if (e.target.id === `cart-${id}`) {
-            console.log('added to cart', id)
-            addItemToCart(id)
-        } else {
-            isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
-        }
-    }
+    // const handleClick = (e, ...rest) => {
+    //     console.log(e.target)
+    //     console.log(e.target.id)
+    //     const [ id ] = rest
+    //     console.log(id)
+    //     if(!id) {
+    //         navigate(`/${category}/${subcategory}/${e.target.id}`)
+    //     } else if (e.target.id === `cart-${id}`) {
+    //         console.log('added to cart', id)
+    //         addItemToCart(id)
+    //     } else {
+    //         isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
+    //     }
+    // }
 
     const handleClickNavigate = (e) => {
         navigate(`/${category}/${subcategory}/${e.target.id}`)

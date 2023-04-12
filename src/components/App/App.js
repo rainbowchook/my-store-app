@@ -202,7 +202,7 @@ function App() {
                   <Route index path="/" element={<Home {...{data}}/>} />
                   <Route exact path="signin" element={<SignIn {...{signIn}}/>} />
                   <Route exact path="signup" element={<SignUp />} />
-                  <Route exact path="wishlist" element={<Wishlist {...{user, favourites, data}} />} />
+                  <Route exact path="wishlist" element={<Wishlist {...{user, data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}} />} />
                   <Route exact path=":category" element={<Category />} />
                   <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
                   <Route exact path=":category/:subcategory/:id" element={<CategoryDetail />} />
