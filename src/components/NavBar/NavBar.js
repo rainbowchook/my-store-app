@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom'
 import AdbIcon from '@mui/icons-material/Adb';
 import { Stack } from '@mui/system';
 import './NavBar.css'
+import "@fontsource/bubblegum-sans"
 //need Context API to hold signin/signoff status, loading
 const NavBar = () => {
     const [isSignedIn, setIsSignedIn] = useState(false)
@@ -12,7 +13,7 @@ const NavBar = () => {
             <Link to="/">
                 <AdbIcon sx={{fontSize: 60}} color="primary" />
             </Link>
-            <p style={{textTransform: 'uppercase', fontWeight: 'bolder', fontFamily: 'cursive', fontSize: 30, color: '#1976d2'}}>Blue Bug Boutique</p>
+            <p style={{textTransform: 'uppercase', fontWeight: 'bolder', fontFamily: 'Bubblegum Sans, cursive', fontSize: 30, color: '#1976d2'}}>Blue Bug Boutique</p>
         </Stack>
         <Stack direction="row" sx={{marginRight: 10, marginLeft: 'auto', paddingY: 2}}>
             <nav className='nav-bar'>
@@ -29,7 +30,7 @@ const NavBar = () => {
                 }>Cart</NavLink>
                 {'   |   '}
                 {
-                    isSignedIn 
+                    !isSignedIn 
                         ? <NavLink to="/signin" className={({ isActive, isPending }) =>
                                 isPending ? "pending" : isActive ? "active" : ""
                             }>Sign In</NavLink>
