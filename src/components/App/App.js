@@ -85,6 +85,14 @@ function App() {
   //   , 0)
   // }
 
+  const getItemFromInventory = (itemId) => {
+    for(const category in data.products) {
+      let foundItem = data.products[category].find(item => item.id === itemId)
+      console.log(foundItem)
+      if(foundItem) return foundItem
+    }
+  }
+
   const updateCartCount = (cartItems) => {
     console.log('updateCartCount cartItems', cartItems)
     const newCartCount = calculateCartCount(cartItems)
@@ -99,7 +107,8 @@ function App() {
     // const cartItemIndex = isCartItemFound(cartItems, id)
     let newCartItems
     if(!isCartItemFound(cartItems, id)) {
-      newCartItems = addNewCartItem(cartItems, id)
+      const newCartItem = getItemFromInventory(id)
+      newCartItems = addNewCartItem(cartItems, newCartItem)
     } else {
       newCartItems = addToExistingCartItem(cartItems, id)
     }
@@ -207,28 +216,14 @@ function App() {
                   <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
                   <Route exact path=":category/:subcategory/:id" element={<CategoryDetail />} />
                   <Route exact path="checkout" element={<Checkout />} />
-                  <Route exact path="cart" element={<Cart />} />
+                  <Route exact path="cart" element={<Cart {...{user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
                   <Route exact path="profile/:user" element={<Profile />} />
                 </Routes>
               </Container>
-              
             )
           )
           
         }
-        {/* <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route index path="/" element={<Home {...{data}}/>} />
-          <Route exact path="signin" element={<SignIn />} />
-          <Route exact path="register" element={<Register />} />
-          <Route exact path="wishlist" element={<Wishlist user={'testuser'}/>} />
-          <Route exact path=":category" element={<Category />} />
-          <Route exact path=":category/:subcategory" element={<SubCategory {...{data}}/>} />
-          <Route exact path=":category/:subcategory/:id" element={<CategoryDetail />} />
-          <Route exact path="checkout" element={<Checkout />} />
-          <Route exact path="profile/:user" element={<Profile />} />
-        </Routes> */}
-        {/* <Footer /> */}
         <StickyFooter />
       </BrowserRouter>
     </>

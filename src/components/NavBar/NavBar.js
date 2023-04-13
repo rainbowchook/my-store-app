@@ -47,7 +47,7 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user, cartCount, favourit
                         </Badge>
                     </IconButton>
                 </NavLink>
-                <NavLink to="/checkout" className={({ isActive, isPending }) =>
+                <NavLink to="/cart" className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "active" : ""
                 }>
                     <IconButton aria-label={notificationsLabel(cartCount)}>

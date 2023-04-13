@@ -14,8 +14,11 @@ export const addToExistingCartItem = (cartItems, itemId) => {
     return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem)
 }
 
-export const addNewCartItem = (cartItems, itemId) => {
-    return [...cartItems, {id: itemId, quantity: 1}]
+// export const addNewCartItem = (cartItems, itemId) => {
+//     return [...cartItems, {id: itemId, quantity: 1}]
+// }
+export const addNewCartItem = (cartItems, item) => {
+    return [...cartItems, {...item, ...{quantity: 1}}]
 }
 
 export const removeFromExistingCartItem = (cartItems, itemId) => {
