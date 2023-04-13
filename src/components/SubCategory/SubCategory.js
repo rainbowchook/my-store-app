@@ -1,42 +1,69 @@
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 // import data from '../../data/data.json'
-import { Stack, ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
+import { Stack, Container, Grid, Card, CardActionArea, CardMedia, CardContent, Typography, ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-const SubCategory = ({data}) => {
+const SubCategory = ({data, addToCart, addToFavourites}) => {
     const {category, subcategory} = useParams()
+    const navigate = useNavigate()
+    const handleClick = (e) => {
+        console.log(e.target)
+        navigate(`/${category}/${subcategory}/${e.target.id}`)
+    }
     return (
         <>
-            <h4>{`${category.toUpperCase()} > ${subcategory.toUpperCase()}`}</h4>
-            <ImageList sx={{ width: 500, height: 450, minWidth: 0.7, marginX: 'auto', marginY: 3, maxHeight: 0.7}} cols={3} rowHeight={164}>
-                {data.products[category]
-                    .filter(item => item.subcategory === subcategory)
-                    .map(item => {
-                        const {id, name, description, image, amount, currency, subcategory} = item 
-                        console.log('item', item)
-                        return (
-                            <>
-                                <ImageListItem key={id}>
-                                    <img
-                                        // src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                                        // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                        src={image}
-                                        srcSet={`${image} 2x`}
-                                        alt={name}
-                                        loading="lazy"
-                                        id={id}
-                                    />
-                                </ImageListItem>
-                                <ImageListItemBar>
-                                    title={`${name} | ${subcategory} | ${currency}${amount}`}
-                                    subtitle={<span>{description}</span>}
-                                    position="below"
-                                </ImageListItemBar>
-                            </>
-                        )
-                })}
-            </ImageList>
+            {/* <h4>{`${category.toUpperCase()} > ${subcategory.toUpperCase()}`}</h4> */}
+            {/* <Container sx={{ width: '100vw', marginX: 'auto', marginY: 3, minHeight: '100vh', overFlowY:'scroll', textAlign: 'center'}}> */}
+            <Container sx={{ marginTop: 3, marginBottom: 10}}>
+                {/* <h4>{`${category.toUpperCase()} > ${subcategory.toUpperCase()}`}</h4> */}
+                <h4><span onClick={() => navigate('/')}>{category.toUpperCase()}</span>{'  >  '}<span onClick={() => navigate(`/${category}/${subcategory}`)}>{subcategory.toUpperCase()}</span></h4>
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
+                    {data.products[category]
+                        .filter(item => item.subcategory === subcategory)
+                        .map(item => {
+                            const {id, name, description, image, amount, currency} = item 
+                            // console.log('item', item)
+                            return (
+                                <Grid item xs={6} sm={4} md={3} key={`${name}-${id}`}>
+                                    <Card sx={{ maxWidth: 345, position: 'relative' }}>
+                                        <CardContent>
+                                            {/* <Typography gutterBottom variant="h8" component="div" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
+                                            {/* <Stack direction="row" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
+                                            <Stack direction="row-reverse" sx={{zIndex: 10, background: 'rgba(255,255,255,0)'}}>
+                                            {/* <FavoriteIcon onClick={addToFavourites} id={id} role='button' sx={{ color: '#FF1493' }} aria-label={`add product id ${id} to wishlist`}/> */}
+                                                <AddShoppingCartIcon onClick={addToCart} id={id} role='button' aria-label={`add product id ${id} to cart`} />
+                                                <FavoriteIcon onClick={addToFavourites} id={id} role='button' sx={{ color: '#FF1493' }} aria-label={`add product id ${id} to wishlist`}/>
+                                            </Stack>
+                                            {/* </Typography> */}
+                                        </CardContent>
+                                        <CardActionArea onClick={handleClick}>
+                                            <CardMedia
+                                            id={id}
+                                            component="img"
+                                            height="140"
+                                            width="205"
+                                            image={image}
+                                            alt={name}
+                                            />
+                                        </CardActionArea>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h8" component="div" sx={{fontWeight: 'small'}}>
+                                                {`${name}  |  ${currency}${amount}`}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {description}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                    
+                                </Grid>
+                            )
+                        })
+                    }
+                </Grid>
+            </Container>
         </>
-        
       )
 }
 
