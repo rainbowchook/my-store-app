@@ -16,7 +16,7 @@ import SubCategory from '../SubCategory/SubCategory';
 import Wishlist from '../Wishlist/Wishlist.js';
 import Cart from '../Cart/Cart';
 import StickyFooter from '../StickyFooter/StickyFooter';
-
+import {isCartItemFound, getCartItem, updateCartItem, addToExistingCartItem, addNewCartItem, removeFromExistingCartItem, clearCartItem, isFaveItem, getFaveItem, addFaveItem, removeFaveItem, calculateCartCount} from '../../utils/utilities'
 // import data from '../../data/data.json'
 
 const initialUser = {
@@ -36,54 +36,54 @@ function App() {
   const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
   const url = '/data/data.json'
   console.log(favourites ? true:false)
-  const isCartItemFound = (cartItems, itemId) => {
-    return cartItems.findIndex(cartItem => cartItem.id === itemId) < 0 ? false : true
-  }
+  // const isCartItemFound = (cartItems, itemId) => {
+  //   return cartItems.findIndex(cartItem => cartItem.id === itemId) < 0 ? false : true
+  // }
 
-  const getCartItem = (cartItems, itemId) => {
-    return cartItems.find(cartItem => cartItem.id === itemId)
-  }
+  // const getCartItem = (cartItems, itemId) => {
+  //   return cartItems.find(cartItem => cartItem.id === itemId)
+  // }
 
-  const updateCartItem = (cartItems, item) => {
-    return cartItems.map(cartItem => cartItem.id === item.id ? item : cartItem)
-  }
+  // const updateCartItem = (cartItems, item) => {
+  //   return cartItems.map(cartItem => cartItem.id === item.id ? item : cartItem)
+  // }
 
-  const addToExistingCartItem = (cartItems, itemId) => {
-    return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem)
-  }
+  // const addToExistingCartItem = (cartItems, itemId) => {
+  //   return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem)
+  // }
 
-  const addNewCartItem = (cartItems, itemId) => {
-    return [...cartItems, {id: itemId, quantity: 1}]
-  }
+  // const addNewCartItem = (cartItems, itemId) => {
+  //   return [...cartItems, {id: itemId, quantity: 1}]
+  // }
 
-  const removeFromExistingCartItem = (cartItems, itemId) => {
-    return cartItems.map(cartItem => cartItem.id !== itemId ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem)
-  }
+  // const removeFromExistingCartItem = (cartItems, itemId) => {
+  //   return cartItems.map(cartItem => cartItem.id !== itemId ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem)
+  // }
 
-  const clearCartItem = (cartItems, itemId) => {
-    return cartItems.filter(cartItem => cartItem.id !== itemId)
-  }
+  // const clearCartItem = (cartItems, itemId) => {
+  //   return cartItems.filter(cartItem => cartItem.id !== itemId)
+  // }
 
-  const isFaveItem = (favourites, itemId) => {
-    return favourites.findIndex(faveItem => faveItem === itemId) < 0 ? false : true
-  }
+  // const isFaveItem = (favourites, itemId) => {
+  //   return favourites.findIndex(faveItem => faveItem === itemId) < 0 ? false : true
+  // }
 
-  const getFaveItem = (favourites, itemId) => {
-    return favourites.find(faveItem => faveItem === itemId)
-  }
+  // const getFaveItem = (favourites, itemId) => {
+  //   return favourites.find(faveItem => faveItem === itemId)
+  // }
 
-  const addFaveItem = (favourites, itemId) => {
-    return [...favourites, itemId]
-  }
+  // const addFaveItem = (favourites, itemId) => {
+  //   return [...favourites, itemId]
+  // }
 
-  const removeFaveItem = (favourites, itemId) => {
-    return favourites.filter(faveItem => faveItem !== itemId)
-  }
+  // const removeFaveItem = (favourites, itemId) => {
+  //   return favourites.filter(faveItem => faveItem !== itemId)
+  // }
 
-  const calculateCartCount = (cartItems) => {
-    return cartItems.reduce((acc, curr) => acc + curr.quantity
-    , 0)
-  }
+  // const calculateCartCount = (cartItems) => {
+  //   return cartItems.reduce((acc, curr) => acc + curr.quantity
+  //   , 0)
+  // }
 
   const updateCartCount = (cartItems) => {
     console.log('updateCartCount cartItems', cartItems)
@@ -202,7 +202,7 @@ function App() {
                   <Route index path="/" element={<Home {...{data}}/>} />
                   <Route exact path="signin" element={<SignIn {...{signIn}}/>} />
                   <Route exact path="signup" element={<SignUp />} />
-                  <Route exact path="wishlist" element={<Wishlist user={user} favourites={favourites} />} />
+                  <Route exact path="wishlist" element={<Wishlist {...{user, favourites, data}} />} />
                   <Route exact path=":category" element={<Category />} />
                   <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
                   <Route exact path=":category/:subcategory/:id" element={<CategoryDetail />} />
