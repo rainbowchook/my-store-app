@@ -1,23 +1,22 @@
 import React from 'react'
 import { Stack, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material'
-import data from '../../data/data.json'
-const Category = ({ category, handleClick }) => {
-
+const Category = ({ category, handleClick, subcategories }) => {
+    // console.log(category, handleClick, subcategories)
     return (
         <>
-            <h2>{category.toUpperCase()}</h2>
+            <h4>{category.toUpperCase()}</h4>
             <Stack direction={'row'}>
-                
                 {
-                    data.categories[category].map( cat => {
-                        const {id, name, description, image, subcategory} = cat
+                    subcategories.map( subcat => {
+                        const {id, name, description, image, subcategory} = subcat
                         return (
                             <Card key={id} sx={{ maxWidth: 345 }}>
                                 <CardActionArea onClick={handleClick}>
                                     <CardMedia
-                                    id={subcategory}
+                                    id={`${category}-${subcategory}`}
                                     component="img"
                                     height="140"
+                                    width="205"
                                     image={image}
                                     alt={name}
                                     />
