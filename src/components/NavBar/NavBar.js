@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import AdbIcon from '@mui/icons-material/Adb';
-import { Stack, Avatar, Badge, IconButton } from '@mui/material';
+import { Stack, Avatar, Badge, IconButton, Typography } from '@mui/material';
 import './NavBar.css'
 import "@fontsource/bubblegum-sans"
 import HomeIcon from '@mui/icons-material/Home';
@@ -26,7 +26,7 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user, cartCount, favourit
             <Link to="/">
                 <AdbIcon sx={{fontSize: 60}} color="primary" />
             </Link>
-            <p style={{textTransform: 'uppercase', fontWeight: 'bolder', fontFamily: 'Bubblegum Sans, cursive', fontSize: 30, color: '#1976d2'}}>Blue Bug Boutique</p>
+            <Typography variant='body1' sx={{mt: 3, textTransform: 'uppercase', fontWeight: 'bolder', fontFamily: 'Bubblegum Sans, cursive', fontSize: 30, color: '#1976d2'}}>Blue Bug Boutique</Typography>
         </Stack>
         {/* <Stack direction="row" spacing={2} sx={{marginRight: 20, marginLeft: 'auto', paddingY: 2}}> */}
         <Stack direction="row" spacing={2} sx={{marginRight: 20, marginLeft: 'auto', paddingY: 2}}>

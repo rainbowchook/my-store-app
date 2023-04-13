@@ -1,4 +1,5 @@
 export const isCartItemFound = (cartItems, itemId) => {
+    console.log(cartItems.findIndex(cartItem => cartItem.id === itemId))
     return cartItems.findIndex(cartItem => cartItem.id === itemId) < 0 ? false : true
 }
 
@@ -11,7 +12,7 @@ export const updateCartItem = (cartItems, item) => {
 }
 
 export const addToExistingCartItem = (cartItems, itemId) => {
-    return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem)
+    return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, ...{quantity: cartItem.quantity + 1}} : cartItem)
 }
 
 // export const addNewCartItem = (cartItems, itemId) => {
@@ -22,7 +23,7 @@ export const addNewCartItem = (cartItems, item) => {
 }
 
 export const removeFromExistingCartItem = (cartItems, itemId) => {
-    return cartItems.map(cartItem => cartItem.id !== itemId ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem)
+    return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, ...{quantity: cartItem.quantity - 1}} : cartItem)
 }
 
 export const clearCartItem = (cartItems, itemId) => {
@@ -47,4 +48,15 @@ export const removeFaveItem = (favourites, itemId) => {
 
 export const calculateCartCount = (cartItems) => {
     return cartItems.reduce((acc, curr) => acc + curr.quantity, 0)
+}
+
+export const calculateCartSubtotal = (cartItems) => {
+    return cartItems.reduce((acc, curr) => acc + (curr.quantity * curr.amount), 0)
+}
+
+export const parseIntToDollarsAndCents = (num) => {
+    const dollars = Math.floor(num / 100)
+    const cents = num % 100
+
+    return `${dollars}.${cents < 10 ? `0${cents}` : cents}`
 }

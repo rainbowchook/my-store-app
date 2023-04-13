@@ -101,6 +101,20 @@ function App() {
   }
 
   //called by add '+' or '>' button from shopping cart
+  // const addItemToCart = (id) => {
+  //   // console.log(e.target.id)
+  //   // if(!e.target.id) return
+  //   // const cartItemIndex = isCartItemFound(cartItems, id)
+  //   let newCartItems
+  //   if(!isCartItemFound(cartItems, id)) {
+  //     const newCartItem = getItemFromInventory(id)
+  //     newCartItems = addNewCartItem(cartItems, newCartItem)
+  //   } else {
+  //     newCartItems = addToExistingCartItem(cartItems, id)
+  //   }
+  //   setCartItems(newCartItems)
+  //   updateCartCount(newCartItems)
+  // }
   const addItemToCart = (id) => {
     // console.log(e.target.id)
     // if(!e.target.id) return
@@ -118,30 +132,50 @@ function App() {
   //called by minus '-' or '<' button from shopping cart
   const removeItemFromCart = (id) => {
     // const cartItemIndex = isCartItemFound(cartItems, id)
+    console.log('removeItemFromCart', id)
+    console.log(isCartItemFound(cartItems, id))
     if(!isCartItemFound(cartItems, id)) return
     const cartItemToRemove = getCartItem(cartItems, id)
+    console.log(cartItemToRemove)
     let newCartItems
-    if(cartItemToRemove.quantity === 1) {
+    if(cartItemToRemove.quantity <= 1 && cartItemToRemove.quantity > 0) {
       newCartItems = clearCartItem(cartItems, id)
+      console.log('1 left')
     } else {
       newCartItems = removeFromExistingCartItem(cartItems, id)
+      console.log('at least 2 left')
     }
+    console.log(newCartItems)
     setCartItems(newCartItems)
     updateCartCount(newCartItems)
   }
   //called by delete 'x' button from shopping cart
   const clearItemFromCart = (id) => {
-    const cartItemIndex = isCartItemFound(cartItems, id)
-    if(cartItemIndex < 0) return
+    // const cartItemIndex = isCartItemFound(cartItems, id)
+    // if(cartItemIndex < 0) return
+    if(!isCartItemFound(cartItems, id)) return
     const newCartItems = clearCartItem(cartItems, id)
     setCartItems(newCartItems)
     updateCartCount(newCartItems)
   }
 
   const setNewQuantityForCartItem = (id, quantity) => {
-    const cartItemIndex = isCartItemFound(cartItems, id)
-    if(cartItemIndex < 0) return
-    const newCartItems = updateCartItem(cartItems, {id, quantity})
+    // let newCartItems
+    // if(!isCartItemFound(cartItems, id)) {
+    //   const newCartItem = getItemFromInventory(id)
+    //   newCartItems = addNewCartItem(cartItems, newCartItem)
+    // } else {
+    //   newCartItems = addToExistingCartItem(cartItems, id)
+    // }
+    // setCartItems(newCartItems)
+    // updateCartCount(newCartItems)
+    console.log('setNewQuantityForCartItem: id, quantity', {id, quantity})
+    if(quantity === 0) clearItemFromCart(id)
+    console.log(isCartItemFound(cartItems, id))
+    // if(!isCartItemFound(cartItems, id)) return
+    const newCartItem = getCartItem(cartItems, id)
+    console.log(newCartItem)
+    const newCartItems = updateCartItem(cartItems, {...newCartItem, ...{quantity}})
     setCartItems(newCartItems)
     updateCartCount(newCartItems)
   }

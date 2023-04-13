@@ -70,17 +70,30 @@ const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavo
     navigate(`/${category}/${subcategory}/${e.target.id}`)
   }
 
-  const handleClickCart = (e, id) => {
-    console.log(e.target)
-    console.log(e.target.id)
+  // const handleClickCart = (e, id) => {
+  //   console.log(e.target)
+  //   console.log(e.target.id)
+  //   console.log('handleClickCart', id)
+  //   addItemToCart(id)
+  //   removeFromFavourites(id)
+  // }
+
+  // const handleClickFave = (e, id) => {
+  //   console.log(e.target)
+  //   console.log(e.target.id)
+  //   console.log('handleClickFave', id)
+  //   if(!isFaveFound(id)) return
+  //   removeFromFavourites(id)
+  //   // isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
+  // }
+
+  const handleClickCart = (id) => {
     console.log('handleClickCart', id)
     addItemToCart(id)
     removeFromFavourites(id)
   }
 
-  const handleClickFave = (e, id) => {
-    console.log(e.target)
-    console.log(e.target.id)
+  const handleClickFave = (id) => {
     console.log('handleClickFave', id)
     if(!isFaveFound(id)) return
     removeFromFavourites(id)
@@ -109,11 +122,11 @@ const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavo
                                     {/* <Typography gutterBottom variant="h8" component="div" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
                                     {/* <Stack direction="row" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
                                     <Stack direction="row-reverse" sx={{background: 'rgba(255,255,255,0)'}}>
-                                        <IconButton onClick={e => handleClickCart(e, id)} aria-label={`add product id ${id} to cart`}>
+                                        <IconButton onClick={() => handleClickCart(id)} aria-label={`add product id ${id} to cart`}>
                                             <AddShoppingCartIcon id={`cart-${id}`} role='button' aria-label={`add product id ${id} to cart and remove from wishlist`} />
                                         </IconButton>
                                         { isFaveFound(id) &&
-                                          <IconButton onClick={e => handleClickFave(e, id)} aria-label={`add product id ${id} to wishlist`}>
+                                          <IconButton onClick={() => handleClickFave(id)} aria-label={`add product id ${id} to wishlist`}>
                                               {/* <FavoriteIcon id={`fav-${id}`} role='button' sx={{ color: 'rgb(255,20,147)'}} aria-label={`add product id ${id} to wishlist`}/> */}
                                               <FavoriteIcon id={`fav-${id}`} role='button' sx={{ color: isFaveFound(id) ? 'rgb(255,20,147)' : 'rgb(0,0,0, 0.35)'}} aria-label={`remove product id ${id} from wishlist`}/>
                                           </IconButton>
@@ -121,7 +134,7 @@ const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavo
                                     </Stack>
                                     {/* </Typography> */}
                                 </CardContent>
-                                <CardActionArea onClick={(e) => handleClickNavigate(e, category, subcategory, id)}>
+                                <CardActionArea onClick={(e) => handleClickNavigate(e, category, subcategory)}>
                                     <CardMedia
                                     id={id}
                                     component="img"

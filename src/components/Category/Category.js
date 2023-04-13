@@ -17,7 +17,7 @@ const Category = ({ category, handleClick, subcategories }) => {
                         const {id, name, description, image, subcategory} = subcat
                         return (
                             <Grid item xs={6} sm={4} md={3} key={`${name}-${id}`}>
-                                <Card key={id} sx={{ maxWidth: 345 }}>
+                                <Card key={id} sx={{ maxWidth: 345, maxHeight: 200, overflowY: 'scroll'}}>
                                     <CardActionArea onClick={handleClick}>
                                         <CardMedia
                                             name={`${category}-${subcategory}`}
@@ -28,15 +28,14 @@ const Category = ({ category, handleClick, subcategories }) => {
                                             alt={name}
                                         />
                                     </CardActionArea>
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div">
-                                                {subcategory}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {description}
-                                            </Typography>
-                                        </CardContent>
-                                    
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {subcategory}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {description}
+                                        </Typography>
+                                    </CardContent>
                                 </Card>
                             </Grid>
                         )  

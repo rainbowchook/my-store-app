@@ -1,160 +1,208 @@
-import {Container, Divider, Typography, Box} from '@mui/material'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import {Container, Divider, Typography, Box, IconButton, Button} from '@mui/material'
 // import { Stack, Container, IconButton, Grid, Card, CardActionArea, CardMedia, CardContent, Typography, ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import QuantitySelect from '../QuantitySelect/QuantitySelect';
+import { styled } from '@mui/material/styles'
+import { parseIntToDollarsAndCents, calculateCartSubtotal } from '../../utils/utilities'
 
-
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
   
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
+//   const StyledButton = styled(Button) (({ theme }) => ({
+//     '&:last-child div': {
+//         marginRight: 2, 
+//         marginLeft: 'auto', 
+//         paddingY: 2
+//     },
+    
+//     backgroundColor: theme.palette.common.black,
+//       color: theme.palette.common.white,
+//   }));
 
 const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}) => {
+    const [subtotal, setSubtotal] = useState(0)
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        const newSubtotal = calculateCartSubtotal(cartItems)
+        setSubtotal(newSubtotal)
+    }, [cartItems])
+
+    const handleClick = e => {
+        const {id} = e.target
+        if(id === 'checkout-cart')  {
+            console.log('inside handleClick for Cart - checkout cart')
+        }
+        if(id === 'continue-shopping') {
+            console.log('inside handleClick for Cart - continue shopping')
+            navigate('/')
+        }
+    }
+
+    const handleAddOneItem = (id, quantity, quantityInStock) => {
+        if(quantity >= quantityInStock) return
+        addItemToCart(id)
+    }
+
+    const handleRemoveOneItem = (id, quantity) => {
+        if(quantity <= 0) return
+        removeItemFromCart(id)
+    }
 
     return (
         <Container maxWidth="md">
-        <Typography variant="h4" component="h4" gutterBottom>
-            Shopping Cart
-        </Typography>
+            <Typography variant="h4" component="h4" gutterBottom>
+                {user && `${user.displayName}'s`}
+                {' '}
+                Shopping Cart
+            </Typography>
             <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <TableCell>Product Name</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                    <TableCell align="right">Price Per Unit&nbsp;(AUD)</TableCell>
-                    <TableCell align="right">Amount&nbsp;(AUD)</TableCell>
-                    <TableCell align="right">Remove Item</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {cartItems.map(item => {
-                    const {id, name, description, image, amount, currency, quantity} = item 
-                    console.log(item)
-                    return (
-                        <TableRow
-                        key={id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell component="th" scope="row">
-                            {name}
-                        </TableCell>
-                        <TableCell align="right">{quantity}</TableCell>
-                        <TableCell align="right">{currency} {amount}</TableCell>
-                        <TableCell align="right">{quantity * amount / 100}</TableCell>
-                        <TableCell align="right">{'bin icon'}</TableCell>
-                        </TableRow>
-                    )})
-                }
-                </TableBody>
-            </Table>
+                <Table sx={{ minWidth: 650 }} size="small" aria-label="shopping cart table">
+                    <TableHead>
+                    <StyledTableRow>
+                        <StyledTableCell>Product Name</StyledTableCell>
+                        <StyledTableCell align="center">Quantity</StyledTableCell>
+                        <StyledTableCell align="center">Price&nbsp;(AUD)</StyledTableCell>
+                        <StyledTableCell align="center">Subtotal&nbsp;(AUD)</StyledTableCell>
+                        <StyledTableCell align="center">Remove Item</StyledTableCell>
+                    </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                    {cartItems.map(item => {
+                        const {id, name, description, image, amount, currency, quantity, quantityInStock} = item 
+                        console.log(item)
+                        return (
+                            <StyledTableRow
+                            key={id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <StyledTableCell component="th" scope="row">
+                                    {name}
+                                </StyledTableCell>
+                                <StyledTableCell align="center">
+                                    <Stack direction="row">
+                                        <IconButton onClick={() => handleRemoveOneItem(id, quantity)} aria-label={`add product id ${id} to cart`}>
+                                            <ChevronLeftIcon id={`cart-${id}-remove`} />
+                                        </IconButton>
+                                        <QuantitySelect {...{ id, quantity, setNewQuantityForCartItem, quantityInStock }} />
+                                        {/* {quantity}  */}
+                                        <IconButton disabled={quantity === quantityInStock ? true : false} onClick={() => handleAddOneItem(id, quantity, quantityInStock)} aria-label={`add product id ${id} to cart`}>
+                                            <ChevronRightIcon id={`cart-${id}-add`} />
+                                        </IconButton>
+                                    </Stack>
+                                </StyledTableCell>
+                                <StyledTableCell align="center">{parseIntToDollarsAndCents(amount)}</StyledTableCell>
+                                <StyledTableCell align="center">{parseIntToDollarsAndCents(quantity * amount)}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    <IconButton onClick={() => clearItemFromCart(id)} aria-label={`add product id ${id} to cart`}>
+                                      <DeleteOutlineIcon id={`cart-${id}-clear`} />
+                                    </IconButton>
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        )})
+                    }
+                    </TableBody>
+                </Table>
             </TableContainer>
+            {/* <Divider /> */}
+            <Stack direction="row">
+                <Container sx={{ mt: 2, mb: 2}} maxWidth="sm">
+                    <Paper sx={{ p: 2 }}>
+                        <Typography variant="h6" component="h6" gutterBottom>
+                            ORDER SUMMARY | {cartCount} ITEM(S)
+                        </Typography>
+                        <Stack direction="row" sx={{mb: 3, mt: 2}}>
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                                <Typography variant="string">
+                                    Item(s) subtotal 
+                                </Typography>
+                            </Stack>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                                <Typography variant="string">
+                                    AUD {parseIntToDollarsAndCents(subtotal)}
+                                </Typography>
+                            </Stack>
+                        </Stack>
+                        <Stack direction="row">
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                                <Typography variant="h6" component="h6" gutterBottom>
+                                    SUBTOTAL 
+                                </Typography>
+                            </Stack>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                                <Typography variant="h6" component="h6" gutterBottom>
+                                    AUD {parseIntToDollarsAndCents(subtotal)}
+                                </Typography>
+                            </Stack>
+                        </Stack>
+                        <Stack direction="row">
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                                <Typography variant="h6" component="h6" gutterBottom>
+                                    ORDER TOTAL
+                                </Typography>
+                            </Stack>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                                <Typography variant="h6" component="h6" gutterBottom>
+                                    AUD {parseIntToDollarsAndCents(subtotal)}
+                                </Typography>
+                            </Stack>
+                        </Stack>
+                    </Paper>
+                </Container>
+                <Divider></Divider>
+                <Stack sx={{ mt: 2, mb: 2, justifyContent: 'center'}} maxWidth="sm">
+                    <Button 
+                        variant='contained' 
+                        sx={{mb: 2}} 
+                        id='checkout-cart' 
+                        onClick={handleClick}
+                        aria-label='checkout cart'
+                    >
+                        Checkout
+                    </Button>
+                    <Button 
+                        variant='outlined' 
+                        sx={{mb: 2}} 
+                        id='continue-shopping' 
+                        onClick={handleClick}
+                        aria-label='continue shopping'
+                    >
+                        Continue Shopping
+                    </Button>
+                </Stack>
+            </Stack>
         </Container>
     );
 
-//   return (
-//     <Container maxWidth="sm">
-//       <Typography variant="h4" component="h4" gutterBottom>
-//         Shopping Cart
-//       </Typography>
-//       <Box>
-//         {/* <Grid container rowSpacing={1} > */}
-//                     {cartItems
-//                         .map(item => {
-//                             const {id, name, description, image, amount, currency} = item 
-//                             // console.log('item', item)
-//                             return (
-//                                 <TableContainer component={Paper}>
-//                                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//                                         <TableHead>
-//                                         <TableRow>
-//                                             <TableCell>Dessert (100g serving)</TableCell>
-//                                             <TableCell align="right">Calories</TableCell>
-//                                             <TableCell align="right">Fat&nbsp;(g)</TableCell>
-//                                             <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-//                                             <TableCell align="right">Protein&nbsp;(g)</TableCell>
-//                                         </TableRow>
-//                                         </TableHead>
-//                                         <TableBody>
-//                                         {rows.map((row) => (
-//                                             <TableRow
-//                                             key={row.name}
-//                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-//                                             >
-//                                             <TableCell component="th" scope="row">
-//                                                 {row.name}
-//                                             </TableCell>
-//                                             <TableCell align="right">{row.calories}</TableCell>
-//                                             <TableCell align="right">{row.fat}</TableCell>
-//                                             <TableCell align="right">{row.carbs}</TableCell>
-//                                             <TableCell align="right">{row.protein}</TableCell>
-//                                             </TableRow>
-//                                         ))}
-//                                         </TableBody>
-//                                     </Table>
-//                                     </TableContainer>
-//                                 // <Grid item xs={6} sm={4} md={3} key={`${name}-${id}`}>
-//                                 //     <Card sx={{ maxWidth: 345, position: 'relative' }}>
-//                                 //         <CardContent>
-//                                 //             {/* <Typography gutterBottom variant="h8" component="div" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
-//                                 //             {/* <Stack direction="row" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
-//                                 //             <Stack direction="row-reverse" sx={{background: 'rgba(255,255,255,0)'}}>
-//                                 //                 <IconButton onClick={e => handleClickCart(e, id)} aria-label={`add product id ${id} to cart`}>
-//                                 //                     <AddShoppingCartIcon id={`cart-${id}`} role='button' aria-label={`add product id ${id} to cart`} />
-//                                 //                 </IconButton>
-//                                 //                 <IconButton onClick={e => handleClickFave(e, id)} aria-label={`add product id ${id} to wishlist`}>
-//                                 //                     {/* <FavoriteIcon id={`fav-${id}`} role='button' sx={{ color: 'rgb(255,20,147)'}} aria-label={`add product id ${id} to wishlist`}/> */}
-//                                 //                     <FavoriteIcon id={`fav-${id}`} role='button' sx={{ color: isFaveFound(id) ? 'rgb(255,20,147)' : 'rgb(0,0,0, 0.35)'}} aria-label={`add product id ${id} to wishlist`}/>
-//                                 //                 </IconButton>
-//                                 //             </Stack>
-//                                 //             {/* </Typography> */}
-//                                 //         </CardContent>
-//                                 //         <CardActionArea onClick={handleClickNavigate}>
-//                                 //             <CardMedia
-//                                 //             id={id}
-//                                 //             component="img"
-//                                 //             height="140"
-//                                 //             width="205"
-//                                 //             image={image}
-//                                 //             alt={name}
-//                                 //             />
-//                                 //         </CardActionArea>
-//                                 //         <CardContent>
-//                                 //             <Typography gutterBottom variant="h8" component="div" sx={{fontWeight: 'small'}}>
-//                                 //                 {`${name}  |  ${currency}${amount}`}
-//                                 //             </Typography>
-//                                 //             <Typography variant="body2" color="text.secondary">
-//                                 //                 {description}
-//                                 //             </Typography>
-//                                 //         </CardContent>
-//                                 //     </Card>
-                                    
-//                                 // </Grid>
-//                             )
-//                         })
-//                     }
-//                 {/* </Grid> */}
-                
-//         </Box>
-//         <Divider sx={{}}></Divider>
-//         <Box>
-
-//         </Box>
-//     </Container>
-//   )
 }
 
 export default Cart

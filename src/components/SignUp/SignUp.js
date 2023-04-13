@@ -118,6 +118,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">
+                  {/* Don't use the href provided here - useNavigate instead or else state wiped out - can consider keeping cart items and user session token in browser localStorage */}
                   Already have an account? Sign in
                 </Link>
               </Grid>
