@@ -61,6 +61,7 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
         const {id} = e.target
         if(id === 'checkout-cart')  {
             console.log('inside handleClick for Cart - checkout cart')
+            navigate('/checkout')
         }
         if(id === 'continue-shopping') {
             console.log('inside handleClick for Cart - continue shopping')
