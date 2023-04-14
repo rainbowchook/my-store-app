@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link as RouterLink} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -117,7 +118,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link variant="body2" component={RouterLink} to='/signin'>
                   {/* Don't use the href provided here - useNavigate instead or else state wiped out - can consider keeping cart items and user session token in browser localStorage */}
                   Already have an account? Sign in
                 </Link>

@@ -1,6 +1,5 @@
 import {useParams, useNavigate} from 'react-router-dom'
-// import data from '../../data/data.json'
-import { Stack, Container, IconButton, Grid, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material'
+import { Stack, Container, IconButton, Grid, Card, CardActionArea, CardMedia, CardContent, Typography, ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
@@ -9,37 +8,9 @@ const SubCategory = ({data, favourites, addItemToCart, isFaveFound, addToFavouri
     const navigate = useNavigate()
     console.log(favourites)
     
-    // const handleClick = (e, ...rest) => {
-    //     console.log(e.target)
-    //     console.log(e.target.id)
-    //     const [ id ] = rest
-    //     console.log(id)
-    //     if(!id) {
-    //         navigate(`/${category}/${subcategory}/${e.target.id}`)
-    //     } else if (e.target.id === `cart-${id}`) {
-    //         console.log('added to cart', id)
-    //         addItemToCart(id)
-    //     } else {
-    //         isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
-    //     }
-    // }
-
     const handleClickNavigate = (e) => {
         navigate(`/${category}/${subcategory}/${e.target.id}`)
     }
-
-    // const handleClickCart = (e, id) => {
-    //     console.log(e.target)
-    //     console.log(e.target.id)
-    //     console.log('added to cart', id)
-    //     addItemToCart(id)
-    // }
-
-    // const handleClickFave = (e, id) => {
-    //     console.log(e.target)
-    //     console.log(e.target.id)
-    //     isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
-    // }
 
     const handleClickCart = (id) => {
         console.log('added to cart', id)
@@ -99,14 +70,12 @@ const SubCategory = ({data, favourites, addItemToCart, isFaveFound, addToFavouri
                                         </Typography>
                                     </CardContent>
                                 </Card>
-                                
                             </Grid>
                         )
                     })
                 }
             </Grid>
         </Container>
-        
       )
 }
 

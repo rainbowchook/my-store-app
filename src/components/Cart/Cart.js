@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import {Container, Typography, Box, IconButton, Button} from '@mui/material'
+import { useNavigate, Link as RouterLink } from 'react-router-dom'
+import {Container, Typography, Box, IconButton, Button, Link} from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -49,6 +49,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}) => {
     const [subtotal, setSubtotal] = useState(0)
+    const [coupon, ] = useState('First-Time Subscriber')
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -97,7 +98,7 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                     </TableHead>
                     <TableBody>
                     {cartItems.map(item => {
-                        const {id, name, description, image, amount, currency, quantity, quantityInStock} = item 
+                        const {id, name, description, image, amount, currency, quantity, quantityInStock, category, subcategory} = item 
                         console.log(item)
                         return (
                             <StyledTableRow
@@ -105,7 +106,9 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <StyledTableCell component="th" scope="row">
-                                    {name}
+                                    <Link component={RouterLink} to={`/${category}/${subcategory}/${id}`}>
+                                        {name}
+                                    </Link>
                                 </StyledTableCell>
                                 <StyledTableCell align="center">
                                     <Stack direction="row">
@@ -151,6 +154,18 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                                 </Typography>
                             </Stack>
                         </Stack>
+                        <Stack direction="row" sx={{mb: 3, mt: 2}}>
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                                <Typography variant="string" color='InfoText'>
+                                    Coupon: {coupon ? `${coupon}` : 'none'}
+                                </Typography>
+                            </Stack>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                                <Typography variant="string">
+                                    - AUD {coupon ? parseIntToDollarsAndCents(subtotal * 0.05) : parseIntToDollarsAndCents(subtotal)}
+                                </Typography>
+                            </Stack>
+                        </Stack>
                         <Stack direction="row">
                             <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
                                 <Typography variant="h6" component="h6" gutterBottom>
@@ -163,14 +178,15 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                                 </Typography>
                             </Stack>
                         </Stack>
+                        
                         <Stack direction="row">
                             <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
-                                <Typography variant="h6" component="h6" gutterBottom>
+                                <Typography variant="h5" component="h6" gutterBottom>
                                     ORDER TOTAL
                                 </Typography>
                             </Stack>
                             <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
-                                <Typography variant="h6" component="h6" gutterBottom>
+                                <Typography variant="h5" component="h6" gutterBottom>
                                     AUD {parseIntToDollarsAndCents(subtotal)}
                                 </Typography>
                             </Stack>
@@ -181,17 +197,27 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                     <Button 
                         variant='contained' 
                         sx={{mb: 2}} 
+                        color='primary'
                         id='checkout-cart' 
                         onClick={handleClick}
                         aria-label='checkout cart'
                     >
                         Checkout
                     </Button>
-                    <Button 
+                    {/* <Button 
                         variant='outlined' 
                         sx={{mb: 2}} 
                         id='continue-shopping' 
                         onClick={handleClick}
+                        aria-label='continue shopping'
+                    > */}
+                     <Button 
+                        variant='outlined' 
+                        sx={{mb: 2}} 
+                        color='primary'
+                        id='continue-shopping' 
+                        component={RouterLink}
+                        to='/'
                         aria-label='continue shopping'
                     >
                         Continue Shopping

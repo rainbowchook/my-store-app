@@ -11,10 +11,10 @@ import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
 import CardMedia from '@mui/material/CardMedia'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { isEmptyObject } from '../../utils/utilities'
+import { isEmptyObject, parseIntToDollarsAndCents } from '../../utils/utilities'
 import QuantitySelect from '../QuantitySelect/QuantitySelect'
 
-const ProductDetail = ({data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}) => {
+const ProductDetail = ({isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}) => {
   const [product, setProduct] = useState({})
   const [currentCartItem, setCurrentCartItem] = useState({})
   const [isLoading, setIsloading] = useState(true)
@@ -89,7 +89,7 @@ const ProductDetail = ({data, favourites, addItemToCart, isFaveFound, addToFavou
                       {name}
                   </Typography>
                   <Typography gutterBottom variant="h4" component="h2" sx={{fontWeight: 'bold'}}>
-                      {`${currency} ${amount}`}
+                      {`${currency} ${parseIntToDollarsAndCents(amount)}`}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                       {description}
@@ -98,7 +98,7 @@ const ProductDetail = ({data, favourites, addItemToCart, isFaveFound, addToFavou
                       {'Aliqua consequat do ut amet non nostrud reprehenderit nisi exercitation. Ex occaecat exercitation nisi laboris sint anim mollit ipsum sit consectetur. Mollit veniam non minim anim ex exercitation qui deserunt culpa aliqua esse ad. Consequat irure elit elit nulla. Laborum eiusmod nostrud cupidatat aute officia aute ad tempor consequat.'}
                   </Typography>
               </CardContent>
-              <Divider sx={{marginY: 2}} role="presentation"></Divider>
+              <Divider sx={{marginY: 2, marginX: 4}} role="presentation"></Divider>
               <CardContent>
                   <Stack direction="row" sx={{background: 'rgba(255,255,255,0)'}}>
                       {/* <IconButton onClick={() => handleClickCart(id)} aria-label={`add product id ${id} to cart`}>

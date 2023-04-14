@@ -39,8 +39,8 @@ function App() {
   const getItemFromInventory = (itemId) => {
     for(const category in data.products) {
       let foundItem = data.products[category].find(item => item.id === itemId)
-      console.log(foundItem)
-      if(foundItem) return foundItem
+      console.log(foundItem, {...foundItem, ...{category}})
+      if(foundItem) return {...foundItem, ...{category}}
     }
   }
 
@@ -191,7 +191,7 @@ function App() {
                   <Route exact path="wishlist" element={<Wishlist {...{user, data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}} />} />
                   <Route exact path=":category" element={<Category />} />
                   <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
-                  <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
+                  <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
                   <Route exact path="checkout" element={<Checkout />} />
                   <Route exact path="cart" element={<Cart {...{user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
                   <Route exact path="profile/:user" element={<Profile />} />
