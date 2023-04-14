@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {Container, Divider, Typography, Box, IconButton, Button} from '@mui/material'
-// import { Stack, Container, IconButton, Grid, Card, CardActionArea, CardMedia, CardContent, Typography, ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
+import {Container, Typography, Box, IconButton, Button} from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -133,8 +132,8 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                     </TableBody>
                 </Table>
             </TableContainer>
-            {/* <Divider /> */}
-            <Stack direction="row">
+            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            {/* <Stack direction="row"> */}
                 <Container sx={{ mt: 2, mb: 2}} maxWidth="sm">
                     <Paper sx={{ p: 2 }}>
                         <Typography variant="h6" component="h6" gutterBottom>
@@ -178,7 +177,6 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                         </Stack>
                     </Paper>
                 </Container>
-                <Divider></Divider>
                 <Stack sx={{ mt: 2, mb: 2, justifyContent: 'center'}} maxWidth="sm">
                     <Button 
                         variant='contained' 
@@ -199,7 +197,8 @@ const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, cl
                         Continue Shopping
                     </Button>
                 </Stack>
-            </Stack>
+            {/* </Stack> */}
+            </Box>
         </Container>
     );
 

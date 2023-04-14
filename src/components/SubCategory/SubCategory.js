@@ -1,6 +1,6 @@
 import {useParams, useNavigate} from 'react-router-dom'
 // import data from '../../data/data.json'
-import { Stack, Container, IconButton, Grid, Card, CardActionArea, CardMedia, CardContent, Typography, ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
+import { Stack, Container, IconButton, Grid, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 

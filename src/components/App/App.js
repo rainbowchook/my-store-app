@@ -11,7 +11,7 @@ import NotFound from '../NotFound/NotFound';
 import Checkout from '../Checkout/Checkout';
 import Profile from '../Profile/Profile'
 import Footer from '../Footer/Footer';
-import CategoryDetail from '../CategoryDetail/CategoryDetail';
+import ProductDetail from '../ProductDetail/ProductDetail';
 import SubCategory from '../SubCategory/SubCategory';
 import Wishlist from '../Wishlist/Wishlist.js';
 import Cart from '../Cart/Cart';
@@ -35,55 +35,6 @@ function App() {
   const [favourites, setFavourites] = useState([])
   const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
   const url = '/data/data.json'
-  console.log(favourites ? true:false)
-  // const isCartItemFound = (cartItems, itemId) => {
-  //   return cartItems.findIndex(cartItem => cartItem.id === itemId) < 0 ? false : true
-  // }
-
-  // const getCartItem = (cartItems, itemId) => {
-  //   return cartItems.find(cartItem => cartItem.id === itemId)
-  // }
-
-  // const updateCartItem = (cartItems, item) => {
-  //   return cartItems.map(cartItem => cartItem.id === item.id ? item : cartItem)
-  // }
-
-  // const addToExistingCartItem = (cartItems, itemId) => {
-  //   return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem)
-  // }
-
-  // const addNewCartItem = (cartItems, itemId) => {
-  //   return [...cartItems, {id: itemId, quantity: 1}]
-  // }
-
-  // const removeFromExistingCartItem = (cartItems, itemId) => {
-  //   return cartItems.map(cartItem => cartItem.id !== itemId ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem)
-  // }
-
-  // const clearCartItem = (cartItems, itemId) => {
-  //   return cartItems.filter(cartItem => cartItem.id !== itemId)
-  // }
-
-  // const isFaveItem = (favourites, itemId) => {
-  //   return favourites.findIndex(faveItem => faveItem === itemId) < 0 ? false : true
-  // }
-
-  // const getFaveItem = (favourites, itemId) => {
-  //   return favourites.find(faveItem => faveItem === itemId)
-  // }
-
-  // const addFaveItem = (favourites, itemId) => {
-  //   return [...favourites, itemId]
-  // }
-
-  // const removeFaveItem = (favourites, itemId) => {
-  //   return favourites.filter(faveItem => faveItem !== itemId)
-  // }
-
-  // const calculateCartCount = (cartItems) => {
-  //   return cartItems.reduce((acc, curr) => acc + curr.quantity
-  //   , 0)
-  // }
 
   const getItemFromInventory = (itemId) => {
     for(const category in data.products) {
@@ -100,25 +51,7 @@ function App() {
     setCartCount(newCartCount)
   }
 
-  //called by add '+' or '>' button from shopping cart
-  // const addItemToCart = (id) => {
-  //   // console.log(e.target.id)
-  //   // if(!e.target.id) return
-  //   // const cartItemIndex = isCartItemFound(cartItems, id)
-  //   let newCartItems
-  //   if(!isCartItemFound(cartItems, id)) {
-  //     const newCartItem = getItemFromInventory(id)
-  //     newCartItems = addNewCartItem(cartItems, newCartItem)
-  //   } else {
-  //     newCartItems = addToExistingCartItem(cartItems, id)
-  //   }
-  //   setCartItems(newCartItems)
-  //   updateCartCount(newCartItems)
-  // }
   const addItemToCart = (id) => {
-    // console.log(e.target.id)
-    // if(!e.target.id) return
-    // const cartItemIndex = isCartItemFound(cartItems, id)
     let newCartItems
     if(!isCartItemFound(cartItems, id)) {
       const newCartItem = getItemFromInventory(id)
@@ -173,9 +106,19 @@ function App() {
     if(quantity === 0) clearItemFromCart(id)
     console.log(isCartItemFound(cartItems, id))
     // if(!isCartItemFound(cartItems, id)) return
-    const newCartItem = getCartItem(cartItems, id)
-    console.log(newCartItem)
-    const newCartItems = updateCartItem(cartItems, {...newCartItem, ...{quantity}})
+    let newCartItems
+    if(!isCartItemFound(cartItems, id)) {
+      const newCartItem = getItemFromInventory(id)
+      console.log(newCartItem, quantity)
+      newCartItems = addNewCartItem(cartItems, {...newCartItem, ...{ quantity }})
+      console.log(newCartItems, quantity)
+
+    } else {
+      const newCartItem = getCartItem(cartItems, id)
+      console.log(newCartItem)
+      newCartItems = updateCartItem(cartItems, {...newCartItem, ...{quantity}})
+      console.log(newCartItems)
+    }
     setCartItems(newCartItems)
     updateCartCount(newCartItems)
   }
@@ -248,7 +191,7 @@ function App() {
                   <Route exact path="wishlist" element={<Wishlist {...{user, data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}} />} />
                   <Route exact path=":category" element={<Category />} />
                   <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
-                  <Route exact path=":category/:subcategory/:id" element={<CategoryDetail />} />
+                  <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
                   <Route exact path="checkout" element={<Checkout />} />
                   <Route exact path="cart" element={<Cart {...{user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
                   <Route exact path="profile/:user" element={<Profile />} />

@@ -14,31 +14,6 @@ const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavo
       console.log(!favourites.length)
       // console.log(favouriteItems === favourites)
       console.log(favourites)
-      // const newFavouriteItems = favourites.flatMap(favourite => {
-      //   console.log('1 favourite', favourite)
-      //   let newFavourite
-      //   for(const category in data.products) {
-      //     console.log('2 category', category)
-      //     newFavourite = data.products[category]
-      //       .filter(item => item.id === favourite)
-      //       .map(item => ({...item, category}))
-      //     console.log('3 newFavourite', newFavourite)
-      //   }
-      //   return newFavourite
-      // })
-      // console.log(newFavouriteItems)
-      // return newFavouriteItems
-      // return favourites.flatMap(favourite => {
-      //     let newFavourite
-      //     for(const category in data.products) {
-      //       console.log(category)
-      //       newFavourite = data.products[category]
-      //         .filter(item => item.id === favourite)
-      //         .map(item => ({...item, category}))
-      //     }
-      //     console.log(newFavourite)
-      //     return newFavourite
-      //   })
       return favourites.map(favourite => {
         let newFav
         for(const category in data.products) {
@@ -57,35 +32,9 @@ const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavo
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favourites, data])
 
-  // const handleClickCart = (e, id) => {
-  //   console.log('handleClickCart', id)
-
-  // }
-
-  // const handleClickFave = (e, id) => {
-  //   console.log(('handleClickFave', id))
-  // }
-
   const handleClickNavigate = (e, category, subcategory) => {
     navigate(`/${category}/${subcategory}/${e.target.id}`)
   }
-
-  // const handleClickCart = (e, id) => {
-  //   console.log(e.target)
-  //   console.log(e.target.id)
-  //   console.log('handleClickCart', id)
-  //   addItemToCart(id)
-  //   removeFromFavourites(id)
-  // }
-
-  // const handleClickFave = (e, id) => {
-  //   console.log(e.target)
-  //   console.log(e.target.id)
-  //   console.log('handleClickFave', id)
-  //   if(!isFaveFound(id)) return
-  //   removeFromFavourites(id)
-  //   // isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
-  // }
 
   const handleClickCart = (id) => {
     console.log('handleClickCart', id)
@@ -114,7 +63,6 @@ const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavo
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
                 {favouriteItems.map(item => {
                     const {id, name, description, image, amount, currency, subcategory, category} = item 
-                    // console.log('item', item)
                     return (
                         <Grid item xs={6} sm={4} md={3} key={`${name}-${id}`}>
                             <Card sx={{ maxWidth: 345, position: 'relative' }}>

@@ -6,8 +6,9 @@ import Select from '@mui/material/Select';
 
 export default function QuantitySelect({ id, quantity, setNewQuantityForCartItem, quantityInStock = 10 }) {
 
+  console.log({ id, quantity, setNewQuantityForCartItem, quantityInStock})
   const handleChange = (event) => {
-    console.log(event.target.value)
+    console.log('QuantitySelect target value', event.target.value)
     const newQuantity = event.target.value
     setNewQuantityForCartItem(id, newQuantity);
   };

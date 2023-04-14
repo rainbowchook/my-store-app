@@ -19,7 +19,7 @@ export const addToExistingCartItem = (cartItems, itemId) => {
 //     return [...cartItems, {id: itemId, quantity: 1}]
 // }
 export const addNewCartItem = (cartItems, item) => {
-    return [...cartItems, {...item, ...{quantity: 1}}]
+    return item.quantity === undefined ? [...cartItems, {...item, ...{quantity: 1}}] : [...cartItems, {...item, ...{quantity: item.quantity}}]
 }
 
 export const removeFromExistingCartItem = (cartItems, itemId) => {
@@ -59,4 +59,8 @@ export const parseIntToDollarsAndCents = (num) => {
     const cents = num % 100
 
     return `${dollars}.${cents < 10 ? `0${cents}` : cents}`
+}
+
+export const isEmptyObject = (value) => {
+    return typeof value === 'object' && value != null && Object.keys(value).length === 0 ? true : false
 }
