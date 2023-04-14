@@ -1,7 +1,4 @@
 import * as React from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js'
-import CheckoutForm from '../CheckoutForm/CheckoutForm'
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
