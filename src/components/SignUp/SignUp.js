@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Link as RouterLink} from 'react-router-dom'
+import {useNavigate, Link as RouterLink} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { signUpUser } from '../../utils/firebase.utils'
 
 function Copyright(props) {
   return (
@@ -31,19 +32,30 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [error, setError] = useState('')
+  const navigate = useNavigate()
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(event.currentTarget)
     const data = new FormData(event.currentTarget);
-    console.log({
+    if(data.get('password1') !== data.get('password2')) {
+      return setError('Please try again. Passwords do not match.')
+    }
+    const formData = {
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       email: data.get('email'),
-    });
-    if(data.get('password1') !== data.get('password2')) {
-      setError('Please try again. Passwords do not match.')
+      password: data.get('password1')
     }
+    console.log(event.currentTarget.node)
+    console.log(event.target)
+    console.log(formData)
+    console.log(typeof data.get('password1'))
+    setError('')
+
+    const { firstName, lastName, email, password} = formData
+    const res = await signUpUser(firstName, lastName, email, password)
+    if(res.error) setError('Unable to sign up. ' + res.error)
   };
 
   return (
@@ -64,6 +76,11 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          { error &&
+              <Typography variant="body2" color='error.main'>
+                {error}
+              </Typography>
+          }
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -102,8 +119,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password1"
-                  label="Password1"
-                  type="password1"
+                  label="Password"
+                  type="password"
                   id="password1"
                   autoComplete="new-password"
                 />
@@ -113,8 +130,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password2"
-                  label="Password2"
-                  type="password2"
+                  label="Confirm Password"
+                  type="password"
                   id="password2"
                   autoComplete="new-password"
                 />

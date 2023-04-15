@@ -68,7 +68,7 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, cartCount, favourites}) =
                     : <NavLink to="/" className={({ isActive, isPending }) =>
                             isPending ? "pending" : isActive ? "active" : ""
                         }>  
-                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName || ''}>{`${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}` || ''}</Avatar> 
+                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName || ''}>{`${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}</Avatar> 
                         </NavLink>
                 }
 

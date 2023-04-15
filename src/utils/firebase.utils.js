@@ -45,6 +45,7 @@ export const setUserSession = async (email, password) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode, errorMessage)
+    return { error: `${errorCode}: ${errorMessage}`}
   }
   // setPersistence(auth, browserSessionPersistence)
   //   .then(() => {
@@ -62,14 +63,15 @@ export const setUserSession = async (email, password) => {
 }
 
 //set auth state persistence to session for sign up too
-export const signUpUser = async (email, password) => {
+export const signUpUser = async (firstName, lastName, email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     console.log(userCredential)
     const user = userCredential.user
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
-      name: user.displayName,
+      firstName,
+      lastName,
       email: user.email,
     })
     console.log(user)
@@ -78,6 +80,7 @@ export const signUpUser = async (email, password) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode, errorMessage)
+    return { error: `${errorCode}: ${errorMessage}`}
   }
 }
 
@@ -90,6 +93,7 @@ export const signInUser = async (email, password) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode, errorMessage)
+    return { error: `${errorCode}: ${errorMessage}`}
   }
 }
 
