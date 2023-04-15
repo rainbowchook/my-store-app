@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { CssBaseline, Container } from '@mui/material';
@@ -16,6 +16,7 @@ import SubCategory from '../SubCategory/SubCategory';
 import Wishlist from '../Wishlist/Wishlist.js';
 import Cart from '../Cart/Cart';
 import StickyFooter from '../StickyFooter/StickyFooter';
+import { AuthProvider } from '../../contexts/AuthContext'
 import {isCartItemFound, getCartItem, updateCartItem, addToExistingCartItem, addNewCartItem, removeFromExistingCartItem, clearCartItem, isFaveItem, getFaveItem, addFaveItem, removeFaveItem, calculateCartCount} from '../../utils/utilities'
 // import data from '../../data/data.json'
 
@@ -33,7 +34,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]) //move to UserContext
   const [cartCount, setCartCount] = useState(0)
   const [favourites, setFavourites] = useState([])
-  const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
+  // const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
   const url = '/data/data.json'
 
   const getItemFromInventory = (itemId) => {
@@ -148,18 +149,18 @@ function App() {
   }
 
   
-  const signIn = (signinData) => {
-    const {email, password} = signinData
-    //pull data from user authentication and firestore
-    console.log('in App signIn fn', {email, password})
-    const newUser = {
-      displayName: 'Annie Smith',
-      email,
-      favourites: [],
-    }
-    setUser(newUser)
-    setIsSignedIn(true)
-  }
+  // const signIn = (signinData) => {
+  //   const {email, password} = signinData
+  //   //pull data from user authentication and firestore
+  //   console.log('in App signIn fn', {email, password})
+  //   const newUser = {
+  //     displayName: 'Annie Smith',
+  //     email,
+  //     favourites: [],
+  //   }
+  //   setUser(newUser)
+  //   setIsSignedIn(true)
+  // }
   
   useEffect(() => {
       // setIsLoading(true)
@@ -184,30 +185,32 @@ function App() {
     <>
       <CssBaseline enableColorScheme/>
       <BrowserRouter>
-        <NavBar {...{isSignedIn, setIsSignedIn, cartItems, user, cartCount, favourites}}/>
-        {
-          error && error.length ? <p>{error}</p> : (
-            isLoading || data.length === 0 ? <p>Loading...</p> : (
-              <Container sx={{marginBottom: 10}}>
-                <Routes>
-                  <Route path="*" element={<NotFound />} />
-                  <Route index path="/" element={<Home {...{data}}/>} />
-                  <Route exact path="signin" element={<SignIn {...{signIn}}/>} />
-                  <Route exact path="signup" element={<SignUp />} />
-                  <Route exact path="wishlist" element={<Wishlist {...{user, data, favourites, addItemToCart, isFaveFound, removeFromFavourites}} />} />
-                  <Route exact path=":category" element={<Category />} />
-                  <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
-                  <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
-                  <Route exact path="checkout" element={<Checkout />} />
-                  <Route exact path="cart" element={<Cart {...{user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
-                  <Route exact path="profile/:user" element={<Profile />} />
-                </Routes>
-              </Container>
+        <AuthProvider>
+          <NavBar {...{isSignedIn, setIsSignedIn, cartItems, cartCount, favourites}}/>
+          {
+            error && error.length ? <p>{error}</p> : (
+              isLoading || data.length === 0 ? <p>Loading...</p> : (
+                <Container sx={{marginBottom: 10}}>
+                  <Routes>
+                    <Route path="*" element={<NotFound />} />
+                    <Route index path="/" element={<Home {...{data}}/>} />
+                    <Route exact path="signin" element={<SignIn />} />
+                    <Route exact path="signup" element={<SignUp />} />
+                    <Route exact path="wishlist" element={<Wishlist {...{data, favourites, addItemToCart, isFaveFound, removeFromFavourites}} />} />
+                    <Route exact path=":category" element={<Category />} />
+                    <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
+                    <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
+                    <Route exact path="checkout" element={<Checkout />} />
+                    <Route exact path="cart" element={<Cart {...{cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
+                    <Route exact path="profile/:user" element={<Profile />} />
+                  </Routes>
+                </Container>
+              )
             )
-          )
-          
-        }
-        <StickyFooter />
+            
+          }
+          <StickyFooter />
+        </AuthProvider>
       </BrowserRouter>
     </>
   )

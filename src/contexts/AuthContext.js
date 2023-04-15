@@ -1,19 +1,24 @@
 import { createContext, useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { signUpUser, signInUser, signOutUser } from '../utils/firebase.utils'
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, signUpUser, signInUser, signOutUser } from '../utils/firebase.utils'
 
-const AuthContext = createContext()
-const auth = getAuth()
+export const AuthContext = createContext()
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUser(user)
+            if (user) {
+                setUser(user)
+            } else {
+                setUser(null)
+            }
+            
         })
         return () => {
             unsubscribe()
+            setUser(null)
         }
     }, [])
 

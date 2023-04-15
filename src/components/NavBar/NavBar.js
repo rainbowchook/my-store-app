@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useContext, useState} from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import AdbIcon from '@mui/icons-material/Adb';
 import { Stack, Avatar, Badge, IconButton, Typography } from '@mui/material';
@@ -7,9 +7,12 @@ import "@fontsource/bubblegum-sans"
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-//need Context API to hold signin/signoff status, loading
-const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user, cartCount, favourites}) => {
+import { AuthContext } from '../../contexts/AuthContext';
+//need Context API to hold signin/signoff status, loading (consider a custom hook for loading)
+const NavBar = ({isSignedIn, setIsSignedIn, cartItems, cartCount, favourites}) => {
     // const [isSignedIn, setIsSignedIn] = useState(false)
+    const { user } = useContext(AuthContext)
+
     const notificationsLabel = (count) => {
         if (count === 0) {
         return 'no notifications';
@@ -65,7 +68,7 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, user, cartCount, favourit
                     : <NavLink to="/" className={({ isActive, isPending }) =>
                             isPending ? "pending" : isActive ? "active" : ""
                         }>  
-                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName}>{`${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}</Avatar> 
+                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName || ''}>{`${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}` || ''}</Avatar> 
                         </NavLink>
                 }
 

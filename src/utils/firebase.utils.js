@@ -9,7 +9,7 @@ import {
   setPersistence, 
   browserSessionPersistence 
 } from 'firebase/auth'
-import { getFireStore, addDoc, collection } from 'firebase/firestore'
+import { getFirestore, addDoc, getDocs, collection } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,15 +21,16 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID
-};
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFireStore()
+const db = getFirestore()
 
 // const GoogleAuthProvider =
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+export const auth = getAuth(app);
+console.log(auth)
 
 export const setUserSession = async (email, password) => {
   try {
@@ -39,7 +40,7 @@ export const setUserSession = async (email, password) => {
     // ...
     // New sign-in will be persisted with session persistence.
     await setPersistence(auth, browserSessionPersistence)
-    signInUser(email, password)
+    return signInUser(email, password)
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;

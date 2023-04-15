@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import {Link as RouterLink} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -30,13 +30,20 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [error, setError] = useState('')
+  
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(event.currentTarget)
     const data = new FormData(event.currentTarget);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
-      password: data.get('password'),
     });
+    if(data.get('password1') !== data.get('password2')) {
+      setError('Please try again. Passwords do not match.')
+    }
   };
 
   return (
@@ -94,10 +101,21 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
+                  name="password1"
+                  label="Password1"
+                  type="password1"
+                  id="password1"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password2"
+                  label="Password2"
+                  type="password2"
+                  id="password2"
                   autoComplete="new-password"
                 />
               </Grid>

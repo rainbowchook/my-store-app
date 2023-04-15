@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Typography, Grid, Card, CardActionArea, CardMedia, CardContent, Stack, IconButton } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { AuthContext } from '../../contexts/AuthContext';
 
-const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, removeFromFavourites}) => {
+const Wishlist = ({data, favourites, addItemToCart, isFaveFound, removeFromFavourites}) => {
   const [favouriteItems, setFavouriteItems] = useState([])
   const navigate = useNavigate()
+  const { user } = useContext(AuthContext)
   
   useEffect(() => {
     const populateFavouriteItems = (favourites) => {

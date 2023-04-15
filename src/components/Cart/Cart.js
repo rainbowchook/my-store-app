@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import {Container, Typography, Box, IconButton, Button, Link} from '@mui/material'
 import Table from '@mui/material/Table';
@@ -15,6 +15,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import QuantitySelect from '../QuantitySelect/QuantitySelect';
 import { styled } from '@mui/material/styles'
 import { parseIntToDollarsAndCents, calculateCartSubtotal } from '../../utils/utilities'
+import { AuthContext } from '../../contexts/AuthContext'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,10 +48,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 //       color: theme.palette.common.white,
 //   }));
 
-const Cart = ({user, cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}) => {
+const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}) => {
     const [subtotal, setSubtotal] = useState(0)
     const [coupon, ] = useState('First-Time Subscriber')
     const navigate = useNavigate()
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         const newSubtotal = calculateCartSubtotal(cartItems)
