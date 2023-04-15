@@ -199,8 +199,14 @@ function App() {
                     <Route exact path="signup" element={<SignUp />} />
                     <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
                     <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
-                    <Route exact path="checkout" element={<Checkout />} />
                     <Route exact path="cart" element={<Cart {...{cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
+                    <Route exact path="checkout" 
+                      element={
+                        <ProtectedRoute>
+                          <Checkout />
+                        </ProtectedRoute>
+                        } 
+                      />
                     <Route exact path="wishlist" 
                       element={
                         <ProtectedRoute>
