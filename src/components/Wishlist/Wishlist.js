@@ -4,7 +4,7 @@ import { Container, Typography, Grid, Card, CardActionArea, CardMedia, CardConte
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}) => {
+const Wishlist = ({user, data, favourites, addItemToCart, isFaveFound, removeFromFavourites}) => {
   const [favouriteItems, setFavouriteItems] = useState([])
   const navigate = useNavigate()
   

@@ -57,7 +57,13 @@ function App() {
       const newCartItem = getItemFromInventory(id)
       newCartItems = addNewCartItem(cartItems, newCartItem)
     } else {
-      newCartItems = addToExistingCartItem(cartItems, id)
+      const { quantity, quantityInStock } = getCartItem(cartItems, id)
+      if(quantity !== quantityInStock) {
+        newCartItems = addToExistingCartItem(cartItems, id)
+      } else {
+        return alert('Not enough stock')
+        // return { error: 'Not enough stock'} //toastify it?
+      }
     }
     setCartItems(newCartItems)
     updateCartCount(newCartItems)
@@ -188,7 +194,7 @@ function App() {
                   <Route index path="/" element={<Home {...{data}}/>} />
                   <Route exact path="signin" element={<SignIn {...{signIn}}/>} />
                   <Route exact path="signup" element={<SignUp />} />
-                  <Route exact path="wishlist" element={<Wishlist {...{user, data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}} />} />
+                  <Route exact path="wishlist" element={<Wishlist {...{user, data, favourites, addItemToCart, isFaveFound, removeFromFavourites}} />} />
                   <Route exact path=":category" element={<Category />} />
                   <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
                   <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
