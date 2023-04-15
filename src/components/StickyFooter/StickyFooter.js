@@ -4,6 +4,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import IconButton from '@mui/material/IconButton';
 
 function Copyright() {
   return (
@@ -51,12 +56,33 @@ export default function StickyFooter() {
         }}
       >
         <Container maxWidth="sm">
-          <Typography variant="body1">
-            My sticky footer can be found here.
-          </Typography>
+          
           <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-            <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-            <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+            <Typography sx={{ minWidth: 100 }} variant="body1">
+              Find us here:
+            </Typography>
+            {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
+            <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+            <Link color="inherit" href="https://mui.com/" target="_blank" rel="noopener" aria-label="To learn more, visit the Facebook page which opens in a new window.">
+              <IconButton aria-label={'facebook-link'}>
+                <FacebookIcon fontSize='large'/>
+              </IconButton>
+            </Link>{' '}
+            <Link color="inherit" href="https://mui.com/" target="_blank" rel="noopener" aria-label="To learn more, visit the Instagram page which opens in a new window.">
+              <IconButton aria-label={'facebook-link'}>
+                <InstagramIcon fontSize='large'/>
+              </IconButton>
+            </Link>{' '}
+            <Link color="inherit" href="https://mui.com/" target="_blank" rel="noopener" aria-label="To learn more, visit the Twitter page which opens in a new window.">
+              <IconButton aria-label={'facebook-link'}>
+                <TwitterIcon fontSize='large'/>
+              </IconButton>
+            </Link>{' '}
+            <Link color="inherit" href="https://mui.com/" target="_blank" rel="noopener" aria-label="To learn more, visit the LinkedIn page which opens in a new window.">
+              <IconButton aria-label={'facebook-link'}>
+                <LinkedInIcon fontSize='large'/>
+              </IconButton>
+            </Link>{' '}
           </Box>
           <Copyright />
         </Container>
