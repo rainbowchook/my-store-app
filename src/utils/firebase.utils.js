@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword, 
   signOut,
   signInWithPopup,
+  GoogleAuthProvider,
   setPersistence, 
   browserSessionPersistence 
 } from 'firebase/auth'
@@ -27,7 +28,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore()
 
-// const GoogleAuthProvider =
+const GoogleProvider = new GoogleAuthProvider()
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 console.log(auth)
@@ -72,7 +73,10 @@ export const signUpUser = async (firstName, lastName, email, password) => {
       uid: user.uid,
       firstName,
       lastName,
+      displayName: user.displayName,
       email: user.email,
+      phone: user.phoneNumber,
+      photoURL: user.phoneNumber
     })
     console.log(user)
     return user
@@ -89,6 +93,7 @@ export const signInUser = async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     const user = userCredential.user
     console.log(user)
+    return user
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
@@ -97,14 +102,25 @@ export const signInUser = async (email, password) => {
   }
 }
 
-// export const signInUserWithGoogle = async (email, password) => {
-//   const userCredential = await signInWithPopup(auth, GoogleProvider);
-//   // The signed-in user info.
-//   const user = userCredential.user;
-//   // This gives you a Google Access Token.
-//   const credential = GoogleProvider.credentialFromResult(auth, result);
-//   const token = credential.accessToken;
-// }
+export const signInUserWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, GoogleProvider);
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+    return user
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage)
+    return { error: `${errorCode}: ${errorMessage}`}
+  }
+  
+}
 
 export const signOutUser = async () => {
   try {

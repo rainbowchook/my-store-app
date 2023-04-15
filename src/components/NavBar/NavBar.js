@@ -8,10 +8,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { AuthContext } from '../../contexts/AuthContext';
+import AccountMenu from '../AccountMenu/AccountMenu';
 //need Context API to hold signin/signoff status, loading (consider a custom hook for loading)
-const NavBar = ({isSignedIn, setIsSignedIn, cartItems, cartCount, favourites}) => {
+const NavBar = ({cartItems, cartCount, favourites}) => {
     // const [isSignedIn, setIsSignedIn] = useState(false)
-    const { user } = useContext(AuthContext)
+    const { user , isSignedIn} = useContext(AuthContext)
 
     const notificationsLabel = (count) => {
         if (count === 0) {
@@ -59,7 +60,7 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, cartCount, favourites}) =
                         </Badge>
                     </IconButton>
                 </NavLink>
-                { !isSignedIn 
+                {/* { !isSignedIn
                     ? <NavLink to="/signin" className={({ isActive, isPending }) =>
                             isPending ? "pending" : isActive ? "active" : ""
                         }>
@@ -68,33 +69,10 @@ const NavBar = ({isSignedIn, setIsSignedIn, cartItems, cartCount, favourites}) =
                     : <NavLink to="/" className={({ isActive, isPending }) =>
                             isPending ? "pending" : isActive ? "active" : ""
                         }>  
-                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName || ''}>{`${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}</Avatar> 
+                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName != null ? user.displayName : 'B'}>{user.displayName != null && `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}</Avatar> 
                         </NavLink>
-                }
-
-                {/* <NavLink to="/" className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                }>Home</NavLink> 
-                {'   |   '}
-                <NavLink to="/wishlist" className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                }>Wishlist</NavLink>
-                {'   |   '}
-                <NavLink to="/checkout" className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                }>Cart</NavLink>
-                {'   |   '}
-                {
-                    !isSignedIn 
-                        ? <NavLink to="/signin" className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "active" : ""
-                            }>Sign In</NavLink>
-                        : <NavLink to="/" className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "active" : ""
-                            }>  <Avatar sx={{bgColor: '#1976d2', textDecoration: 'none'}}>T U</Avatar> </NavLink>
                 } */}
-                
-                
+                <AccountMenu />
             </nav>
         </Stack>
     </Stack>

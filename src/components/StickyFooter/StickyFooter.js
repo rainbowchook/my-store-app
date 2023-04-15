@@ -54,6 +54,10 @@ export default function StickyFooter() {
           <Typography variant="body1">
             My sticky footer can be found here.
           </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+            <Typography sx={{ minWidth: 100 }}>Contact</Typography>
+            <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+          </Box>
           <Copyright />
         </Container>
       </Box>
