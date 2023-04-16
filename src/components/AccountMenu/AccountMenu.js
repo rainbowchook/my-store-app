@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
+import Person from '@mui/icons-material/Person';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Login from '@mui/icons-material/Login'
 import Logout from '@mui/icons-material/Logout';
@@ -82,7 +83,12 @@ export default function AccountMenu() {
             { !isSignedIn
                 ? <Avatar sx={{maxHeight:'inherit'}} /> 
                 : <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName != null ? user.displayName : 'B'}>
-                        {user.displayName != null && `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}
+                        {user.displayName != null 
+                            ? `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}` 
+                            : (
+                                <Person />
+                            )
+                        }
                     </Avatar> 
             }
           </IconButton>
