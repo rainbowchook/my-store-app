@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '../CheckoutForm/CheckoutForm'
@@ -10,12 +10,12 @@ const STRIPE_SECRET_KEY = process.env.REACT_APP_STRIPE_SECRET_KEY
 // This is your test publishable API key.
 const promise = loadStripe();
 
-const Checkout = () => {
-
+const Checkout = ({cartItems}) => {
+  
   return (
     <>
       <Elements stripe={promise}>
-        <CheckoutForm />
+        <CheckoutForm {...{cartItems}} />
       </Elements>
     </>
   )

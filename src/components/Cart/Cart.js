@@ -84,7 +84,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
     return (
         <Container maxWidth="md">
             <Typography variant="h4" component="h4" gutterBottom>
-                {user && `${user.displayName}'s`}
+                {user.displayName !== null && `${user.displayName}'s`}
                 {' '}
                 Shopping Cart
             </Typography>

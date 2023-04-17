@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from '../AddressForm/AddressForm';
 import PaymentForm from '../PaymentForm/PaymentForm';
 import Review from '../ReviewForm/ReviewForm';
+import { AuthContext } from '../../contexts/AuthContext';
+import { getUserInfo } from '../../utils/firebase.utils';
 
 function Copyright() {
   return (
@@ -46,8 +48,38 @@ function getStepContent(step) {
 
 const theme = createTheme();
 
-export default function Checkout() {
-  const [activeStep, setActiveStep] = React.useState(0);
+export default function Checkout({cartItems}) {
+  const [ activeStep, setActiveStep ] = useState(0);
+  const [ formData, setFormData ] = useState({})
+  const { user } = useContext(AuthContext)
+  const [ error, setError ] = useState('')
+  const count = useRef(0)
+  const formDataRef = useRef()
+
+  useEffect(() => {
+    const fetchUserProfile = async (user) => {
+      const res = await getUserInfo(user)
+      console.log(res)
+      if(res.error) {
+        setError(res.error)
+      } else {
+        const userProfile = res
+        console.log('1', userProfile)
+        // setDateJoined(userProfile.creationDate)
+        // delete userProfile.displayName
+        // delete userProfile.email
+        // delete userProfile.creationDate
+        count.current += 1
+        console.log(count.current)
+        console.log('2', userProfile)
+        if(count.current < 2) {
+          formDataRef.current = {...formDataRef.current, ...userProfile}
+          }
+          setFormData({...formData, ...userProfile})
+      }
+    }
+    fetchUserProfile(user)
+  }, [])
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -88,7 +120,7 @@ export default function Checkout() {
             ))}
           </Stepper>
           {activeStep === steps.length ? (
-            <React.Fragment>
+            <>
               <Typography variant="h5" gutterBottom>
                 Thank you for your order.
               </Typography>
@@ -97,9 +129,9 @@ export default function Checkout() {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
-            </React.Fragment>
+            </>
           ) : (
-            <React.Fragment>
+            <>
               {getStepContent(activeStep)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
@@ -116,7 +148,7 @@ export default function Checkout() {
                   {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                 </Button>
               </Box>
-            </React.Fragment>
+            </>
           )}
         </Paper>
         <Copyright />
