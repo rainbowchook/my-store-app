@@ -36,7 +36,7 @@ function App() {
   const [cartCount, setCartCount] = useState(0)
   const [favourites, setFavourites] = useState([])
   // const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
-  const url = '/data/data.json'
+  const url = '/.netlify/functions/shopdata.json'
 
   const getItemFromInventory = (itemId) => {
     for(const category in data.products) {
@@ -203,7 +203,7 @@ function App() {
                     <Route exact path="checkout" 
                       element={
                         <ProtectedRoute>
-                          <Checkout />
+                          <Checkout {...{cartItems}} />
                         </ProtectedRoute>
                         } 
                       />

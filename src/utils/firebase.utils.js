@@ -176,7 +176,6 @@ export const getUserInfo = async (user) => {
   const userData = userSnapshot.data()
   const { creationDate } = userData
   console.log(userData.creationDate !== null)
-  console.log(typeof userData.creationDate === Timestamp)
   console.log(creationDate.toDate()) 
   if(userData.creationDate !== null) {
     // userData.creationDate = userData.creationDate.toDate().toString()
