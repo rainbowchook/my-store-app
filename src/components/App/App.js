@@ -36,7 +36,7 @@ function App() {
   const [cartCount, setCartCount] = useState(0)
   const [favourites, setFavourites] = useState([])
   // const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
-  const url = '/.netlify/functions/shopdata.json'
+  const url = '/.netlify/functions/getShopData'
 
   const getItemFromInventory = (itemId) => {
     for(const category in data.products) {
