@@ -1,0 +1,22 @@
+/* body {
+    font-family: "Bubblegum Sans", cursive;
+} */
+
+a, a:link, a:visited {
+    color: rgba(0, 0, 0, 0.85);
+    text-decoration: none;
+}
+/* .nav-bar .pending {
+    color: rgba(0, 0, 0, 0.85);
+} */
+
+.nav-bar {
+    display: flex;
+    flex-shrink: 0;
+    
+}
+
+.nav-bar .active {
+    /* background-color:teal; */
+    color: rgb(25, 118, 210);
+}
