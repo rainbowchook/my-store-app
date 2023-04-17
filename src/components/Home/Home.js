@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 // import data from '../../data/data.json'
 // import ImageList from '@mui/material/ImageList'
 // import ImageListItem from '@mui/material/ImageListItem'
@@ -21,6 +21,9 @@ const initialCategory = {
 const Home = ({data}) => {
     const [currentCategory, setCurrentCategory] = useState(initialCategory)
     const navigate = useNavigate()
+    useLayoutEffect(() => {
+        window.scrollTo(0,0)   
+    }, [])
     const handleClick = (e) => {
         console.log('click', e.target)
         const [newCategory, newSubcategory] = e.target.name.split('-')

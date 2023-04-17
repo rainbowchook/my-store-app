@@ -1,4 +1,4 @@
-import { useState }from 'react';
+import { useState, useEffect, useContext }from 'react';
 import { useNavigate, Link as RouterLink} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,7 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { signInUser, signInUserWithGoogle } from '../../utils/firebase.utils'
+import { createUserFromAuth, signInUser, signInUserWithGoogle } from '../../utils/firebase.utils'
+import { AuthContext } from '../../contexts/AuthContext';
 
 function Copyright(props) {
   return (
@@ -29,6 +30,11 @@ function Copyright(props) {
 export default function SignIn() {
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const { isSignedIn } = useContext(AuthContext)
+
+  // useEffect(() => {
+  //   navigate('/profile')
+  // }, [isSignedIn])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +58,7 @@ export default function SignIn() {
     if(res.error) { 
       setError('Unable to sign up. ' + res.error)
     } else {
+      const userDocRef = await createUserFromAuth(res)
       navigate('/profile')
     }
   }

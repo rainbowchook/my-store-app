@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {useNavigate, Link as RouterLink} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,7 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { signUpUser, signInUserWithGoogle } from '../../utils/firebase.utils'
+import { signUpUser, signInUserWithGoogle, createUserFromAuth } from '../../utils/firebase.utils'
+import { AuthContext } from '../../contexts/AuthContext';
 
 function Copyright(props) {
   return (
@@ -27,6 +28,7 @@ function Copyright(props) {
 }
 
 export default function SignUp() {
+  const { user } = useContext(AuthContext)
   const [error, setError] = useState('')
   const navigate = useNavigate()
   
@@ -50,10 +52,11 @@ export default function SignUp() {
     setError('')
 
     const { firstName, lastName, email, password} = formData
-    const res = await signUpUser(firstName, lastName, email, password)
+    const res = await signUpUser(email, password)
     if(res.error) { 
       setError('Unable to sign up. ' + res.error)
     } else {
+      const userDocRef = await createUserFromAuth(res, {firstName, lastName})
       navigate('/profile')
     }
   };
@@ -63,6 +66,7 @@ export default function SignUp() {
     if(res.error) { 
       setError('Unable to sign up. ' + res.error)
     } else {
+      const userDocRef = await createUserFromAuth(res)
       navigate('/profile')
     }
   }

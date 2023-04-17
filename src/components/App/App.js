@@ -17,7 +17,7 @@ import Wishlist from '../Wishlist/Wishlist.js';
 import Cart from '../Cart/Cart';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import StickyFooter from '../StickyFooter/StickyFooter';
-import { AuthProvider } from '../../contexts/AuthContext'
+// import { AuthProvider } from '../../contexts/AuthContext'
 import {isCartItemFound, getCartItem, updateCartItem, addToExistingCartItem, addNewCartItem, removeFromExistingCartItem, clearCartItem, isFaveItem, getFaveItem, addFaveItem, removeFaveItem, calculateCartCount} from '../../utils/utilities'
 // import data from '../../data/data.json'
 
@@ -185,8 +185,8 @@ function App() {
    return (
     <>
       <CssBaseline enableColorScheme/>
-      <BrowserRouter>
-        <AuthProvider>
+      {/* <BrowserRouter>
+        <AuthProvider> */}
           <NavBar {...{cartItems, cartCount, favourites}}/>
           {
             error && error.length ? <p>{error}</p> : (
@@ -228,8 +228,8 @@ function App() {
             
           }
           <StickyFooter />
-        </AuthProvider>
-      </BrowserRouter>
+        {/* </AuthProvider>
+      </BrowserRouter> */}
     </>
   )
 }

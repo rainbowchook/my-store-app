@@ -19,13 +19,13 @@ import { signOutUser } from '../../utils/firebase.utils';
 export default function AccountMenu() {
   const { user, isSignedIn } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState(null);
-  const signedIn = useRef()
+//   const signedIn = useRef()
   const navigate = useNavigate()
   const open = Boolean(anchorEl);
 
-  useEffect(() => {
-    signedIn.current = isSignedIn
-  }, [signedIn])
+//   useEffect(() => {
+//     signedIn.current = isSignedIn
+//   }, [signedIn])
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -44,7 +44,7 @@ export default function AccountMenu() {
             break;
         case 'signoff': 
             const signedOut = await signOutUser()
-            if(signedOut) {
+            if(!signedOut) {
                 console.log('Unable to sign out')  
             } 
             navigate('/')
