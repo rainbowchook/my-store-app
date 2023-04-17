@@ -36,7 +36,7 @@ const SubCategory = ({data, favourites, addItemToCart, isFaveFound, addToFavouri
                         // console.log('item', item)
                         return (
                             <Grid item xs={6} sm={4} md={3} key={`${name}-${id}`}>
-                                <Card sx={{ maxWidth: 345, maxHeight: 320, overflowY: 'scroll', position: 'relative' }}>
+                                <Card sx={{ maxWidth: 345, height: 320, overflowY: 'scroll', position: 'relative' }}>
                                     <CardContent>
                                         {/* <Typography gutterBottom variant="h8" component="div" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
                                         {/* <Stack direction="row" sx={{position:'absolute', top: 0, left:0, right:0, marginRight: 0, marginLeft: 'auto', zIndex: 10, background: 'rgba(255,255,255,0)'}}> */}
