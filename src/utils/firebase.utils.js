@@ -159,13 +159,12 @@ export const createUserFromAuth = async (user, additionalInfo = {firstName: '', 
 }
 
 const convertTimestamp = (timestamp) => {
-	let date = timestamp.toDate();
-	let mm = date.getMonth();
-	let dd = date.getDate();
-	let yyyy = date.getFullYear();
+	let date = timestamp.toDate()
+  let dd = date.getDate()
+	let mm = date.getMonth()
+	let yyyy = date.getFullYear()
 
-	date = mm + '/' + dd + '/' + yyyy;
-	return date;
+	return `${dd}/${mm}/${yyyy}`
 }
 
 export const getUserInfo = async (user) => {

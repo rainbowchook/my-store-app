@@ -25,11 +25,7 @@ export const AuthProvider = ({ children }) => {
                 setIsSignedIn(false)
             }
         })
-        return () => {
-            unsubscribe()
-            setUser(null)
-            setIsSignedIn(false)
-        }
+        return unsubscribe
     }, [])
 
     return (
