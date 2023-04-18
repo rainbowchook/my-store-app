@@ -146,7 +146,7 @@ const Profile = () => {
   const handleReset = () => {
     //reset state
     setFormData({...formData, ...formDataRef.current})
-    setToast({ open: true, type: 'Types.INFO', message: 'Form data reset without saving'})
+    setToast({ open: true, type: Types.INFO, message: 'Form data reset without saving'})
   }
 
   const handleClickToShop = () => navigate('/')
