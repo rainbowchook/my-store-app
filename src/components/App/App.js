@@ -36,7 +36,12 @@ function App() {
   const [cartCount, setCartCount] = useState(0)
   const [favourites, setFavourites] = useState([])
   // const [user, setUser] = useState(initialUser) //get displayName, email, favourites, cartItems in UserContext
-  const url = '/.netlify/functions/getShopData'
+  const getUrl = () => {
+    // if (process.env.NODE_ENV !== 'production') {
+    //   return '/data/data.json'
+    // }
+    return '/.netlify/functions/getShopData'
+  } 
 
   const getItemFromInventory = (itemId) => {
     for(const category in data.products) {
@@ -167,7 +172,8 @@ function App() {
       // setIsLoading(true)
       const fetchData = async () => {
           try {
-          const response = await fetch(url)
+            const url = getUrl()
+            const response = await fetch(url)
           if (!response.ok || response.status !== 200 || response.status >= 400) throw new Error('Unable to fetch data')
             const data = await response.json()
             setData(data)

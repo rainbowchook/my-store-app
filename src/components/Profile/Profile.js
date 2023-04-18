@@ -1,10 +1,11 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { signOutUser } from '../../utils/firebase.utils'
-import { Button, Typography, Container, Box, Divider, Stack, Paper, Grid, TextField, Avatar, FormControlLabel, Checkbox, Link } from '@mui/material'
+import { Button, Typography, Container, Box, Divider, Snackbar, Alert, Stack, Paper, Grid, TextField, Avatar, FormControlLabel, Checkbox, Link } from '@mui/material'
 import Person from '@mui/icons-material/Person'
 import { AuthContext } from '../../contexts/AuthContext'
 import { getUserInfo, updateUserInfo } from '../../utils/firebase.utils';
+import CustomToast, { Types } from '../CustomToast/CustomToast'
 
 const initialFormData = {
   firstName: '',
@@ -21,19 +22,25 @@ const Profile = () => {
   const [ formData, setFormData ] = useState(initialFormData)
   const [ dateJoined, setDateJoined ] = useState('')
   const [ error, setError ] = useState('')
+  const [ toast, setToast ] = useState({ open: false, type: '', message: ''})
   const count = useRef(0)
   const formDataRef = useRef()
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
 
+  // const toast = () => {
+  //   setOpen(true)
+  // }
   //need two useEffects => 1. populate formData and formDataOriginal; 2. changing the view (individual formfield states) depending on formData new state
   useEffect(() => {
     console.log('useEffect run')
     const fetchUserProfile = async (user) => {
       const res = await getUserInfo(user)
       console.log(res)
+      console.log('1 formDataRef.current', formDataRef.current)
       if(res.error) {
         setError(res.error)
+        setToast({ open: true, type: Types.ERROR, message: 'Unable to fetch user info'})
       } else {
         const userProfile = res
         console.log('1', userProfile)
@@ -46,8 +53,9 @@ const Profile = () => {
         console.log('2', userProfile)
         if(count.current < 2) {
           formDataRef.current = {...formDataRef.current, ...userProfile}
-          }
-          setFormData({...formData, ...userProfile})
+        }
+        console.log('2 formDataRef.current', formDataRef.current)
+        setFormData({...formData, ...userProfile})
       }
     }
     fetchUserProfile(user)
@@ -99,8 +107,10 @@ const Profile = () => {
     const signedOut = await signOutUser()
     if(!signedOut) {
         console.log('Unable to sign out')  
+        setToast({ open: true, type: Types.ERROR, message: 'Unable to sign out'})
     } 
     navigate('/')
+    setToast({ open: true, type: Types.SUCCESS, message: 'User signed out'})
   }
 
   const handleSubmit = async (e) => {
@@ -123,8 +133,10 @@ const Profile = () => {
       const res = await updateUserInfo(user, userData)
       if(res.error) {
         setError(res.error)
+        setToast({ open: true, type: Types.ERROR, message: 'Unable to update user data'})
       } else {
         console.log(res)
+        setToast({ open: true, type: Types.SUCCESS, message: 'User profile data saved'})
       }
     }
     
@@ -134,6 +146,7 @@ const Profile = () => {
   const handleReset = () => {
     //reset state
     setFormData({...formData, ...formDataRef.current})
+    setToast({ open: true, type: 'Types.INFO', message: 'Form data reset without saving'})
   }
 
   const handleClickToShop = () => navigate('/')
@@ -358,6 +371,7 @@ const Profile = () => {
           </Box>
         </Box>
       {/* <Button onClick={handleSignOut}>Sign Out</Button> */}
+      <CustomToast {...{toast, setToast}} />
       </Container>
     </Container>
   )
