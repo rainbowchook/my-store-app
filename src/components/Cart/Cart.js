@@ -16,6 +16,7 @@ import QuantitySelect from '../QuantitySelect/QuantitySelect';
 import { styled } from '@mui/material/styles'
 import { parseIntToDollarsAndCents, calculateCartSubtotal } from '../../utils/utilities'
 import { AuthContext } from '../../contexts/AuthContext'
+import CustomToast, { Types } from '../CustomToast/CustomToast'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -53,6 +54,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
     const [coupon, ] = useState('First-Time Subscriber')
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
+    const [ toast, setToast ] = useState({ open: false, type: '', message: ''})
 
     useEffect(() => {
         const newSubtotal = calculateCartSubtotal(cartItems)
@@ -63,6 +65,9 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
         const {id} = e.target
         if(id === 'checkout-cart')  {
             console.log('inside handleClick for Cart - checkout cart')
+            if(cartItems.length < 1) {
+                return setToast({ open: true, type: Types.ERROR, message: 'No items in cart.'})
+            }
             navigate('/checkout')
         }
         if(id === 'continue-shopping') {
@@ -84,7 +89,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
     return (
         <Container maxWidth="md">
             <Typography variant="h4" component="h4" gutterBottom>
-                {user.displayName !== null && `${user.displayName}'s`}
+                {(user !== null && user.displayName !== undefined && user.displayName !== null) && `${user.displayName}'s`}
                 {' '}
                 Shopping Cart
             </Typography>
@@ -146,36 +151,36 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                             ORDER SUMMARY | {cartCount} ITEM(S)
                         </Typography>
                         <Stack direction="row" sx={{mb: 3, mt: 2}}>
-                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 1}}>
                                 <Typography variant="string">
                                     Item(s) subtotal 
                                 </Typography>
                             </Stack>
-                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 1, marginLeft: 'auto'}}>
                                 <Typography variant="string">
                                     AUD {parseIntToDollarsAndCents(subtotal)}
                                 </Typography>
                             </Stack>
                         </Stack>
                         <Stack direction="row" sx={{mb: 3, mt: 2}}>
-                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 1}}>
                                 <Typography variant="string" color='InfoText'>
                                     Coupon: {coupon ? `${coupon}` : 'none'}
                                 </Typography>
                             </Stack>
-                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 1, marginLeft: 'auto'}}>
                                 <Typography variant="string">
                                     - AUD {coupon ? parseIntToDollarsAndCents(subtotal * 0.05) : parseIntToDollarsAndCents(subtotal)}
                                 </Typography>
                             </Stack>
                         </Stack>
                         <Stack direction="row">
-                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 1}}>
                                 <Typography variant="h6" component="h6" gutterBottom>
                                     SUBTOTAL 
                                 </Typography>
                             </Stack>
-                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 1, marginLeft: 'auto'}}>
                                 <Typography variant="h6" component="h6" gutterBottom>
                                     AUD {parseIntToDollarsAndCents(subtotal)}
                                 </Typography>
@@ -183,12 +188,12 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                         </Stack>
                         
                         <Stack direction="row">
-                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 10}}>
+                            <Stack direction="row" sx={{width: 'fitContent', marginLeft: 1}}>
                                 <Typography variant="h5" component="h6" gutterBottom>
                                     ORDER TOTAL
                                 </Typography>
                             </Stack>
-                            <Stack direction="row" spacing={2} sx={{marginRight: 10, marginLeft: 'auto'}}>
+                            <Stack direction="row" spacing={2} sx={{marginRight: 1, marginLeft: 'auto'}}>
                                 <Typography variant="h5" component="h6" gutterBottom>
                                     AUD {parseIntToDollarsAndCents(subtotal)}
                                 </Typography>
@@ -198,6 +203,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                 </Container>
                 <Stack sx={{ mt: 2, mb: 2, justifyContent: 'center'}} maxWidth="sm">
                     <Button 
+                        fullWidth
                         variant='contained' 
                         sx={{mb: 2}} 
                         color='primary'
@@ -215,6 +221,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                         aria-label='continue shopping'
                     > */}
                      <Button 
+                        fullWidth
                         variant='outlined' 
                         sx={{mb: 2}} 
                         color='primary'
@@ -228,6 +235,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                 </Stack>
             {/* </Stack> */}
             </Box>
+            <CustomToast {...{toast, setToast}}/>
         </Container>
     );
 
