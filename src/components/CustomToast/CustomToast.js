@@ -36,15 +36,10 @@ export default function CustomToast({toast, setToast, ...props}) {
   };
 
   return (
-    <>
-        { 
-            Object.keys(Types).includes(type) &&
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} {...props}>
-                    <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
-                        {message}
-                    </Alert>
-                </Snackbar>
-        }
-    </>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} {...props}>
+        <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
+            {message}
+        </Alert>
+    </Snackbar>
   );
 }
