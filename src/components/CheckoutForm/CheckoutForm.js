@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useContext } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+import { useState, useEffect, useContext } from 'react';
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -11,10 +11,9 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from '../AddressForm/AddressForm';
-import PaymentForm from '../PaymentForm/PaymentForm';
-import Review from '../ReviewForm/ReviewForm';
+// import PaymentForm from '../PaymentForm/PaymentForm';
+import Review from '../Review/Review';
 import { AuthContext } from '../../contexts/AuthContext';
 import { getUserInfo } from '../../utils/firebase.utils';
 
@@ -31,30 +30,32 @@ function Copyright() {
   );
 }
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Shipping address', 'Billing address', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
+const initialFormData = {
+  firstName: '',
+  lastName: '',
+  phone: '',
+  addressLine1: '',
+  addressLine2: '',
+  cityTownVillage: '',
+  stateProvinceRegion: '',
+  postCode: '',
+  country: '',
 }
 
-const theme = createTheme();
-
-export default function Checkout({cartItems}) {
+export default function CheckoutForm({cartItems}) {
+  const stripe = useStripe()
+  const elements = useElements()
   const [ activeStep, setActiveStep ] = useState(0);
-  const [ formData, setFormData ] = useState({})
+  const [ addressFormDataForShip, setAddressFormDataForShip ] = useState(initialFormData)
+  const [ addressFormDataForBill, setAddressFormDataForBill ] = useState(initialFormData)
+  const [ isShippingEqualBillingAddress, setIsShippingEqualBillingAddress ] = useState(true)
+  const [ userData, setUserData ] = useState(null)
+  const [ orderSummary, setOrderSummary ] = useState(null)
   const { user } = useContext(AuthContext)
   const [ error, setError ] = useState('')
-  const count = useRef(0)
-  const formDataRef = useRef()
+
 
   useEffect(() => {
     const fetchUserProfile = async (user) => {
@@ -68,45 +69,56 @@ export default function Checkout({cartItems}) {
         // setDateJoined(userProfile.creationDate)
         // delete userProfile.displayName
         // delete userProfile.email
-        // delete userProfile.creationDate
-        count.current += 1
-        console.log(count.current)
-        console.log('2', userProfile)
-        if(count.current < 2) {
-          formDataRef.current = {...formDataRef.current, ...userProfile}
-          }
-          setFormData({...formData, ...userProfile})
+        // delete userProfile.creationDate 
+        // count.current += 1
+        // console.log(count.current)
+        // console.log('2', userProfile)
+        // if(count.current < 2) {
+          delete userProfile.displayName
+          delete userProfile.email
+          delete userProfile.creationDate 
+        //   }
+          setUserData({...userData, ...userProfile})
+          setAddressFormDataForShip({...addressFormDataForShip, ...userProfile})
       }
     }
     fetchUserProfile(user)
   }, [])
 
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm addressFormData={addressFormDataForShip} setAddressFormData={setAddressFormDataForShip} {...{isShippingEqualBillingAddress, setIsShippingEqualBillingAddress}}/>;
+      case 1:
+        // return <PaymentForm />;
+        return <AddressForm addressFormData={addressFormDataForBill} setAddressFormData={setAddressFormDataForBill} />;
+      case 2:
+        return <Review {...{cartItems, addressFormDataForShip, addressFormDataForBill, isShippingEqualBillingAddress, orderSummary, setOrderSummary}} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
+    // if(isShippingEqualBillingAddress) {
+    //   setActiveStep(activeStep + 2)
+    // } else {
+      if(isShippingEqualBillingAddress) {
+        setAddressFormDataForBill({...addressFormDataForBill, ...addressFormDataForShip})
+      }
+      setActiveStep(activeStep + 1 + isShippingEqualBillingAddress)
+    // }
+  }
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
+    // if(isShippingEqualBillingAddress) {
+    //   setActiveStep(activeStep - 2)
+    // } else {
+      setActiveStep(activeStep - 1 - isShippingEqualBillingAddress)
+    // }
+  }
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
@@ -151,8 +163,8 @@ export default function Checkout({cartItems}) {
             </>
           )}
         </Paper>
-        <Copyright />
+        {/* <Copyright /> */}
       </Container>
-    </ThemeProvider>
+
   );
 }
