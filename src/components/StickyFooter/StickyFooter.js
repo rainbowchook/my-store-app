@@ -39,32 +39,25 @@ export default function StickyFooter({data}) {
         let randomItem1 = data.products[category].at(Math.floor(data.products[category].length * Math.random()))
         let randomItem2 = data.products[category].at(Math.floor(data.products[category].length * Math.random()))
         const mappedArray = [randomItem1, randomItem2].map(item => ({...item, ...{category}}))
-        console.log(mappedArray)
         randomProducts[category] = mappedArray
       }
       Object.keys(randomProducts).forEach(category => {
         randomArray = [...randomArray, ...randomProducts[category]]
       })
-      console.log(randomProducts)
-      console.log(randomArray)
       return randomArray
       
     }
     const newProducstSnippet = (data !== undefined && data.length !== 0) ? getProductsSnippet(data) : []
     setProductsSnippet(newProducstSnippet)
-    console.log(newProducstSnippet)
   }, [data])
 
   useEffect(() => {
     const fetchUserProfile = async (user) => {
       const res = await getUserInfo(user)
-      console.log(res)
       if(res.error) {
         console(res.error)
       } else {
         const userProfile = res
-        console.log('1', userProfile)
-        console.log('2', userProfile.recentlyPurchased)
         if(userProfile !== undefined && userProfile.recentlyPurchased === undefined && userProfile.recentlyPurchased !== null) {
           setRecentlyPurchased(userProfile.recentlyPurchased)
         }
@@ -85,7 +78,6 @@ export default function StickyFooter({data}) {
         <Typography variant="h5" component="h5" gutterBottom>
           { (recentlyPurchased !== undefined && recentlyPurchased.length) ? 'Recently Purchased' : 'Products That May Interest You'}
         </Typography>
-        {/* <Typography variant="body1" gutterBottom> */}
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
           {recentlyPurchased !== undefined && 
             (recentlyPurchased.length !== 0 

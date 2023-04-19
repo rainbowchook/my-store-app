@@ -1,18 +1,17 @@
-import {useContext, useState} from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import AdbIcon from '@mui/icons-material/Adb';
-import { Stack, Avatar, Badge, IconButton, Typography } from '@mui/material';
+import Stack from '@mui/material/Stack'
+import Badge from '@mui/material/Badge'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 import './NavBar.css'
 import "@fontsource/bubblegum-sans"
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { AuthContext } from '../../contexts/AuthContext';
 import AccountMenu from '../AccountMenu/AccountMenu';
-//need Context API to hold signin/signoff status, loading (consider a custom hook for loading)
-const NavBar = ({cartItems, cartCount, favourites}) => {
-    // const [isSignedIn, setIsSignedIn] = useState(false)
-    const { user , isSignedIn} = useContext(AuthContext)
+
+const NavBar = ({cartCount, favourites}) => {
 
     const notificationsLabel = (count) => {
         if (count === 0) {
@@ -32,7 +31,6 @@ const NavBar = ({cartItems, cartCount, favourites}) => {
             </Link>
             <Typography variant='body1' sx={{mt: 3, textTransform: 'uppercase', fontWeight: 'bolder', fontFamily: 'Bubblegum Sans, cursive', fontSize: 30, color: '#1976d2'}}>Blue Bug Boutique</Typography>
         </Stack>
-        {/* <Stack direction="row" spacing={2} sx={{marginRight: 20, marginLeft: 'auto', paddingY: 2}}> */}
         <Stack direction="row" spacing={2} sx={{marginRight: 20, marginLeft: 'auto', paddingY: 2}}>
             <nav className='nav-bar'>
                 <NavLink to="/" className={({ isActive, isPending }) =>
@@ -60,18 +58,6 @@ const NavBar = ({cartItems, cartCount, favourites}) => {
                         </Badge>
                     </IconButton>
                 </NavLink>
-                {/* { !isSignedIn
-                    ? <NavLink to="/signin" className={({ isActive, isPending }) =>
-                            isPending ? "pending" : isActive ? "active" : ""
-                        }>
-                            <Avatar sx={{maxHeight:'inherit'}} /> 
-                        </NavLink>
-                    : <NavLink to="/" className={({ isActive, isPending }) =>
-                            isPending ? "pending" : isActive ? "active" : ""
-                        }>  
-                            <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName != null ? user.displayName : 'B'}>{user.displayName != null && `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}</Avatar> 
-                        </NavLink>
-                } */}
                 <AccountMenu />
             </nav>
         </Stack>

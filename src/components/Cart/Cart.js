@@ -38,21 +38,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-//   const StyledButton = styled(Button) (({ theme }) => ({
-//     '&:last-child div': {
-//         marginRight: 2, 
-//         marginLeft: 'auto', 
-//         paddingY: 2
-//     },
-    
-//     backgroundColor: theme.palette.common.black,
-//       color: theme.palette.common.white,
-//   }));
-
 const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}) => {
     const [subtotal, setSubtotal] = useState(0)
     const [coupon, ] = useState('First-Time Subscriber')
-    const [ toast, setToast ] = useState({ open: false, type: '', message: ''})
+    const [toast, setToast] = useState({ open: false, type: '', message: ''})
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
 
@@ -64,16 +53,13 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
     const handleClick = e => {
         const {id} = e.target
         if(id === 'checkout-cart')  {
-            console.log('inside handleClick for Cart - checkout cart')
             if(cartItems.length === 0) {
-                console.log('here')
                 setToast({ open: true, type: Types.ERROR, message: 'Cart is empty'})
             } else {
                 navigate('/checkout')
             }
         }
         if(id === 'continue-shopping') {
-            console.log('inside handleClick for Cart - continue shopping')
             navigate('/')
         }
     }
@@ -213,13 +199,6 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                     >
                         Checkout
                     </Button>
-                    {/* <Button 
-                        variant='outlined' 
-                        sx={{mb: 2}} 
-                        id='continue-shopping' 
-                        onClick={handleClick}
-                        aria-label='continue shopping'
-                    > */}
                      <Button 
                         variant='outlined' 
                         sx={{mb: 2}} 

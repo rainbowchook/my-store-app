@@ -8,15 +8,12 @@ const STRIPE_PUBLIC_API_KEY = process.env.REACT_APP_STRIPE_PUBLIC_API_KEY
 // This is your test publishable API key.
 const promise = loadStripe(STRIPE_PUBLIC_API_KEY);
 
-const Checkout = ({cartItems}) => {
-  // const [ clientSecret, setClientSecret ] = useState('')
-  // const amount = calculateCartCount(cartItems)
-  // const url = '/.netlify/create-payment-intent' 
+const Checkout = ({cartItems, setCartItems, setCartCount}) => {
   
   return (
     <>
       <Elements stripe={promise}>
-        <CheckoutForm {...{cartItems}} />
+        <CheckoutForm {...{cartItems, setCartItems, setCartCount}} />
       </Elements>
     </>
   )
