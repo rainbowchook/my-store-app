@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CardElement } from '@stripe/react-stripe-js';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -42,6 +43,8 @@ const addressShape = ['addressLine1', 'addressLine2', 'cityTownVillage', 'stateP
 
 export default function Review({cartItems, addressFormDataForShip, addressFormDataForBill, isShippingEqualBillingAddress, orderSummary, setOrderSummary}) {
   const [subtotal, setSubtotal] = React.useState(0)
+  // const stripe = useStripe()
+  // const elements = useElements()
   console.log(addressFormDataForShip)
   React.useEffect(() => {
     const newSubtotal = calculateCartSubtotal(cartItems)
@@ -59,7 +62,7 @@ export default function Review({cartItems, addressFormDataForShip, addressFormDa
               const {id, name, description, image, amount, currency, quantity, quantityInStock, category, subcategory} = item 
               console.log(item) 
               return (
-                <ListItem key={name} sx={{ py: 1, px: 0 }}>
+                <ListItem key={`${id}-${name}`} sx={{ py: 1, px: 0 }}>
                   <ListItemText primary={name} secondary={description} />
                   <Typography variant="body2">{parseIntToDollarsAndCents(quantity * amount)}</Typography>
                 </ListItem>
@@ -95,7 +98,7 @@ export default function Review({cartItems, addressFormDataForShip, addressFormDa
               <React.Fragment>
                 <Typography gutterBottom>{`${addressFormDataForShip.firstName ?? ''} ${addressFormDataForShip.lastName ?? ''}`}</Typography>
                 {
-                  addressShape.map((addressItem, index) => <Typography sx={{lineHeight: 1}} gutterBottom>{addressFormDataForShip[addressItem]}{index < (addressShape.length - 1) ? ', ' : ''}</Typography>)
+                  addressShape.map((addressItem, index) => <Typography key={addressItem} sx={{lineHeight: 1}} gutterBottom>{addressFormDataForShip[addressItem]}{index < (addressShape.length - 1) ? ', ' : ''}</Typography>)
                 }
               </React.Fragment>
             )
@@ -116,10 +119,11 @@ export default function Review({cartItems, addressFormDataForShip, addressFormDa
             )
           }
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
+        <Grid item container direction="column" xs={12} sm={8}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Payment 
           </Typography>
+          <CardElement />
           {/* <Grid container>
             {payments.map((payment) => (
               <React.Fragment key={payment.name}>

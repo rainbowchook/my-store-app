@@ -219,3 +219,7 @@ export const updateUserInfo = async (user, userData = {}) => {
   }
   return newUserData
 }
+
+export const addNewUserTransaction = async (user, transactionObject) => {
+  
+}

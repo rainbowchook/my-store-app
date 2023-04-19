@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { PaymentElement, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -12,10 +12,13 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import AddressForm from '../AddressForm/AddressForm';
+import CircularProgress from '@mui/material/CircularProgress';
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import Review from '../Review/Review';
 import { AuthContext } from '../../contexts/AuthContext';
 import { getUserInfo } from '../../utils/firebase.utils';
+import { parseIntToDollarsAndCents, calculateCartSubtotal } from '../../utils/utilities'
+import { addNewUserTransaction } from '../../utils/firebase.utils'
 
 function Copyright() {
   return (
@@ -47,16 +50,18 @@ const initialFormData = {
 export default function CheckoutForm({cartItems}) {
   const stripe = useStripe()
   const elements = useElements()
-  const [ activeStep, setActiveStep ] = useState(0);
-  const [ addressFormDataForShip, setAddressFormDataForShip ] = useState(initialFormData)
-  const [ addressFormDataForBill, setAddressFormDataForBill ] = useState(initialFormData)
-  const [ isShippingEqualBillingAddress, setIsShippingEqualBillingAddress ] = useState(true)
-  const [ userData, setUserData ] = useState(null)
-  const [ orderSummary, setOrderSummary ] = useState(null)
+  const [activeStep, setActiveStep] = useState(0);
+  const [addressFormDataForShip, setAddressFormDataForShip] = useState(initialFormData)
+  const [addressFormDataForBill, setAddressFormDataForBill] = useState(initialFormData)
+  const [isShippingEqualBillingAddress, setIsShippingEqualBillingAddress] = useState(true)
+  const [userData, setUserData] = useState(null)
+  const [orderSummary, setOrderSummary] = useState(null)
+  const [error, setError] = useState('')
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
+  const [subtotal, setSubtotal] = useState(0)
+  const [transactionId, setTransactionId] = useState(0)
   const { user } = useContext(AuthContext)
-  const [ error, setError ] = useState('')
-
-
+  
   useEffect(() => {
     const fetchUserProfile = async (user) => {
       const res = await getUserInfo(user)
@@ -66,24 +71,79 @@ export default function CheckoutForm({cartItems}) {
       } else {
         const userProfile = res
         console.log('1', userProfile)
-        // setDateJoined(userProfile.creationDate)
-        // delete userProfile.displayName
-        // delete userProfile.email
-        // delete userProfile.creationDate 
-        // count.current += 1
-        // console.log(count.current)
-        // console.log('2', userProfile)
-        // if(count.current < 2) {
-          delete userProfile.displayName
-          delete userProfile.email
-          delete userProfile.creationDate 
-        //   }
-          setUserData({...userData, ...userProfile})
-          setAddressFormDataForShip({...addressFormDataForShip, ...userProfile})
+        setUserData({...userData, ...userProfile})
+        setAddressFormDataForShip({...addressFormDataForShip, ...userProfile})
       }
     }
     fetchUserProfile(user)
+
+    const newSubtotal = calculateCartSubtotal(cartItems)
+    setSubtotal(newSubtotal)
+
   }, [])
+
+  const handlePayment = async () => {
+    console.log('inside handlePayment()')
+    if(!stripe || !elements) return
+    setIsProcessingPayment(true)
+    //fire request to backend server/serverless function for payment intent
+    const url = '/.netlify/functions/create-payment-intent'
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({amount: subtotal})
+    }).then(res => res.json())
+
+    const { clientSecret } = response
+
+    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: `${addressFormDataForBill.firstName} ${addressFormDataForBill.lastName}`,
+          email: user.email,
+
+        }
+      }
+    })
+
+    setIsProcessingPayment(false)
+    console.log(paymentResult)
+    if(paymentResult.error) {
+      console.log(paymentResult)
+      alert(paymentResult.error.message) //create a component to alert error
+    } else {
+        if(paymentResult.paymentIntent.status === "succeeded") {
+          console.log(paymentResult)
+          const { paymentIntent } = paymentResult.paymentIntent
+          const newUserTransaction = {
+            transactionId: paymentIntent.id,
+            amount: subtotal,
+            currency: 'AUD',
+            transactionTimestamp: paymentIntent.created,
+            itemsPurchased: [cartItems]
+          }
+          const res = await addNewUserTransaction(user, newUserTransaction)
+          console.log(res)
+          if(res.error) {
+            setError(res.error)
+          } else {
+            // const userProfile = res
+            // console.log('1', userProfile)
+            // setUserData({...userData, ...userProfile})
+            // setAddressFormDataForShip({...addressFormDataForShip, ...userProfile})
+          }
+          //update transaction table in Firebase with transactionId=
+          alert('Payment')
+          setTransactionId(paymentIntent.transactionId)
+          setActiveStep(activeStep + 1)
+        }
+        
+    }
+
+  }
 
   function getStepContent(step) {
     switch (step) {
@@ -93,7 +153,7 @@ export default function CheckoutForm({cartItems}) {
         // return <PaymentForm />;
         return <AddressForm addressFormData={addressFormDataForBill} setAddressFormData={setAddressFormDataForBill} />;
       case 2:
-        return <Review {...{cartItems, addressFormDataForShip, addressFormDataForBill, isShippingEqualBillingAddress, orderSummary, setOrderSummary}} />;
+        return <Review {...{subtotal, cartItems, addressFormDataForShip, addressFormDataForBill, isShippingEqualBillingAddress, orderSummary, setOrderSummary}} />;
       default:
         throw new Error('Unknown step');
     }
@@ -105,8 +165,16 @@ export default function CheckoutForm({cartItems}) {
     // } else {
       if(isShippingEqualBillingAddress) {
         setAddressFormDataForBill({...addressFormDataForBill, ...addressFormDataForShip})
+      } 
+      if(activeStep < steps.length - 1) {
+        setActiveStep(activeStep + 1 + isShippingEqualBillingAddress)
       }
-      setActiveStep(activeStep + 1 + isShippingEqualBillingAddress)
+      if(activeStep === steps.length - 1) {
+        handlePayment()
+        //fire Stripe transaction - if isLoading ( disabled the button until transaction succeeds )
+        //if transaction succeeded, update cartItems into user's recentlyPurchased
+        //if not succeeded, show screen with error
+      }
     // }
   }
 
@@ -153,11 +221,12 @@ export default function CheckoutForm({cartItems}) {
                 )}
 
                 <Button
+                  disabled={isProcessingPayment}
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  {!isProcessingPayment ? (activeStep === steps.length - 1 ? 'Place order' : 'Next') : 'Loading'}
                 </Button>
               </Box>
             </>
