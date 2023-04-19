@@ -113,7 +113,7 @@ export default function Review({cartItems, addressFormDataForShip, addressFormDa
               <React.Fragment>
                 <Typography gutterBottom>{`${addressFormDataForBill.firstName ?? ''} ${addressFormDataForBill.lastName ?? ''}`}</Typography>
                 {
-                  addressShape.map((addressItem, index) => <Typography sx={{lineHeight: 1}} gutterBottom>{`${addressFormDataForBill[addressItem]}${index < (addressShape.length - 1) ? ', ' : ''}`}</Typography>)
+                  addressShape.map((addressItem, index) => <Typography key={`${addressItem}${Date.now()}`} sx={{lineHeight: 1}} gutterBottom>{`${addressFormDataForBill[addressItem]}${index < (addressShape.length - 1) ? ', ' : ''}`}</Typography>)
                 }
               </React.Fragment>
             )

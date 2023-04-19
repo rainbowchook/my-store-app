@@ -182,7 +182,7 @@ export default function CheckoutForm({cartItems}) {
   }
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+    setActiveStep(activeStep - 1 - isShippingEqualBillingAddress);
   };
 
   return (
@@ -225,7 +225,7 @@ export default function CheckoutForm({cartItems}) {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {!isProcessingPayment ? (activeStep === steps.length - 1 ? 'Place order' : 'Next') : 'Loading'}
+                  {!isProcessingPayment ? (activeStep === steps.length - 1 ? 'Place order' : 'Next') : <CircularProgress />}
                 </Button>
               </Box>
             </>
