@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext }from 'react';
+import { useState, useContext }from 'react';
 import { useNavigate, Link as RouterLink} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,29 +12,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createUserFromAuth, signInUser, signInUserWithGoogle } from '../../utils/firebase.utils'
-import { AuthContext } from '../../contexts/AuthContext';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Blue Bug Boutique
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '../Copyright/Copyright';
 
 export default function SignIn() {
-  const [error, setError] = useState('')
+  const [, setError] = useState('')
   const navigate = useNavigate()
-  const { isSignedIn } = useContext(AuthContext)
-
-  // useEffect(() => {
-  //   navigate('/profile')
-  // }, [isSignedIn])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

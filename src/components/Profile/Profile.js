@@ -1,7 +1,16 @@
 import React, { useContext, useRef, useState, useEffect } from 'react'
-import { useNavigate, Link as RouterLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { signOutUser } from '../../utils/firebase.utils'
-import { Button, Typography, Container, Box, Divider, Snackbar, Alert, Stack, Paper, Grid, TextField, Avatar, FormControlLabel, Checkbox, Link } from '@mui/material'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Avatar from '@mui/material/Avatar'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 import Person from '@mui/icons-material/Person'
 import { AuthContext } from '../../contexts/AuthContext'
 import { getUserInfo, updateUserInfo } from '../../utils/firebase.utils';
@@ -21,51 +30,39 @@ const initialFormData = {
 const Profile = () => {
   const [ formData, setFormData ] = useState(initialFormData)
   const [ dateJoined, setDateJoined ] = useState('')
-  const [ error, setError ] = useState('')
+  const [ , setError ] = useState('')
   const [ toast, setToast ] = useState({ open: false, type: '', message: ''})
   const count = useRef(0)
   const formDataRef = useRef()
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  // const toast = () => {
-  //   setOpen(true)
-  // }
-  //need two useEffects => 1. populate formData and formDataOriginal; 2. changing the view (individual formfield states) depending on formData new state
   useEffect(() => {
-    console.log('useEffect run')
     const fetchUserProfile = async (user) => {
       const res = await getUserInfo(user)
-      console.log(res)
-      console.log('1 formDataRef.current', formDataRef.current)
       if(res.error) {
         setError(res.error)
         setToast({ open: true, type: Types.ERROR, message: 'Unable to fetch user info'})
       } else {
         const userProfile = res
-        console.log('1', userProfile)
         setDateJoined(userProfile.creationDate)
         delete userProfile.displayName
         delete userProfile.email
         delete userProfile.creationDate
         count.current += 1
-        console.log(count.current)
-        console.log('2', userProfile)
         if(count.current < 2) {
           formDataRef.current = {...formDataRef.current, ...userProfile}
         }
-        console.log('2 formDataRef.current', formDataRef.current)
         setFormData({...formData, ...userProfile})
       }
     }
     fetchUserProfile(user)
-    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSignOut = async () => {
     const signedOut = await signOutUser()
-    if(!signedOut) {
-        console.log('Unable to sign out')  
+    if(!signedOut) { 
         setToast({ open: true, type: Types.ERROR, message: 'Unable to sign out'})
     } 
     navigate('/')
@@ -75,7 +72,6 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget);
-    //update user profile information through setFormData 
     const newUserData = {
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
@@ -94,8 +90,8 @@ const Profile = () => {
         setError(res.error)
         setToast({ open: true, type: Types.ERROR, message: 'Unable to update user data'})
       } else {
-        console.log(res)
         setToast({ open: true, type: Types.SUCCESS, message: 'User profile data saved'})
+        formDataRef.current = newUserData
       }
     }
     
@@ -103,7 +99,6 @@ const Profile = () => {
   }
 
   const handleReset = () => {
-    //reset state
     setFormData({...formData, ...formDataRef.current})
     setToast({ open: true, type: Types.INFO, message: 'Form data reset without saving'})
   }
@@ -111,16 +106,8 @@ const Profile = () => {
   const handleClickToShop = () => navigate('/')
 
   const handleChange = (e) => {
-    console.log(e.target)
     const { name, value } = e.target
     setFormData({...formData, ...{[name]: value}})
-    // setFirstName(data.get('firstName'))
-    // setLastName(data.get('lastName'))
-    // setAddressLine1(data.get('addressLine1'))
-    // setAddressLine2(data.get('addressLine2'))
-    // setStateProvinceRegion(data.get('stateProvinceRegion'))
-    // setPostCode(data.get('postCode'))
-    // setCountry(data.get('country'))
   }
   const { firstName, lastName, phone, addressLine1, addressLine2, cityTownVillage, stateProvinceRegion, postCode, country } = formData
   return (
@@ -138,13 +125,13 @@ const Profile = () => {
           }}
         >
           <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', height: '4em', width: '4em', p: 2}} alt={user.displayName != null ? user.displayName : 'B'} >
-                        {user.displayName != null 
-                            ? `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}` 
-                            : (
-                                <Person sx={{fontSize: '3em'}} />
-                            )
-                        }
-                    </Avatar> 
+              {user.displayName != null 
+                  ? `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}` 
+                  : (
+                      <Person sx={{fontSize: '3em'}} />
+                  )
+              }
+          </Avatar> 
           <Typography component="h1" variant="h5">
             Welcome {(user !== null && user.displayName != null) ? user.displayName : ''}
           </Typography>
@@ -319,17 +306,8 @@ const Profile = () => {
             >
                 Sign Out
             </Button>
-            {/* <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link variant="body2" component={RouterLink} to='/signin'> */}
-                  {/* Don't use the href provided here - useNavigate instead or else state wiped out - can consider keeping cart items and user session token in browser localStorage */}
-                  {/* Already have an account? Sign in */}
-                {/* </Link>
-              </Grid>
-            </Grid> */}
           </Box>
         </Box>
-      {/* <Button onClick={handleSignOut}>Sign Out</Button> */}
       <CustomToast {...{toast, setToast}} />
       </Container>
     </Container>

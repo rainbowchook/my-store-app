@@ -1,13 +1,10 @@
-import { useContext, useState, useRef, useEffect }from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import { useContext, useState }from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Person from '@mui/icons-material/Person';
 import PersonAdd from '@mui/icons-material/PersonAdd';
@@ -19,19 +16,15 @@ import { signOutUser } from '../../utils/firebase.utils';
 export default function AccountMenu() {
   const { user, isSignedIn } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState(null);
-//   const signedIn = useRef()
   const navigate = useNavigate()
   const open = Boolean(anchorEl);
 
-//   useEffect(() => {
-//     signedIn.current = isSignedIn
-//   }, [signedIn])
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
+  }
+
   const handleClose = async (action) => {
     setAnchorEl(null);
-    console.log(action)
     switch(action) {
         case 'signin': 
             navigate('/signin')
@@ -55,9 +48,7 @@ export default function AccountMenu() {
   };
   return (
     <>
-      {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}> */}
-        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-        <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+      
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -67,19 +58,6 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
-            {/* { !isSignedIn
-                ? <NavLink to="/signin" className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "active" : ""
-                    }>
-                        <Avatar sx={{maxHeight:'inherit'}} /> 
-                    </NavLink>
-                : <NavLink to="/" className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "active" : ""
-                    }>  
-                        <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName != null ? user.displayName : 'B'}>{user.displayName != null && `${user.displayName.split(' ')[0][0]}${user.displayName.split(' ')[1][0]}`}</Avatar> 
-                    </NavLink>
-            } */}
             { !isSignedIn
                 ? <Avatar sx={{maxHeight:'inherit'}} /> 
                 : <Avatar sx={{bgcolor: 'rgb(25, 118, 210)', textDecoration: 'none', maxHeight:'inherit'}} alt={user.displayName != null ? user.displayName : 'B'}>
@@ -93,7 +71,6 @@ export default function AccountMenu() {
             }
           </IconButton>
         </Tooltip>
-      {/* </Box> */}
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
