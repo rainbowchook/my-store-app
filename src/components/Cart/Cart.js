@@ -16,6 +16,7 @@ import QuantitySelect from '../QuantitySelect/QuantitySelect';
 import { styled } from '@mui/material/styles'
 import { parseIntToDollarsAndCents, calculateCartSubtotal } from '../../utils/utilities'
 import { AuthContext } from '../../contexts/AuthContext'
+import CustomToast, { Types } from '../CustomToast/CustomToast';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -51,6 +52,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}) => {
     const [subtotal, setSubtotal] = useState(0)
     const [coupon, ] = useState('First-Time Subscriber')
+    const [ toast, setToast ] = useState({ open: false, type: '', message: ''})
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
 
@@ -63,7 +65,12 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
         const {id} = e.target
         if(id === 'checkout-cart')  {
             console.log('inside handleClick for Cart - checkout cart')
-            navigate('/checkout')
+            if(cartItems.length === 0) {
+                console.log('here')
+                setToast({ open: true, type: Types.ERROR, message: 'Cart is empty'})
+            } else {
+                navigate('/checkout')
+            }
         }
         if(id === 'continue-shopping') {
             console.log('inside handleClick for Cart - continue shopping')
@@ -84,7 +91,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
     return (
         <Container maxWidth="md">
             <Typography variant="h4" component="h4" gutterBottom>
-                {user.displayName !== null && `${user.displayName}'s`}
+                {user && user.displayName !== null && `${user.displayName}'s`}
                 {' '}
                 Shopping Cart
             </Typography>
@@ -139,7 +146,6 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                 </Table>
             </TableContainer>
             <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-            {/* <Stack direction="row"> */}
                 <Container sx={{ mt: 2, mb: 2}} maxWidth="sm">
                     <Paper sx={{ p: 2 }}>
                         <Typography variant="h6" component="h6" gutterBottom>
@@ -226,7 +232,7 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                         Continue Shopping
                     </Button>
                 </Stack>
-            {/* </Stack> */}
+            <CustomToast {...{toast, setToast}} />
             </Box>
         </Container>
     );
