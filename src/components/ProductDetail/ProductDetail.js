@@ -22,23 +22,13 @@ const ProductDetail = ({isFaveFound, addToFavourites, removeFromFavourites, setN
   const navigate = useNavigate()
 
   useEffect(() => {
-    // const getProduct = (id, data) => {
-    //   for (const category in data.products) {
-    //     const productItem = data.products[category].find(item => item.id === id)
-    //     if(!isEmptyObject(productItem)) {
-    //       return productItem
-    //     }
-    //   }
-    // }
-    // const newProduct = getProduct(productId, data)
     const newProduct = getItemFromInventory(productId)
     const newCurrentCartItem = getCartItem(cartItems, productId)
     setProduct(newProduct)
-    console.log('newCurrentCartItem', newCurrentCartItem!==undefined)
     if(newCurrentCartItem !== undefined && !isEmptyObject(newCurrentCartItem)) setCurrentCartItem(newCurrentCartItem)
     setIsloading(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartItems])
+  }, [cartItems, productId])
 
   const handleClickFave = (id) => {
     isFaveFound(id) ? removeFromFavourites(id) : addToFavourites(id)
@@ -58,7 +48,7 @@ const ProductDetail = ({isFaveFound, addToFavourites, removeFromFavourites, setN
           {'  >  '}
           <span onClick={() => navigate(`/${category}/${subcategory}`)} role='link'>{subcategory.toUpperCase()}</span>
           {'  >  '}
-          <span onClick={() => navigate(`/${category}/${subcategory}/${id}`)} role='link'>{name.toUpperCase()}</span>
+          <span onClick={() => navigate(`/${category}/${subcategory}/${productId}`)} role='link'>{name.toUpperCase()}</span>
       </Typography>
       <Grid item xs={12} md={6} sx={{ mt: 3, position: 'relative'  }}>
         <Card sx={{ display: 'flex', maxHeight: '100vh', overflow: 'scroll'}}>
