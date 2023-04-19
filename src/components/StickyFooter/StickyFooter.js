@@ -17,7 +17,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
       {'Copyright © '}
-      <Link color="inherit" href="https://prismatic-bonbon-51d1ae.netlify.app/" target="_blank" rel="noopener" aria-label="Visit Blue Bug Boutique company website">
+      <Link color="inherit" href="https://mui.com/">
         Blue Bug Boutique
       </Link>{' '}
       {new Date().getFullYear()}

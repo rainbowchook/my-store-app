@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { useState, useEffect, useContext } from 'react';
 import { PaymentElement, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+=======
+import { useState, useEffect, useRef, useContext } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+>>>>>>> 61d051f567b70c6897ab479f6b40c54d05bf8690
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -11,10 +16,16 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from '../AddressForm/AddressForm';
+<<<<<<< HEAD
 import CircularProgress from '@mui/material/CircularProgress';
 // import PaymentForm from '../PaymentForm/PaymentForm';
 import Review from '../Review/Review';
+=======
+import PaymentForm from '../PaymentForm/PaymentForm';
+import Review from '../ReviewForm/ReviewForm';
+>>>>>>> 61d051f567b70c6897ab479f6b40c54d05bf8690
 import { AuthContext } from '../../contexts/AuthContext';
 import { getUserInfo } from '../../utils/firebase.utils';
 import { parseIntToDollarsAndCents, calculateCartSubtotal } from '../../utils/utilities'
@@ -33,20 +44,22 @@ function Copyright() {
   );
 }
 
-const steps = ['Shipping address', 'Billing address', 'Review your order'];
+const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-const initialFormData = {
-  firstName: '',
-  lastName: '',
-  phone: '',
-  addressLine1: '',
-  addressLine2: '',
-  cityTownVillage: '',
-  stateProvinceRegion: '',
-  postCode: '',
-  country: '',
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return <AddressForm />;
+    case 1:
+      return <PaymentForm />;
+    case 2:
+      return <Review />;
+    default:
+      throw new Error('Unknown step');
+  }
 }
 
+<<<<<<< HEAD
 export default function CheckoutForm({cartItems}) {
   const stripe = useStripe()
   const elements = useElements()
@@ -62,6 +75,18 @@ export default function CheckoutForm({cartItems}) {
   const [transactionId, setTransactionId] = useState(0)
   const { user } = useContext(AuthContext)
   
+=======
+const theme = createTheme();
+
+export default function Checkout({cartItems}) {
+  const [ activeStep, setActiveStep ] = useState(0);
+  const [ formData, setFormData ] = useState({})
+  const { user } = useContext(AuthContext)
+  const [ error, setError ] = useState('')
+  const count = useRef(0)
+  const formDataRef = useRef()
+
+>>>>>>> 61d051f567b70c6897ab479f6b40c54d05bf8690
   useEffect(() => {
     const fetchUserProfile = async (user) => {
       const res = await getUserInfo(user)
@@ -71,8 +96,22 @@ export default function CheckoutForm({cartItems}) {
       } else {
         const userProfile = res
         console.log('1', userProfile)
+<<<<<<< HEAD
         setUserData({...userData, ...userProfile})
         setAddressFormDataForShip({...addressFormDataForShip, ...userProfile})
+=======
+        // setDateJoined(userProfile.creationDate)
+        // delete userProfile.displayName
+        // delete userProfile.email
+        // delete userProfile.creationDate
+        count.current += 1
+        console.log(count.current)
+        console.log('2', userProfile)
+        if(count.current < 2) {
+          formDataRef.current = {...formDataRef.current, ...userProfile}
+          }
+          setFormData({...formData, ...userProfile})
+>>>>>>> 61d051f567b70c6897ab479f6b40c54d05bf8690
       }
     }
     fetchUserProfile(user)
@@ -82,6 +121,7 @@ export default function CheckoutForm({cartItems}) {
 
   }, [])
 
+<<<<<<< HEAD
   const handlePayment = async () => {
     console.log('inside handlePayment()')
     if(!stripe || !elements) return
@@ -177,16 +217,34 @@ export default function CheckoutForm({cartItems}) {
       }
     // }
   }
+=======
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+>>>>>>> 61d051f567b70c6897ab479f6b40c54d05bf8690
 
   const handleBack = () => {
-    // if(isShippingEqualBillingAddress) {
-    //   setActiveStep(activeStep - 2)
-    // } else {
-      setActiveStep(activeStep - 1 - isShippingEqualBillingAddress)
-    // }
-  }
+    setActiveStep(activeStep - 1);
+  };
 
   return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AppBar
+        position="absolute"
+        color="default"
+        elevation={0}
+        sx={{
+          position: 'relative',
+          borderBottom: (t) => `1px solid ${t.palette.divider}`,
+        }}
+      >
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Company name
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
@@ -232,8 +290,8 @@ export default function CheckoutForm({cartItems}) {
             </>
           )}
         </Paper>
-        {/* <Copyright /> */}
+        <Copyright />
       </Container>
-
+    </ThemeProvider>
   );
 }
