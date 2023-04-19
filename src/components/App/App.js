@@ -233,7 +233,7 @@ function App() {
             )
             
           }
-          <StickyFooter />
+          <StickyFooter {...{data}}/>
         {/* </AuthProvider>
       </BrowserRouter> */}
     </>

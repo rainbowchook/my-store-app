@@ -59,48 +59,7 @@ const Profile = () => {
       }
     }
     fetchUserProfile(user)
-    // count.current += 1
-    // console.log(count.current)
-    // const userProfile = fetchUserProfile(user)
-    // console.log(userProfile)
-    // // const userProfile = {
-    // //   firstName: 'test',
-    // //   lastName: '',
-    // //   phone: '',
-    // //   addressLine1: '',
-    // //   addressLine2: '2123',
-    // //   cityTownVillage: '',
-    // //   stateProvinceRegion: '',
-    // //   postCode: '',
-    // //   country: '',
-    // // }
-    // // const { firstName, lastName, phone, addressLine1, addressLine2, cityTownVillage, stateProvinceRegion, postCode, country} = userProfile
-    // if(count.current < 2) {
-    //   // formDataRef.current = {
-    //   //   firstName,
-    //   //   lastName,
-    //   //   phone,
-    //   //   addressLine1,
-    //   //   addressLine2,
-    //   //   cityTownVillage,
-    //   //   stateProvinceRegion,
-    //   //   postCode,
-    //   //   country,
-    //   // }
-    //   formDataRef.current = {...formDataRef.current, ...userProfile}
-    // }
-    // // setFormData({...formData, ...{
-    // //     firstName,
-    // //     lastName,
-    // //     phone,
-    // //     addressLine1,
-    // //     addressLine2,
-    // //     cityTownVillage,
-    // //     stateProvinceRegion,
-    // //     postCode,
-    // //     country,
-    // // }})
-    // setFormData({...formData, ...userProfile})
+    
   }, [])
 
   const handleSignOut = async () => {

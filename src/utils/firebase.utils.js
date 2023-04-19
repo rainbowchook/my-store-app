@@ -219,3 +219,11 @@ export const updateUserInfo = async (user, userData = {}) => {
   }
   return newUserData
 }
+
+export const addNewUserTransaction = async (user, transactionObject) => {
+  if(!user) return
+  const userDocRef = doc(db, 'users', user.uid)
+  const userSnapshot = await getDoc(userDocRef)
+  if(!userSnapshot.exists()) return
+  const fetchedUserData = userSnapshot.data()
+}
