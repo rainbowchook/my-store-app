@@ -38,7 +38,6 @@ export default function CheckoutForm({cartItems, setCartItems, setCartCount}) {
   const [addressFormDataForBill, setAddressFormDataForBill] = useState(initialFormData)
   const [isShippingEqualBillingAddress, setIsShippingEqualBillingAddress] = useState(true)
   const [userData, setUserData] = useState(null)
-  const [orderSummary, setOrderSummary] = useState(null)
   const [, setError] = useState('')
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const [subtotal, setSubtotal] = useState(0)
@@ -122,7 +121,7 @@ export default function CheckoutForm({cartItems, setCartItems, setCartCount}) {
       case 1:
         return <AddressForm addressFormData={addressFormDataForBill} setAddressFormData={setAddressFormDataForBill} />;
       case 2:
-        return <Review {...{subtotal, cartItems, addressFormDataForShip, addressFormDataForBill, isShippingEqualBillingAddress, orderSummary, setOrderSummary}} />;
+        return <Review {...{subtotal, cartItems, addressFormDataForShip, addressFormDataForBill}} />;
       default:
         throw new Error('Unknown step');
     }

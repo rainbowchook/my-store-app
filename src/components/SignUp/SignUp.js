@@ -12,29 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { signUpUser, signInUserWithGoogle, createUserFromAuth } from '../../utils/firebase.utils'
-import { AuthContext } from '../../contexts/AuthContext';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '../Copyright/Copyright';
 
 export default function SignUp() {
-  const { user } = useContext(AuthContext)
   const [error, setError] = useState('')
   const navigate = useNavigate()
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.currentTarget)
     const data = new FormData(e.currentTarget);
     if(data.get('password1') !== data.get('password2')) {
       return setError('Please try again. Passwords do not match.')
@@ -45,10 +30,6 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password1')
     }
-    console.log(e.currentTarget)
-    console.log(e.target.node)
-    console.log(formData)
-    console.log(typeof data.get('password1'))
     setError('')
 
     const { firstName, lastName, email, password} = formData

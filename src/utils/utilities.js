@@ -1,5 +1,4 @@
 export const isCartItemFound = (cartItems, itemId) => {
-    console.log(cartItems.findIndex(cartItem => cartItem.id === itemId))
     return cartItems.findIndex(cartItem => cartItem.id === itemId) < 0 ? false : true
 }
 
@@ -15,9 +14,6 @@ export const addToExistingCartItem = (cartItems, itemId) => {
     return cartItems.map(cartItem => cartItem.id === itemId ? {...cartItem, ...{quantity: cartItem.quantity + 1}} : cartItem)
 }
 
-// export const addNewCartItem = (cartItems, itemId) => {
-//     return [...cartItems, {id: itemId, quantity: 1}]
-// }
 export const addNewCartItem = (cartItems, item) => {
     return item.quantity === undefined ? [...cartItems, {...item, ...{quantity: 1}}] : [...cartItems, {...item, ...{quantity: item.quantity}}]
 }

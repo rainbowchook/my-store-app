@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -6,7 +5,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 export default function AddressForm({ addressFormData, setAddressFormData, ...props }) {
-  // const [ formData, setFormData ] = useState({})
   const { isShippingEqualBillingAddress, setIsShippingEqualBillingAddress } = props
 
   const handleChange = (e) => {
@@ -15,10 +13,9 @@ export default function AddressForm({ addressFormData, setAddressFormData, ...pr
   }
 
   const handleChecked = (e) => {
-    console.log(e.target.checked)
     setIsShippingEqualBillingAddress(e.target.checked)
   }
-  console.log(addressFormData)
+
   if(addressFormData !== undefined) {
     const { firstName, lastName, phone, addressLine1, addressLine2, cityTownVillage, stateProvinceRegion, postCode, country } = addressFormData
     return (
@@ -146,10 +143,8 @@ export default function AddressForm({ addressFormData, setAddressFormData, ...pr
               </Grid>
             )
           }
-          
         </Grid>
       </>
     );
   }
-  
 }
