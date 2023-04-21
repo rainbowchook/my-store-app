@@ -86,8 +86,8 @@ export default function StickyFooter({data}) {
             )
           }
           {recentlyPurchased !== undefined 
-            ? (recentlyPurchased.length !== 0 && recentlyPurchased.map(item => <Snippet {...{item}}/>))
-            : productsSnippet.map(item => <Snippet {...{item}}/>)
+            ? (recentlyPurchased.length !== 0 && recentlyPurchased.map((item, index)  => <Snippet key={index} {...{item}}/>))
+            : productsSnippet.map((item, index)  => <Snippet key={index} {...{item}}/>)
           }
         </Grid>
       </Container>
