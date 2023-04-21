@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import './App.css';
 import { CssBaseline, Container } from '@mui/material';
 import NavBar from '../NavBar/NavBar';
@@ -124,7 +124,7 @@ function App() {
       }, [])
 
    return (
-    <>
+    <HashRouter>
       <CssBaseline enableColorScheme/>
       <NavBar {...{cartItems, cartCount, favourites}}/>
       {
@@ -167,7 +167,7 @@ function App() {
         
       }
       <StickyFooter {...{data}}/>
-    </>
+    </HashRouter>
   )
 }
 

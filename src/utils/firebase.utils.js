@@ -160,8 +160,7 @@ export const updateUserInfo = async (user, userData = {}) => {
   return newUserData
 }
 
-//NOT FINISHED YET
-export const addNewUserTransactionBatch = async (user, transactionObj) => {
+export const addNewUserTransaction = async (user, transactionObj) => {
   if(!user) return
   //begin transaction/batch write
   const batch = writeBatch(db)
@@ -169,7 +168,7 @@ export const addNewUserTransactionBatch = async (user, transactionObj) => {
   const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
   
   // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
-  const userTxDocRef = doc(collection(db, `users/${userDocRef}/transactions`)) // auto-generate txn Id
+  const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
   const newTransactionObj = { 
     ...transactionObj,
     creationTime: serverTimestamp()
@@ -179,7 +178,7 @@ export const addNewUserTransactionBatch = async (user, transactionObj) => {
   // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
   //update user doc's recentlyPurchased
   const { itemsPurchased } = transactionObj
-  batch.update(userDocRef, { recentlyPurchased: itemsPurchased })
+  batch.update(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
   //end transaction/batch write
   await batch.commit()
   return userTxDocRef.id
@@ -234,7 +233,7 @@ export const LEGACY_addNewUserTransaction = async (user, transactionObj) => {
   return userTxDocRef.id
 }
 
-export const addNewUserTransaction = async (user, transactionObj) => {
+export const LEGACY_addNewUserTransaction1 = async (user, transactionObj) => {
   if(!user) return
   //begin transaction/batch write
   // const batch = writeBatch(db)
