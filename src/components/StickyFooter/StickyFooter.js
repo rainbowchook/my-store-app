@@ -31,6 +31,45 @@ export default function StickyFooter({data}) {
   const [ recentlyPurchased, setRecentlyPurchased ] = useState([])
   const { user } = useContext(AuthContext)
 
+  // useEffect(() => {
+  //   if (user === null) {
+  //     const getProductsSnippet = (data) => {
+  //       let randomArray = []
+  //       const randomProducts = {}
+  //       for(const category in data.products) {
+  //         let randomItem1 = data.products[category].at(Math.floor(data.products[category].length * Math.random()))
+  //         let randomItem2 = data.products[category].at(Math.floor(data.products[category].length * Math.random()))
+  //         const mappedArray = [randomItem1, randomItem2].map(item => ({...item, ...{category}}))
+  //         randomProducts[category] = mappedArray
+  //       }
+  //       Object.keys(randomProducts).forEach(category => {
+  //         randomArray = [...randomArray, ...randomProducts[category]]
+  //       })
+  //       return randomArray
+        
+  //     }
+  //     const newProducstSnippet = (data !== undefined && data.length !== 0) ? getProductsSnippet(data) : []
+  //     setProductsSnippet(newProducstSnippet)
+  //   } else {
+  //     const fetchUserProfile = async (user) => {
+  //       const res = await getUserInfo(user)
+  //       console.log(res)
+  //       console.log(res.recentlyPurchased)
+  //       if(res.error) {
+  //         console(res.error)
+  //       } else {
+  //         const userProfile = res
+  //         if(userProfile !== undefined && userProfile.recentlyPurchased !== undefined && userProfile.recentlyPurchased !== null) {
+  //           return userProfile.recentlyPurchased
+  //         }
+  //       }
+  //     }
+  //     const newRecentlyPurchased = fetchUserProfile(user)
+  //     setRecentlyPurchased(newRecentlyPurchased)
+  //   }
+    
+  // }, [data, user])
+
   useEffect(() => {
     const getProductsSnippet = (data) => {
       let randomArray = []
@@ -49,6 +88,7 @@ export default function StickyFooter({data}) {
     }
     const newProducstSnippet = (data !== undefined && data.length !== 0) ? getProductsSnippet(data) : []
     setProductsSnippet(newProducstSnippet)
+    
   }, [data])
 
   useEffect(() => {
@@ -58,12 +98,24 @@ export default function StickyFooter({data}) {
         console(res.error)
       } else {
         const userProfile = res
-        if(userProfile !== undefined && userProfile.recentlyPurchased === undefined && userProfile.recentlyPurchased !== null) {
+        console.log(res)
+        console.log(res.recentlyPurchased)
+        if(userProfile !== undefined && userProfile.recentlyPurchased !== undefined && userProfile.recentlyPurchased !== null) {
           setRecentlyPurchased(userProfile.recentlyPurchased)
         }
       }
     }
+    // if (user !== null) {
+    //   const newRecentlyPurchased = fetchUserProfile(user)
+    //   console.log(user, recentlyPurchased)
+    //   console.log(newRecentlyPurchased)
+    //   setRecentlyPurchased(newRecentlyPurchased)
+    // }
     if (user !== null) fetchUserProfile(user)
+    if (user === null) {
+      console.log(user, recentlyPurchased)
+      setRecentlyPurchased([])
+    }
   }, [user])
 
   return (
@@ -79,16 +131,27 @@ export default function StickyFooter({data}) {
           { (recentlyPurchased !== undefined && recentlyPurchased.length) ? 'Recently Purchased' : 'Products That May Interest You'}
         </Typography>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-          {recentlyPurchased !== undefined && 
+          {/* { user === null 
+            ? ( productsSnippet.map((item, index) => <Snippet key={index} {...{item}}/>) ) 
+            : ((recentlyPurchased !== undefined && recentlyPurchased !== null && recentlyPurchased.length !== 0) 
+              && recentlyPurchased?.map((item, index)  => <Snippet key={index} {...{item}}/>))
+          }  */}
+          { (user !== null && recentlyPurchased !== undefined && recentlyPurchased !== null && recentlyPurchased.length !== 0)
+              ? (recentlyPurchased.map((item, index)  => <Snippet key={index} {...{item}}/>))
+              : (productsSnippet.map((item, index) => <Snippet key={index} {...{item}}/>)) 
+          } 
+
+          {/* {recentlyPurchased !== undefined && 
             (recentlyPurchased.length !== 0 
               ? ( recentlyPurchased.map((item, index) => <Snippet key={index} {...{item}}/>) )
               : ( productsSnippet.map((item, index) => <Snippet key={index} {...{item}}/>) )
             )
           }
           {recentlyPurchased !== undefined 
-            ? (recentlyPurchased.length !== 0 && recentlyPurchased.map((item, index)  => <Snippet key={index} {...{item}}/>))
+            ? ((recentlyPurchased !== null && recentlyPurchased.length !== 0) && recentlyPurchased?.map((item, index)  => <Snippet key={index} {...{item}}/>))
             : productsSnippet.map((item, index)  => <Snippet key={index} {...{item}}/>)
-          }
+          } */}
+
         </Grid>
       </Container>
       <Box

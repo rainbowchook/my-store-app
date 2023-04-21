@@ -98,14 +98,19 @@ export default function CheckoutForm({cartItems, setCartItems, setCartCount}) {
         if(paymentResult.paymentIntent.status === "succeeded") {
           const { paymentIntent } = paymentResult
           const newUserTransaction = {
-            transactionId: paymentIntent.id,
+            stripeTransactionId: paymentIntent.created,
             amount: subtotal,
             currency: 'AUD',
-            transactionTimestamp: paymentIntent.created,
-            itemsPurchased: [cartItems]
+            stripeTransactionTimestamp: Date.now(),
+            itemsPurchased: cartItems
           }
+          console.log(newUserTransaction)
           const res = await addNewUserTransaction(user, newUserTransaction)
-          setTransactionId(`TX-${paymentIntent.created}`)
+          if(res.error) {
+            setError(res.error)
+          } else {
+            if(typeof res !== 'object') setTransactionId(res)
+          }
           setActiveStep(activeStep + 1)
           setCartItems([])
           setCartCount(0)

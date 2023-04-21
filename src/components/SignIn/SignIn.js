@@ -1,4 +1,4 @@
-import { useState, useContext }from 'react';
+import { useState }from 'react';
 import { useNavigate, Link as RouterLink} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -25,7 +25,6 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     }
-    console.log(formData);
     const { email, password } = formData
     const res = await signInUser(email, password)
     if(res.error) {
