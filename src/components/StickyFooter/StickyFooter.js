@@ -81,8 +81,8 @@ export default function StickyFooter({data}) {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
           {recentlyPurchased !== undefined && 
             (recentlyPurchased.length !== 0 
-              ? ( recentlyPurchased.map(item => <Snippet {...{item}}/>) )
-              : ( productsSnippet.map(item => <Snippet {...{item}}/>) )
+              ? ( recentlyPurchased.map((item, index) => <Snippet key={index} {...{item}}/>) )
+              : ( productsSnippet.map((item, index) => <Snippet key={index} {...{item}}/>) )
             )
           }
           {recentlyPurchased !== undefined 

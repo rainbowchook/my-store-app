@@ -18,6 +18,7 @@ export default function CustomToast({toast, setToast, ...props}) {
     setToast({open: false, type: '', message: ''})
   };
 
+  if( !Object.keys(Types).includes(type) ) return null
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} {...props}>
         <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
