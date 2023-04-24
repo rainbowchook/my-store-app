@@ -15,10 +15,12 @@
     "@testing-library/user-event": "^13.5.0",
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
+    "jest-fetch-mock": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "recoil": "^0.7.7",
     "stripe": "^12.1.1",
     "web-vitals": "^2.1.4"
   },

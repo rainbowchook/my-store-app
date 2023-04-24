@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
                 setIsSignedIn(false)
             }
         })
-        return unsubscribe
+        return () => unsubscribe()
     }, [])
 
     return (

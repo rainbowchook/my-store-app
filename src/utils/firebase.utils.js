@@ -46,12 +46,10 @@ export const signUpUser = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     const user = userCredential.user
+    console.log(user)
     return user
   } catch(error) {
     const { code, message } = error
-    if(code === 'auth/email-already-in-use') {
-      return {error: 'Unable to create user. Email already in use.'}
-    }
     return {error: `${code}: ${message}`}
   }
 }

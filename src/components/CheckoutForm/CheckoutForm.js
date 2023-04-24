@@ -104,7 +104,6 @@ export default function CheckoutForm({cartItems, setCartItems, setCartCount}) {
             stripeTransactionTimestamp: Date.now(),
             itemsPurchased: cartItems
           }
-          console.log(newUserTransaction)
           const res = await addNewUserTransaction(user, newUserTransaction)
           if(res.error) {
             setError(res.error)

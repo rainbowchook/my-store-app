@@ -15,7 +15,7 @@ import { createUserFromAuth, signInUser, signInUserWithGoogle } from '../../util
 import Copyright from '../Copyright/Copyright';
 
 export default function SignIn() {
-  const [, setError] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -37,7 +37,7 @@ export default function SignIn() {
   const handleSignInWithPopup = async (e) => {
     const res = await signInUserWithGoogle()
     if(res.error) { 
-      setError('Unable to sign up. ' + res.error)
+      setError('Unable to sign in ' + res.error)
     } else {
       const userDocRef = await createUserFromAuth(res)
       navigate('/profile')
@@ -60,6 +60,11 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        { error &&
+            <Typography variant="body2" color='error.main'>
+              {error}
+            </Typography>
+        }
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
