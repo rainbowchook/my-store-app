@@ -95,7 +95,6 @@ const Cart = ({cartItems, cartCount, addItemToCart, removeItemFromCart, clearIte
                     <TableBody>
                     {cartItems.map(item => {
                         const {id, name, description, image, amount, currency, quantity, quantityInStock, category, subcategory} = item 
-                        console.log(item)
                         return (
                             <StyledTableRow
                             key={id}

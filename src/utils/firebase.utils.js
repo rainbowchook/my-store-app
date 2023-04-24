@@ -12,8 +12,14 @@ import {
   getFirestore, 
   getDoc,
   setDoc,
+  addDoc,
+  updateDoc,
+  writeBatch,
+  collection,
   doc,
-  Timestamp 
+  Timestamp,
+  serverTimestamp,
+  arrayUnion
 } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -40,12 +46,10 @@ export const signUpUser = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     const user = userCredential.user
+    console.log(user)
     return user
   } catch(error) {
     const { code, message } = error
-    if(code === 'auth/email-already-in-use') {
-      return {error: 'Unable to create user. Email already in use.'}
-    }
     return {error: `${code}: ${message}`}
   }
 }
@@ -101,6 +105,8 @@ export const createUserFromAuth = async (user, additionalInfo = {firstName: '', 
         displayName,
         email,
         creationDate,
+        recentlyPurchased: [],
+        favourites: [],
         ...additionalInfo
       })
     } catch (error) {
@@ -120,13 +126,16 @@ const convertTimestamp = (timestamp) => {
 	return `${dd}/${mm}/${yyyy}`
 }
 
+// const convertTimestamp = (timestamp) => {
+// 	return timestamp.toDate().toLocaleString()
+// }
+
 export const getUserInfo = async (user) => {
   if(!user) return
   const userDocRef = doc(db, 'users', user.uid)
   const userSnapshot = await getDoc(userDocRef)
   const userData = userSnapshot.data()
-  const { creationDate } = userData
-  if(userData.creationDate !== null) {
+  if(userData.creationDate !== undefined && userData.creationDate !== null) {
     userData.creationDate = convertTimestamp(userData.creationDate)
   } 
   return userData
@@ -149,11 +158,124 @@ export const updateUserInfo = async (user, userData = {}) => {
   return newUserData
 }
 
-//NOT FINISHED YET
-export const addNewUserTransaction = async (user, transactionObject) => {
+export const addNewUserTransaction = async (user, transactionObj) => {
   if(!user) return
-  const userDocRef = doc(db, 'users', user.uid)
-  const userSnapshot = await getDoc(userDocRef)
-  if(!userSnapshot.exists()) return
-  const fetchedUserData = userSnapshot.data()
+  //begin transaction/batch write
+  const batch = writeBatch(db)
+  //add new doc to transactions subcollection
+  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
+  
+  // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
+  const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
+  const newTransactionObj = { 
+    ...transactionObj,
+    creationTime: serverTimestamp()
+  }
+  batch.set(userTxDocRef, newTransactionObj)
+  // console.log(first)
+  // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
+  //update user doc's recentlyPurchased
+  const { itemsPurchased } = transactionObj
+  batch.update(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
+  //end transaction/batch write
+  await batch.commit()
+  return userTxDocRef.id
+}
+
+export const LEGACY_addNewUserTransaction = async (user, transactionObj) => {
+  if(!user) return
+  //begin transaction/batch write
+  // const batch = writeBatch(db)
+  //add new doc to transactions subcollection
+  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
+  const { itemsPurchased } = transactionObj
+  const userTxCollectionRef = collection(db, `users/${userDocRef.id}/transactions`)
+  // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
+  const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
+  const newTransactionObj = { 
+    ...transactionObj,
+    itemsPurchased: [],
+    creationTime: serverTimestamp()
+  }
+
+  delete newTransactionObj.itemsPurchased
+
+  try {
+    const res = await setDoc(userTxDocRef, newTransactionObj)
+    console.log(res)
+  } catch (error) {
+    const { code, message } = error
+    return {error: `${code}: ${message}`}
+  }
+  console.log('itemsPurchased before updating transactions doc', itemsPurchased)
+  try {
+    await updateDoc(userTxDocRef, {itemsPurchased: arrayUnion(...itemsPurchased)})
+  } catch (error) {
+    const { code, message } = error
+    return {error: `${code}: ${message}`}
+  }
+
+  
+  // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
+  //update user doc's recentlyPurchased
+  // const { itemsPurchased } = transactionObj
+  try {
+    await updateDoc(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
+  } catch(error) {
+    const { code, message } = error
+    return {error: `${code}: ${message}`}
+  }
+  
+  //end transaction/batch write
+  // await batch.commit()
+  return userTxDocRef.id
+}
+
+export const LEGACY_addNewUserTransaction1 = async (user, transactionObj) => {
+  if(!user) return
+  //begin transaction/batch write
+  // const batch = writeBatch(db)
+  //add new doc to transactions subcollection
+  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
+  const { itemsPurchased } = transactionObj
+  // const userTxCollectionRef = collection(db, `users/${userDocRef.id}/transactions`)
+  // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
+  const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
+  const newTransactionObj = { 
+    ...transactionObj,
+    // itemsPurchased: [],
+    creationTime: serverTimestamp()
+  }
+
+  // delete newTransactionObj.itemsPurchased
+
+  try {
+    const res = await setDoc(userTxDocRef, newTransactionObj)
+    console.log(res)
+  } catch (error) {
+    const { code, message } = error
+    return {error: `${code}: ${message}`}
+  }
+  // console.log('itemsPurchased before updating transactions doc', itemsPurchased)
+  // try {
+  //   await updateDoc(userTxDocRef, {itemsPurchased: arrayUnion(...itemsPurchased)})
+  // } catch (error) {
+  //   const { code, message } = error
+  //   return {error: `${code}: ${message}`}
+  // }
+
+  
+  // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
+  //update user doc's recentlyPurchased
+  // const { itemsPurchased } = transactionObj
+  try {
+    await updateDoc(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
+  } catch(error) {
+    const { code, message } = error
+    return {error: `${code}: ${message}`}
+  }
+  
+  //end transaction/batch write
+  // await batch.commit()
+  return userTxDocRef.id
 }

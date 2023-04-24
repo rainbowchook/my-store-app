@@ -25,7 +25,6 @@ export default function Review({cartItems, addressFormDataForShip, addressFormDa
         { cartItems.length && 
             cartItems.map(item => {
               const {id, name, description, image, amount, currency, quantity, quantityInStock, category, subcategory} = item 
-              console.log(item) 
               return (
                 <ListItem key={`${id}-${name}`} sx={{ py: 1, px: 0 }}>
                   <ListItemText primary={name} secondary={description} />

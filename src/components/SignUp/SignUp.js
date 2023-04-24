@@ -114,6 +114,7 @@ export default function SignUp() {
                 label="Password"
                 type="password"
                 id="password1"
+                data-testid="password1"
                 autoComplete="new-password"
               />
             </Grid>
@@ -125,6 +126,7 @@ export default function SignUp() {
                 label="Confirm Password"
                 type="password"
                 id="password2"
+                data-testid="password2"
                 autoComplete="new-password"
               />
             </Grid>

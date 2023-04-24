@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import './App.css';
 import { CssBaseline, Container } from '@mui/material';
 import NavBar from '../NavBar/NavBar';
@@ -15,6 +15,7 @@ import Wishlist from '../Wishlist/Wishlist.js';
 import Cart from '../Cart/Cart';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import StickyFooter from '../StickyFooter/StickyFooter';
+import { AuthProvider } from '../../contexts/AuthContext'
 import {isCartItemFound, getCartItem, updateCartItem, addToExistingCartItem, addNewCartItem, removeFromExistingCartItem, clearCartItem, isFaveItem, addFaveItem, removeFaveItem, calculateCartCount} from '../../utils/utilities'
 
 function App() {
@@ -124,50 +125,52 @@ function App() {
       }, [])
 
    return (
-    <>
+    <HashRouter>
       <CssBaseline enableColorScheme/>
-      <NavBar {...{cartItems, cartCount, favourites}}/>
-      {
-        error && error.length ? <p>{error}</p> : (
-          isLoading || data.length === 0 ? <p>Loading...</p> : (
-            <Container sx={{marginBottom: 10}}>
-              <Routes>
-                <Route path="*" element={<NotFound />} />
-                <Route index path="/" element={<Home {...{data}}/>} />
-                <Route exact path="signin" element={<SignIn />} />
-                <Route exact path="signup" element={<SignUp />} />
-                <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
-                <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
-                <Route exact path="cart" element={<Cart {...{cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
-                <Route exact path="checkout" 
-                  element={
-                    <ProtectedRoute>
-                      <Checkout {...{cartItems, setCartItems, setCartCount}} />
-                    </ProtectedRoute>
+      <AuthProvider>
+        <NavBar {...{cartItems, cartCount, favourites}}/>
+        {
+          error && error.length ? <p>{error}</p> : (
+            isLoading || data.length === 0 ? <p>Loading...</p> : (
+              <Container sx={{marginBottom: 10}}>
+                <Routes>
+                  <Route path="*" element={<NotFound />} />
+                  <Route index path="/" element={<Home {...{data}}/>} />
+                  <Route exact path="signin" element={<SignIn />} />
+                  <Route exact path="signup" element={<SignUp />} />
+                  <Route exact path=":category/:subcategory" element={<SubCategory {...{data, favourites, addItemToCart, isFaveFound, addToFavourites, removeFromFavourites}}/>} />
+                  <Route exact path=":category/:subcategory/:productId" element={<ProductDetail {...{isFaveFound, addToFavourites, removeFromFavourites, setNewQuantityForCartItem, cartItems, getCartItem, getItemFromInventory}}/>} />
+                  <Route exact path="cart" element={<Cart {...{cartItems, cartCount, addItemToCart, removeItemFromCart, clearItemFromCart, setNewQuantityForCartItem}} />} />
+                  <Route exact path="checkout" 
+                    element={
+                      <ProtectedRoute>
+                        <Checkout {...{cartItems, setCartItems, setCartCount}} />
+                      </ProtectedRoute>
+                      } 
+                    />
+                  <Route exact path="wishlist" 
+                    element={
+                      <ProtectedRoute>
+                        <Wishlist {...{data, favourites, addItemToCart, isFaveFound, removeFromFavourites}} />
+                      </ProtectedRoute>
                     } 
                   />
-                <Route exact path="wishlist" 
-                  element={
-                    <ProtectedRoute>
-                      <Wishlist {...{data, favourites, addItemToCart, isFaveFound, removeFromFavourites}} />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route exact path="profile" 
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  } 
-                />
-              </Routes>
-            </Container>
+                  <Route exact path="profile" 
+                    element={
+                      <ProtectedRoute>
+                        <Profile />
+                      </ProtectedRoute>
+                    } 
+                  />
+                </Routes>
+              </Container>
+            )
           )
-        )
-        
-      }
-      <StickyFooter {...{data}}/>
-    </>
+          
+        }
+        <StickyFooter {...{data}}/>
+      </AuthProvider>
+    </HashRouter>
   )
 }
 

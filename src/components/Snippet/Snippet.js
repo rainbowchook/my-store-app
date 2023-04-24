@@ -12,7 +12,8 @@ const Snippet = ({item}) => {
     const {id, name, description, image, amount, currency, category, subcategory} = item 
   return (
     <Grid item xs={6} sm={4} key={`${name}-${id}-${Date.now()}`}>
-        <Card sx={{ maxWidth: 345, height: 140, overflowY: 'scroll', position: 'relative' }}>
+        {/* <Card sx={{ maxWidth: 345, height: 140, overflowY: 'scroll', position: 'relative' }}> */}
+        <Card sx={{ maxWidth: 345, height: 140, position: 'relative' }}>
             <CardActionArea onClick={() => navigate(`/${category}/${subcategory}/${id}`)}>
                 <CardMedia
                 id={id}

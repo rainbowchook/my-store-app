@@ -1,4 +1,4 @@
-import { useState, useContext }from 'react';
+import { useState }from 'react';
 import { useNavigate, Link as RouterLink} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,7 +15,7 @@ import { createUserFromAuth, signInUser, signInUserWithGoogle } from '../../util
 import Copyright from '../Copyright/Copyright';
 
 export default function SignIn() {
-  const [, setError] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -25,7 +25,6 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     }
-    console.log(formData);
     const { email, password } = formData
     const res = await signInUser(email, password)
     if(res.error) {
@@ -38,7 +37,7 @@ export default function SignIn() {
   const handleSignInWithPopup = async (e) => {
     const res = await signInUserWithGoogle()
     if(res.error) { 
-      setError('Unable to sign up. ' + res.error)
+      setError('Unable to sign in ' + res.error)
     } else {
       const userDocRef = await createUserFromAuth(res)
       navigate('/profile')
@@ -61,6 +60,11 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        { error &&
+            <Typography variant="body2" color='error.main'>
+              {error}
+            </Typography>
+        }
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"

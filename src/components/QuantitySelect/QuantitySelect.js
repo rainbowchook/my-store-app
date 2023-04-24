@@ -17,12 +17,12 @@ export default function QuantitySelect({ id, quantity, setNewQuantityForCartItem
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={quantity}
+          value={quantity ? quantity : 0}
           label="Quantity"
           onChange={handleChange}
         >
-          { new Array(quantityInStock).fill(0).map((item, index) => (
-                <MenuItem key={item + index + 1} value={item + index + 1}>{item + index + 1}</MenuItem>
+          { new Array(quantityInStock + 1).fill(0).map((item, index) => (
+                <MenuItem key={item + index} value={item + index}>{item + index}</MenuItem>
             )) }
         </Select>
       </FormControl>
