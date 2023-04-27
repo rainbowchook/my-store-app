@@ -4,6 +4,9 @@ This project is a POC of an e-commerce store.
 
 It was created with Create React App and hosted here: [https://prismatic-bonbon-51d1ae.netlify.app/](https://prismatic-bonbon-51d1ae.netlify.app/).  
 
+**Testing of Stripe payment**
+Stripe integration is in developer test mode - no charges will be made to actual cards.  Test cards by country found here: [https://stripe.com/docs/testing?testing-method=card-numbers#international-cards] (https://stripe.com/docs/testing?testing-method=card-numbers#international-cards)
+
 ## Tech Stack
 
 React 18, React Router DOM and Material UI component library for front-end client app.
