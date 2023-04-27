@@ -139,6 +139,9 @@ Initial attempts at testing were using jest-fetch-mock.  More research led to fi
 
 Deployed on Netlify.  CI/CD set up so that pushes to main branch on Git would trigger a production deployment on Netlify.  
 
+## Known Issues
+
+1. NotFound route not working with Netlify deployment, even as React Router's BrowserRouter was switched over to HashRouter.  
 
 ## TODOs
 (not necessarily in order of priority)
