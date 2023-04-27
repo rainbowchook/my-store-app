@@ -14,11 +14,21 @@ const testUser1 = {
 }
 
 const originalEnv = process.env
+/* DON'T MOCK FIREBASE with jest-fetch-mock.  USE https://github.com/soumak77/firebase-mock */
+jest.mock('firebase/app', () => {
+    const auth = jest.fn().mockReturnValueOnce({
+        createUserWithEmailAndPassword: jest.fn().mockResolvedValueOnce({
+            user: {
+                uid: 'GxCje2YSEePbRK7TOvp0vKtynur2'
+            }
+        })
+    })
+})
 
-jest.mock('firebase/auth', () => {
-    const getAuth = jest.fn().mockReturnValueOnce()
-    const mockAuth = { signUpUser: jest.fn(), createUserFromAuth: jest.fn() }
-    auth.GoogleProvider = jest.fn()
+jest.mock('firebase/firestore', () => {
+    const app = jest.fn().mockReturnValueOnce({
+
+    })
 })
 
 describe('SignUp form', () => {
@@ -32,15 +42,6 @@ describe('SignUp form', () => {
             REACT_APP_FIREBASE_MESSAGING_SENDER_ID:'FAKE_MESSAGING_SENDER_ID',
             REACT_APP_FIREBASE_APP_ID:'FAKE_APP_ID'
         }
-        // jest.mock('../../utils/firebase.utils', () => { 
-        //     const signUpUser = jest.fn()
-        //     const createUserFromAuth = jest.fn()
-        //     return {
-        //         signUpUser,
-        //         createUserFromAuth
-        //     }
-        // })
-        signUpUser = jest.fn().mockReturnValue()
     })
     
     beforeEach(() => {
@@ -97,17 +98,14 @@ describe('SignUp form', () => {
     })
     test('should allow a non-registered user to sign up', async () => {
         
-        // fetch.mockResponseOnce(
-        //     JSON.stringify({
-        //         currentUser: { 
-        //             email: testUser1.email, 
-        //             uid: 1, 
-        //             displayName: 'Fake Name'}
-        //     })
-        // )
-
-        signUpUser = jest.fn()
-        createUserFromAuth = jest.fn().mockReturnValueOnce()
+        fetch.mockResponseOnce(
+            JSON.stringify({
+                currentUser: { 
+                    email: testUser1.email, 
+                    uid: 1, 
+                    displayName: 'Fake Name'}
+            })
+        )
 
         render(
             <AuthProvider>
