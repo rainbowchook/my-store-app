@@ -162,120 +162,19 @@ export const addNewUserTransaction = async (user, transactionObj) => {
   if(!user) return
   //begin transaction/batch write
   const batch = writeBatch(db)
-  //add new doc to transactions subcollection
-  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
-  
-  // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
+  //add new doc to principal user's transactions subcollection
+  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
+
   const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
   const newTransactionObj = { 
     ...transactionObj,
     creationTime: serverTimestamp()
   }
   batch.set(userTxDocRef, newTransactionObj)
-  // console.log(first)
-  // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
   //update user doc's recentlyPurchased
   const { itemsPurchased } = transactionObj
   batch.update(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
   //end transaction/batch write
   await batch.commit()
-  return userTxDocRef.id
-}
-
-export const LEGACY_addNewUserTransaction = async (user, transactionObj) => {
-  if(!user) return
-  //begin transaction/batch write
-  // const batch = writeBatch(db)
-  //add new doc to transactions subcollection
-  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
-  const { itemsPurchased } = transactionObj
-  const userTxCollectionRef = collection(db, `users/${userDocRef.id}/transactions`)
-  // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
-  const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
-  const newTransactionObj = { 
-    ...transactionObj,
-    itemsPurchased: [],
-    creationTime: serverTimestamp()
-  }
-
-  delete newTransactionObj.itemsPurchased
-
-  try {
-    const res = await setDoc(userTxDocRef, newTransactionObj)
-    console.log(res)
-  } catch (error) {
-    const { code, message } = error
-    return {error: `${code}: ${message}`}
-  }
-  console.log('itemsPurchased before updating transactions doc', itemsPurchased)
-  try {
-    await updateDoc(userTxDocRef, {itemsPurchased: arrayUnion(...itemsPurchased)})
-  } catch (error) {
-    const { code, message } = error
-    return {error: `${code}: ${message}`}
-  }
-
-  
-  // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
-  //update user doc's recentlyPurchased
-  // const { itemsPurchased } = transactionObj
-  try {
-    await updateDoc(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
-  } catch(error) {
-    const { code, message } = error
-    return {error: `${code}: ${message}`}
-  }
-  
-  //end transaction/batch write
-  // await batch.commit()
-  return userTxDocRef.id
-}
-
-export const LEGACY_addNewUserTransaction1 = async (user, transactionObj) => {
-  if(!user) return
-  //begin transaction/batch write
-  // const batch = writeBatch(db)
-  //add new doc to transactions subcollection
-  const userDocRef = doc(db, 'users', user.uid) // userDocRef === user.uid when user created (unnecessary read !!WRONG!! getting the userDocRef is not a READ operation).  user doc does exist (user logged in/signed up) => change from transaction to batch write)
-  const { itemsPurchased } = transactionObj
-  // const userTxCollectionRef = collection(db, `users/${userDocRef.id}/transactions`)
-  // const userTxDocRef = doc(db, `users/${userDocRef}/transactions`, transactionObj.transactionId)
-  const userTxDocRef = doc(collection(db, `users/${userDocRef.id}/transactions`)) // auto-generate txn Id
-  const newTransactionObj = { 
-    ...transactionObj,
-    // itemsPurchased: [],
-    creationTime: serverTimestamp()
-  }
-
-  // delete newTransactionObj.itemsPurchased
-
-  try {
-    const res = await setDoc(userTxDocRef, newTransactionObj)
-    console.log(res)
-  } catch (error) {
-    const { code, message } = error
-    return {error: `${code}: ${message}`}
-  }
-  // console.log('itemsPurchased before updating transactions doc', itemsPurchased)
-  // try {
-  //   await updateDoc(userTxDocRef, {itemsPurchased: arrayUnion(...itemsPurchased)})
-  // } catch (error) {
-  //   const { code, message } = error
-  //   return {error: `${code}: ${message}`}
-  // }
-
-  
-  // addDoc(collection(db, `users/${userDocRef}/transactions`), newTransactionObj)
-  //update user doc's recentlyPurchased
-  // const { itemsPurchased } = transactionObj
-  try {
-    await updateDoc(userDocRef, { recentlyPurchased: arrayUnion(...itemsPurchased) })
-  } catch(error) {
-    const { code, message } = error
-    return {error: `${code}: ${message}`}
-  }
-  
-  //end transaction/batch write
-  // await batch.commit()
   return userTxDocRef.id
 }
