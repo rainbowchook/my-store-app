@@ -11,8 +11,8 @@ const cors = require("cors")({origin: true});
 // });
 
 // The Firebase Admin SDK to access Firestore.
-const admin = require("firebase-admin");
-admin.initializeApp();
+// const admin = require("firebase-admin");
+// admin.initializeApp();
 
 exports.getShopData = functions.https.onRequest(async (req, res) => {
   cors(req, res, () => {

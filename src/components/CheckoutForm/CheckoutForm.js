@@ -71,8 +71,8 @@ export default function CheckoutForm({cartItems, setCartItems, setCartCount}) {
     setIsProcessingPayment(true)
     //fire request to backend server/serverless function for payment intent
     // const url = '/.netlify/functions/create-payment-intent'
-    // const url = `https://${process.env.REACT_APP_FIREBASE_REGION}-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/createPaymentIntent`
-    const url = `http://127.0.0.1:5001/${process.env.REACT_APP_FIREBASE_PROJECT_ID}/us-central1/createPaymentIntent`
+    const url = `https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/createPaymentIntent`
+    // const url = `http://127.0.0.1:5001/${process.env.REACT_APP_FIREBASE_PROJECT_ID}/us-central1/createPaymentIntent`
     const response = await fetch(url, {
       method: 'POST',
       headers: {

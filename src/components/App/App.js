@@ -110,8 +110,8 @@ function App() {
       const fetchData = async () => {
           try {
             // const url = '/.netlify/functions/getShopData'
-            // const url = `https://${process.env.REACT_APP_FIREBASE_REGION}-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/getShopData`
-            const url = 'http://127.0.0.1:5001/bluebug-store/us-central1/getShopData'
+            const url = `https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/getShopData`
+            // const url = `http://127.0.0.1:5001/${process.env.REACT_APP_FIREBASE_PROJECT_ID}/us-central1/getShopData`
             const response = await fetch(url)
           if (!response.ok || response.status !== 200 || response.status >= 400) throw new Error('Unable to fetch data')
             const data = await response.json()
