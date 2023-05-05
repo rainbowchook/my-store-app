@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { CssBaseline, Container } from '@mui/material';
 import NavBar from '../NavBar/NavBar';
@@ -109,12 +109,14 @@ function App() {
   useEffect(() => {
       const fetchData = async () => {
           try {
-            const url = '/.netlify/functions/getShopData'
+            // const url = '/.netlify/functions/getShopData'
+            // const url = `https://${process.env.REACT_APP_FIREBASE_REGION}-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/getShopData`
+            const url = 'http://127.0.0.1:5001/bluebug-store/us-central1/getShopData'
             const response = await fetch(url)
           if (!response.ok || response.status !== 200 || response.status >= 400) throw new Error('Unable to fetch data')
             const data = await response.json()
             setData(data)
-          } catch (e) {
+          } catch (error) {
             setError(error.message) // for Network-related errors AND new Errors thrown from the try block ie HTTP 404
           } finally {
             setIsLoading(false)
@@ -125,7 +127,7 @@ function App() {
       }, [])
 
    return (
-    <HashRouter>
+    <BrowserRouter>
       <CssBaseline enableColorScheme/>
       <AuthProvider>
         <NavBar {...{cartItems, cartCount, favourites}}/>
@@ -170,7 +172,7 @@ function App() {
         }
         <StickyFooter {...{data}}/>
       </AuthProvider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
