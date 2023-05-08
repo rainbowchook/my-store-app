@@ -109,8 +109,10 @@ function App() {
   useEffect(() => {
       const fetchData = async () => {
           try {
-            // const url = '/.netlify/functions/getShopData'
-            const url = `https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/getShopData`
+            let url
+            window.location.hostname === process.env.REACT_APP_NETLIFY_HOSTNAME 
+            ? url = '/.netlify/functions/getShopData'
+            : url = `https://us-central1-${process.env.REACT_APP_FIREBASE_PROJECT_ID}.cloudfunctions.net/getShopData`
             // const url = `http://127.0.0.1:5001/${process.env.REACT_APP_FIREBASE_PROJECT_ID}/us-central1/getShopData`
             const response = await fetch(url)
           if (!response.ok || response.status !== 200 || response.status >= 400) throw new Error('Unable to fetch data')
