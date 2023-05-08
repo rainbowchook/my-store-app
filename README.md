@@ -2,7 +2,7 @@
 
 This project is a POC of an e-commerce store.  
 
-It was created with Create React App and hosted here: [https://prismatic-bonbon-51d1ae.netlify.app/](https://prismatic-bonbon-51d1ae.netlify.app/).  
+It was created with Create React App and hosted securely here: [https://prismatic-bonbon-51d1ae.netlify.app/](https://prismatic-bonbon-51d1ae.netlify.app/), and as an S3 bucket static website here: [http://blue-bug-bucket.s3-website-ap-southeast-2.amazonaws.com/](http://blue-bug-bucket.s3-website-ap-southeast-2.amazonaws.com/)
 
 **Testing of Stripe payment**
 Stripe integration is in developer test mode - no charges will be made to actual cards.  Test cards by country found here: [https://stripe.com/docs/testing?testing-method=card-numbers#international-cards] (https://stripe.com/docs/testing?testing-method=card-numbers#international-cards)
@@ -133,11 +133,14 @@ The bulk of utility functions are for accessing product, cart and favourite item
 
 ### Firebase Testing
 
-Initial attempts at testing were using jest-fetch-mock.  More research led to finding  mock-firebase:  [https://github.com/soumak77/firebase-mock] (https://github.com/soumak77/firebase-mock)  Future testing efforts to incorporate mock-firebase.
+Initial attempts at testing were using jest-fetch-mock.  More research led to finding  mock-firebase:  [https://github.com/soumak77/firebase-mock] (https://github.com/soumak77/firebase-mock)  Future testing efforts to incorporate mock-firebase.  Have set up Local Firebase Emulator to test Cloud Functions before deployment.  (testing branch)
 
 ### Deployment
 
 Deployed on Netlify.  CI/CD set up so that pushes to main branch on Git would trigger a production deployment on Netlify.  
+
+1. For Netlify deployment, Stripe function is deployed as Netlify serverless function. (main branch)
+2. For AWS S3 deployment, Stripe function is deployed as Cloud Functions for Firebase serverless function.  (testing branch)
 
 ## Known Issues
 
@@ -146,7 +149,7 @@ Deployed on Netlify.  CI/CD set up so that pushes to main branch on Git would tr
 ## TODOs
 (not necessarily in order of priority)
 
-1. Deploying serverless functions to Cloud Functions.
+1. Deploying serverless functions to Cloud Functions. (Done.  Deployed to Cloud Functions for Firebase).
 
 2. Moving shop data to Firestore.  It is currently being served out as a JSON via a serverless function, thereby limiting functionality i.e. unable to reduce quantityInStock for each item upon successful transaction.
 
