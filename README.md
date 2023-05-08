@@ -137,7 +137,8 @@ Initial attempts at testing were using jest-fetch-mock.  More research led to fi
 
 ### Deployment
 
-Deployed on Netlify.  CI/CD set up so that pushes to main branch on Git would trigger a production deployment on Netlify.  
+Deployed on Netlify with secure connection.  CI/CD set up with Netlify GitHub App, so that pushes to main branch on Git would trigger a production deployment on Netlify .
+Deplyed on AWS S3 bucket as a static website without a secure connection.    CI/CD set up via GitHub Actions to deply to AWS S3 bucket.
 
 1. For Netlify deployment, Stripe function is deployed as Netlify serverless function. (main branch)
 2. For AWS S3 deployment, Stripe function is deployed as Cloud Functions for Firebase serverless function.  (testing branch)
@@ -180,3 +181,5 @@ Deployed on Netlify.  CI/CD set up so that pushes to main branch on Git would tr
 15. Validate user input data with either HTML 5 or with react hook form.
 
 16. Make available more third-party authentication providers e.g. Facebook, Git, LinkedIn, etc.  Each additional provider will require signing up for a developer account with the provider and obtaining the clicnt ID and secret for Firebase Authentication config, as well as configuring the redirect url on the provider's side.  
+
+17. AWS CloudFront and ACM needed along with a domain if https is to be activated on dtatic website hosted on AWS S3.  To consider pursuing for practice later, as it involves financial implications.  For now, S3 static website has no secure connection and will remain in testing branch.
